@@ -7,7 +7,6 @@ import (
 	"github.com/xylo04/wsjtx-go/wsjtx"
 	"log"
 	"net/http"
-	"strings"
 )
 
 const addr = "localhost:8081"
@@ -55,18 +54,4 @@ func logbookCheckOrigin(r *http.Request) bool {
 	}
 	log.Println("Rejecting websocket request from origin", origin)
 	return false
-}
-
-type sliceFlag []string
-
-func (i *sliceFlag) String() string {
-	return "my string representation"
-}
-
-func (i *sliceFlag) Set(value string) error {
-	tokens := strings.Split(value, ",")
-	for _, t := range tokens {
-		*i = append(*i, t)
-	}
-	return nil
 }
