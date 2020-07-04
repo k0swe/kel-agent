@@ -7,6 +7,7 @@ import (
 	"github.com/xylo04/wsjtx-go/wsjtx"
 	"log"
 	"net/http"
+	"reflect"
 )
 
 const addr = "localhost:8081"
@@ -25,6 +26,15 @@ func main() {
 
 var upgrader = websocket.Upgrader{}
 
+type WebsocketMessage struct {
+	Wsjtx WsjtxMessage `json:"wsjtx"`
+}
+
+type WsjtxMessage struct {
+	MsgType string      `json:"type"`
+	Payload interface{} `json:"payload"`
+}
+
 func websocketHandler(w http.ResponseWriter, r *http.Request) {
 	upgrader.CheckOrigin = logbookCheckOrigin
 	ws, err := upgrader.Upgrade(w, r, nil)
@@ -36,11 +46,16 @@ func websocketHandler(w http.ResponseWriter, r *http.Request) {
 	defer ws.Close()
 	log.Println("Established websocket session with", r.RemoteAddr)
 
-	c := make(chan interface{}, 5)
-	go wsjtx.ListenToWsjtx(c)
+	wsjtChan := make(chan interface{}, 5)
+	go wsjtx.ListenToWsjtx(wsjtChan)
 
 	for {
-		message, _ := json.Marshal(<-c)
+		wsjtMsg := <-wsjtChan
+		wsMsg := WebsocketMessage{Wsjtx: WsjtxMessage{
+			MsgType: reflect.TypeOf(wsjtMsg).Name(),
+			Payload: wsjtMsg,
+		}}
+		message, _ := json.Marshal(wsMsg)
 		_ = ws.WriteMessage(websocket.TextMessage, []byte(message))
 	}
 }
