@@ -12,15 +12,20 @@ import (
 
 const addr = "localhost:8081"
 
-var allowedOrigins sliceFlag = []string{"http://localhost:8080"}
+var allowedOrigins sliceFlag = []string{"http://localhost:8080", "http://localhost:4200"}
+var debug *bool
 
 func main() {
 	flag.Var(&allowedOrigins, "origins", "comma-separated list of allowed origins")
+	debug = flag.Bool("v", false, "Verbose debugging output")
 	flag.Parse()
 	log.Println("Allowed origins are", allowedOrigins)
 
 	http.HandleFunc("/websocket", websocketHandler)
 	log.Print("k0s-agent ready to serve at http://", addr)
+	if *debug {
+		log.Println("Verbose output enabled")
+	}
 	log.Fatal(http.ListenAndServe(addr, nil))
 }
 
@@ -51,6 +56,9 @@ func websocketHandler(w http.ResponseWriter, r *http.Request) {
 
 	for {
 		wsjtMsg := <-wsjtChan
+		if *debug {
+			log.Println("Sending wsjtx message:", wsjtMsg)
+		}
 		wsMsg := WebsocketMessage{Wsjtx: WsjtxMessage{
 			MsgType: reflect.TypeOf(wsjtMsg).Name(),
 			Payload: wsjtMsg,
