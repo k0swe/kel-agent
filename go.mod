@@ -1,4 +1,4 @@
-module github.com/xylo04/k0s-agent
+module github.com/xylo04/kel-agent
 
 go 1.14
 

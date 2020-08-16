@@ -1,4 +1,4 @@
-# k0s-agent
+# kel-agent
 
 An agent program for translating between various amateur radio installed programs and WebSockets.
 This will allow the creation of cloud-based amateur radio applications while using integration

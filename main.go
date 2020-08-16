@@ -22,7 +22,7 @@ func main() {
 	log.Println("Allowed origins are", allowedOrigins)
 
 	http.HandleFunc("/websocket", websocketHandler)
-	log.Print("k0s-agent ready to serve at http://", addr)
+	log.Print("kel-agent ready to serve at http://", addr)
 	if *debug {
 		log.Println("Verbose output enabled")
 	}

@@ -12,7 +12,7 @@ digraph {
             color=lightgrey;
             Application [label="Web Application"; shape=box]
         };
-        agent [label="k0s-agent"; shape=box; style=filled; fillcolor=lightblue]
+        agent [label="kel-agent"; shape=box; style=filled; fillcolor=lightblue]
         WSJTX [label="WSJT-X"]
         rigctld [label="hamlib\nrigctld"]
         HRD;

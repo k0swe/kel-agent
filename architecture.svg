@@ -40,7 +40,7 @@
 <g id="node3" class="node">
 <title>agent</title>
 <polygon fill="lightblue" stroke="black" points="259,-152.74 173,-152.74 173,-116.74 259,-116.74 259,-152.74"/>
-<text text-anchor="middle" x="216" y="-131.04" font-family="Times,serif" font-size="14.00">k0s&#45;agent</text>
+<text text-anchor="middle" x="216" y="-131.04" font-family="Times,serif" font-size="14.00">kel&#45;agent</text>
 </g>
 <!-- Application&#45;&gt;agent -->
 <g id="edge2" class="edge">
