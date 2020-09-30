@@ -4,7 +4,7 @@ import (
 	"encoding/json"
 	"flag"
 	"github.com/gorilla/websocket"
-	"github.com/xylo04/wsjtx-go/wsjtx"
+	"github.com/k0swe/wsjtx-go/wsjtx"
 	"log"
 	"net/http"
 	"reflect"
