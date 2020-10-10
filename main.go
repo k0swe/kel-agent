@@ -10,7 +10,7 @@ import (
 	"reflect"
 )
 
-const addr = "localhost:8081"
+const defaultAddr = "localhost:8081"
 
 var allowedOrigins sliceFlag = []string{
 	"https://log.k0swe.radio",
@@ -21,16 +21,17 @@ var debug *bool
 
 func main() {
 	flag.Var(&allowedOrigins, "origins", "comma-separated list of allowed origins")
-	debug = flag.Bool("v", false, "Verbose debugging output")
+	debug = flag.Bool("v", false, "verbose debugging output")
+	addr := flag.String("h", defaultAddr, "hosting address")
 	flag.Parse()
 	log.Println("Allowed origins are", allowedOrigins)
 
 	http.HandleFunc("/websocket", websocketHandler)
-	log.Print("kel-agent ready to serve at http://", addr)
+	log.Print("kel-agent ready to serve at ws://", *addr)
 	if *debug {
 		log.Println("Verbose output enabled")
 	}
-	log.Fatal(http.ListenAndServe(addr, nil))
+	log.Fatal(http.ListenAndServe(*addr, nil))
 }
 
 var upgrader = websocket.Upgrader{}
