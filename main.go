@@ -12,7 +12,11 @@ import (
 
 const addr = "localhost:8081"
 
-var allowedOrigins sliceFlag = []string{"http://localhost:8080", "http://localhost:4200"}
+var allowedOrigins sliceFlag = []string{
+	"https://log.k0swe.radio",
+	"http://localhost:8080",
+	"http://localhost:4200",
+}
 var debug *bool
 
 func main() {
