@@ -38,6 +38,7 @@ func main() {
 
 	log.Println("Allowed origins are", allowedOrigins)
 	http.HandleFunc("/websocket", websocketHandler)
+	http.HandleFunc("/", indexHandler)
 	log.Printf("kel-agent ready to serve at %s%s", protocol, *addr)
 	if *debug {
 		log.Println("Verbose output enabled")
@@ -47,6 +48,11 @@ func main() {
 	} else {
 		log.Fatal(http.ListenAndServe(*addr, nil))
 	}
+}
+
+func indexHandler(w http.ResponseWriter, r *http.Request) {
+	_, _ = w.Write([]byte("Congratulations, you've reached kel-agent! " +
+		"If you can see this, you should be able to connect to the websocket."))
 }
 
 var upgrader = websocket.Upgrader{}
