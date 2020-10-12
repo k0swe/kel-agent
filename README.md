@@ -25,6 +25,10 @@ $ kel-agent
 If you want to run your radio programs and `kel-agent` on one computer and your browser on another,
 this is possible. There are a couple of approaches. Neither is super easy, which I hope to fix.
 
+NOTE: I do *not* recommend serving this in a way that's exposed to the internet because there is
+*no* authentication. If exposed to the internet, anyone could potentially initiate transmissions
+with your radio.
+
 ### SSH port forwarding
 
 This method is relatively simple and quick to execute, but is more brittle than serving secure
