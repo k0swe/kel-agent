@@ -20,10 +20,48 @@ $ kel-agent
 2020/10/10 18:50:32 kel-agent ready to serve at ws://localhost:8081
 ```
 
-## Running on another machine with TLS
+## Running on another machine
 
 If you want to run your radio programs and `kel-agent` on one computer and your browser on another,
-this is possible. First, you'll need to bind to `0.0.0.0` to allow connections from other computers.
+this is possible. There are a couple of approaches. Neither is super easy, which I hope to fix.
+
+### SSH port forwarding
+
+This method is relatively simple and quick to execute, but is more brittle than serving secure
+websockets because there is some setup each time you want to use the agent remotely, and
+conceptually a little harder. Your remote machine must be running an SSH server for this to work.
+
+On the remote machine with your radio software, run `kel-agent` normally. It can be bound to
+`localhost`.
+
+```
+$ kel-agent
+2020/10/10 18:50:32 kel-agent ready to serve at ws://localhost:8081
+```
+
+On the machine with your browser, start a command line and establish an SSH tunnel with port
+forwarding:
+
+```
+$ ssh -N -L localhost:8081:localhost:8081 radio-pi
+```
+
+The first `localhost:8081` means "on this (browser) machine, bind to port 8081 and only expose to
+`localhost` so other computers can't use it." The second `localhost:8081` means "once you log into 
+the remote computer, start forwarding traffic to port 8081 on its (remote) `localhost`." Finally, 
+`radio-pi` in my example is the remote hostname which is running `kel-agent` and the SSH server.
+
+The command will look like it's not doing anything; just let it run, and the tunnel will stay open.
+
+Now your web application can be configured to connect to `localhost`. Traffic bound for
+`localhost:8081` will get securely forwarded to the remote machine. Both the browser and `kel-agent`
+think they're talking to local processes, and you won't get mixed content warnings.
+
+### Secure Websocket with TLS
+
+This method needs a little more set up ahead of time, but is easier to use once it's set up.
+
+First, you'll need `kel-agent` to bind to `0.0.0.0` to allow connections from other computers. 
 Second, due to the mixed content policy which is standard in web browsers, you'll need to specify a
 TLS certificate and private key. Eventually I hope to make this easy, but for now you'll need to
 follow https://stackoverflow.com/a/60516812/587091. In short,
@@ -39,6 +77,9 @@ Yeah, I really need to make this easier.
 $ kel-agent -host 0.0.0.0:8081 -key server.key -cert server.crt
 2020/10/10 19:05:39 kel-agent ready to serve at wss://0.0.0.0:8081
 ```
+
+Once running this way, your web application can be configured to connect directly to the remote
+computer.
 
 ## Allowed origins
 
