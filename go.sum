@@ -1,7 +1,5 @@
 github.com/gorilla/websocket v1.4.2 h1:+/TMaTYc4QFitKJxsQ7Yye35DkWvkdLcvGKqM+x0Ufc=
 github.com/gorilla/websocket v1.4.2/go.mod h1:YR8l580nyteQvAITg2hZ9XVh4b55+EU/adAjf1fMHhE=
-github.com/k0swe/wsjtx-go v0.0.3 h1:L0KbJnZhmi/yFT4vcEJsxa8dx4R8hHOmYg3vSFYaezQ=
-github.com/k0swe/wsjtx-go v0.0.3/go.mod h1:uQ2iLmCXdFB6OjL+O2whF4I2QCigSHNgsmnlkRAJspU=
 github.com/k0swe/wsjtx-go v0.0.4 h1:hHINMyjZwflj0S3FtaSRWwOagp1nWTZ8FDRy+bqJ354=
 github.com/k0swe/wsjtx-go v0.0.4/go.mod h1:uQ2iLmCXdFB6OjL+O2whF4I2QCigSHNgsmnlkRAJspU=
 github.com/leemcloughlin/jdn v0.0.0-20150602162803-c1be12110f24 h1:aA4PfLLTVG+t4EmSvm0d86mM4/u3/iGx5MJJCdHZVf4=
