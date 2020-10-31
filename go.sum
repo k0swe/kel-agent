@@ -4,5 +4,7 @@ github.com/k0swe/wsjtx-go v0.0.4 h1:hHINMyjZwflj0S3FtaSRWwOagp1nWTZ8FDRy+bqJ354=
 github.com/k0swe/wsjtx-go v0.0.4/go.mod h1:uQ2iLmCXdFB6OjL+O2whF4I2QCigSHNgsmnlkRAJspU=
 github.com/k0swe/wsjtx-go v0.1.0 h1:2FfcCcA9QlyZRAobWc5FzXsWd+7M+P9T22EEM7ylswI=
 github.com/k0swe/wsjtx-go v0.1.0/go.mod h1:uQ2iLmCXdFB6OjL+O2whF4I2QCigSHNgsmnlkRAJspU=
+github.com/k0swe/wsjtx-go v0.2.0 h1:hs9qGbgppFROY5VZDd/RcEru5zcnRi/WkqPaFVRLqR8=
+github.com/k0swe/wsjtx-go v0.2.0/go.mod h1:uQ2iLmCXdFB6OjL+O2whF4I2QCigSHNgsmnlkRAJspU=
 github.com/leemcloughlin/jdn v0.0.0-20150602162803-c1be12110f24 h1:aA4PfLLTVG+t4EmSvm0d86mM4/u3/iGx5MJJCdHZVf4=
 github.com/leemcloughlin/jdn v0.0.0-20150602162803-c1be12110f24/go.mod h1:LAowglanJPLb6WYSx3D1Ht/XE54OGIr0i4mz9kdbXrs=
