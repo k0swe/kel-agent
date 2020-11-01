@@ -77,8 +77,9 @@ func websocketHandler(w http.ResponseWriter, r *http.Request) {
 	defer ws.Close()
 	log.Println("Established websocket session with", r.RemoteAddr)
 
+	wsjtServ := wsjtx.MakeServer()
 	wsjtChan := make(chan interface{}, 5)
-	go wsjtx.ListenToWsjtx(wsjtChan)
+	go wsjtServ.ListenToWsjtx(wsjtChan)
 
 	for {
 		wsjtMsg := <-wsjtChan
