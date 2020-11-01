@@ -4,5 +4,5 @@ go 1.14
 
 require (
 	github.com/gorilla/websocket v1.4.2
-	github.com/k0swe/wsjtx-go v0.3.0
+	github.com/k0swe/wsjtx-go v0.3.3
 )
