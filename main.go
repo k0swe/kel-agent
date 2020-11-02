@@ -1,13 +1,10 @@
 package main
 
 import (
-	"encoding/json"
 	"flag"
 	"github.com/gorilla/websocket"
-	"github.com/k0swe/wsjtx-go"
 	"log"
 	"net/http"
-	"reflect"
 )
 
 const defaultAddr = "localhost:8081"
@@ -50,21 +47,12 @@ func main() {
 	}
 }
 
-func indexHandler(w http.ResponseWriter, r *http.Request) {
+func indexHandler(w http.ResponseWriter, _ *http.Request) {
 	_, _ = w.Write([]byte("Congratulations, you've reached kel-agent! " +
 		"If you can see this, you should be able to connect to the websocket."))
 }
 
 var upgrader = websocket.Upgrader{}
-
-type WebsocketMessage struct {
-	Wsjtx WsjtxMessage `json:"wsjtx"`
-}
-
-type WsjtxMessage struct {
-	MsgType string      `json:"type"`
-	Payload interface{} `json:"payload"`
-}
 
 func websocketHandler(w http.ResponseWriter, r *http.Request) {
 	upgrader.CheckOrigin = logbookCheckOrigin
@@ -77,21 +65,13 @@ func websocketHandler(w http.ResponseWriter, r *http.Request) {
 	defer ws.Close()
 	log.Println("Established websocket session with", r.RemoteAddr)
 
-	wsjtServ := wsjtx.MakeServer()
-	wsjtChan := make(chan interface{}, 5)
-	go wsjtServ.ListenToWsjtx(wsjtChan)
-
+	wsjtChan := make(chan []byte, 5)
+	go handleWsjtx(wsjtChan)
 	for {
-		wsjtMsg := <-wsjtChan
-		if *debug {
-			log.Println("Sending wsjtx message:", wsjtMsg)
+		select {
+		case w := <-wsjtChan:
+			_ = ws.WriteMessage(websocket.TextMessage, w)
 		}
-		wsMsg := WebsocketMessage{Wsjtx: WsjtxMessage{
-			MsgType: reflect.TypeOf(wsjtMsg).Name(),
-			Payload: wsjtMsg,
-		}}
-		message, _ := json.Marshal(wsMsg)
-		_ = ws.WriteMessage(websocket.TextMessage, []byte(message))
 	}
 }
 
