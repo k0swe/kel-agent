@@ -3,8 +3,8 @@
 # kel-agent
 
 An agent program for translating between various amateur radio installed programs and WebSockets.
-This will allow the creation of cloud-based amateur radio applications while using integration
-points only available through local processes. 
+This was built to support https://github.com/k0swe/kellog but can be used by any web application
+that needs to communicate with amateur radio installed programs.
 
 ![Architecture](architecture.svg)
 
