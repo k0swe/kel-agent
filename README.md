@@ -8,8 +8,8 @@ that needs to communicate with amateur radio installed programs.
 
 ![Architecture](architecture.svg)
 
-At first this will support receiving status and log messages from WSJT-X. Planned support includes
-`rigctld` and Ham Radio Deluxe for transceiver remote control.
+This currently supports communication with WSJT-X. Planned support includes `rigctld` and Ham
+Radio Deluxe for transceiver remote control.
 
 ## Running on localhost
 
