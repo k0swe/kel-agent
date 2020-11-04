@@ -1,3 +1,5 @@
+![Release](https://github.com/k0swe/kel-agent/workflows/Release/badge.svg)
+
 # kel-agent
 
 An agent program for translating between various amateur radio installed programs and WebSockets.
