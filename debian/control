@@ -1,0 +1,28 @@
+Source: kel-agent
+Maintainer: Debian Go Packaging Team <team+pkg-go@tracker.debian.org>
+Uploaders: Chris Keller <xylo04@gmail.com>
+Section: hamradio
+Testsuite: autopkgtest-pkg-go
+Priority: optional
+Build-Depends: debhelper-compat (= 13),
+               dh-golang,
+               golang-any,
+               golang-github-k0swe-wsjtx-go-dev,
+               golang-websocket-dev
+Standards-Version: 4.5.0
+Vcs-Browser: https://salsa.debian.org/go-team/packages/kel-agent
+Vcs-Git: https://salsa.debian.org/go-team/packages/kel-agent.git
+Homepage: https://github.com/k0swe/kel-agent
+Rules-Requires-Root: no
+XS-Go-Import-Path: github.com/k0swe/kel-agent
+
+Package: kel-agent
+Architecture: any
+Depends: ${misc:Depends},
+         ${shlibs:Depends}
+Built-Using: ${misc:Built-Using}
+Description: Web interface for amateur radio installed programs (program)
+ An agent program for translating between various amateur
+ radio installed programs and WebSockets.  This was built to support
+ https://github.com/k0swe/kellog but can be used by any web application
+ that needs to communicate with amateur radio installed programs.
