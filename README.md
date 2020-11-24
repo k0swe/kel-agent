@@ -1,13 +1,16 @@
+[![Go Report Card](https://goreportcard.com/badge/github.com/k0swe/kel-agent)](https://goreportcard.com/report/github.com/k0swe/kel-agent)
+![Release](https://github.com/k0swe/kel-agent/workflows/Release/badge.svg)
+
 # kel-agent
 
 An agent program for translating between various amateur radio installed programs and WebSockets.
-This will allow the creation of cloud-based amateur radio applications while using integration
-points only available through local processes. 
+This was built to support https://github.com/k0swe/kellog but can be used by any web application
+that needs to communicate with amateur radio installed programs.
 
 ![Architecture](architecture.svg)
 
-At first this will support receiving status and log messages from WSJT-X. Planned support includes
-`rigctld` and Ham Radio Deluxe for transceiver remote control.
+This currently supports communication with WSJT-X. Planned support includes `rigctld` and Ham
+Radio Deluxe for transceiver remote control.
 
 ## Running on localhost
 
