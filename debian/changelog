@@ -1,6 +1,7 @@
-kel-agent (0.1.1-2) UNRELEASED; urgency=medium
+kel-agent (0.1.2-1) UNRELEASED; urgency=medium
 
   * Initial release (Closes: 973707)
   * Added manual page 
+  * Updated dependencies
 
- -- Chris Keller <xylo04@gmail.com>  Sat, 28 Nov 2020 22:31:19 -0700
+ -- Chris Keller <xylo04@gmail.com>  Sun, 29 Nov 2020 13:22:37 -0700
