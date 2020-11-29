@@ -1,0 +1,54 @@
+.TH KEL-AGENT 1
+.SH NAME
+kel-agent \- translates between amateur radio programs and WebSockets
+.SH SYNOPSIS
+.B kel-agent
+[\fB\-host\fR \fIhost:port\fR]
+[\fB\-cert\fR \fIcertfile\fR
+\fB\-key\fR \fIkeyfile\fR]
+[\fB\-origins\fR \fI"http://origin1"\fR[\fI,"http://origin2"\fR...]]
+[\fB\-v\fR]
+.SH DESCRIPTION
+.B kel-agent
+translates between various amateur radio installed programs and WebSockets. This
+allows amateur radio web applications to access rig control and digital mode
+APIs which are only available over TCP, UDP or by watching local files.
+\fIWSJT-X\fR is currently supported, with planned support for \fIrigctld\fR and
+\fIHam Radio Deluxe\fR.
+.PP
+.B kel-agent
+was built to support https://github.com/k0swe/kellog but can be used by any web
+application that needs to communicate with amateur radio installed programs.
+.SH OPTIONS
+.TP
+.BR \-host =\fIhost:port\fR
+Set the websocket server hosting address. Default is \fIlocalhost:8081\fR.
+.TP
+.BR \-cert =\fIcertfile\fR \  \fB\-key\fR =\fIkeyfile\fR
+Set the websocket server TLS certificate and private key. These are only
+necessary when serving beyond localhost.
+.TP
+.BR -origins =\fI"http://origin1","http://origin2"\fR
+Set which CORS origins (basically, which websites) should be allowed to access
+the WebSocket server. Default is \fI"https://log.k0swe.radio"\fR plus some
+localhost development origins.
+.TP
+.BR -v
+Enable verbose debug logging.
+.SH EXAMPLE
+When running your web application and browser on the same computer as your
+ham radio programs, no \fBkel-agent\fR options are needed. This is
+straightforward, safe and the default.
+.PP
+$ \fBkel-agent\fR
+.PP
+If a different hosting port than 8081 is required, use the \fB-host\fR option.
+.PP
+$ \fBkel-agent -host\fR=\fIlocalhost:5001\fR
+.PP
+It's also possible to run your ham radio programs and \fBkel-agent\fR on one
+computer, and your web browser and web app on another. This is more complex to
+secure. I refer you to the GitHub repository for up-to-date documentation.
+.SH SEE ALSO
+ \(bu https://github.com/k0swe/kel-agent
+ \(bu https://github.com/k0swe/kellog
