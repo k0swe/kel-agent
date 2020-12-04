@@ -26,17 +26,17 @@ jobs:
       - name: Vet
         run: go vet ./...
 
-      - name: Build
-        run: go build
-
-      - name: Gzip
-        run: tar cvzf kel-agent_linux64.tar.gz kel-agent
+      - name: Build Debian package
+        uses: dawidd6/action-debian-package@v1
+        with:
+          source_directory: .
+          artifacts_directory: dist
 
       - name: Release
         uses: softprops/action-gh-release@v1
         if: startsWith(github.ref, 'refs/tags/')
         with:
-          files: kel-agent_linux64.tar.gz
+          files: dist/*.deb
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
