@@ -40,6 +40,35 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
+  release-rpi:
+    name: Build the Raspberry Pi release artifact
+    runs-on: [self-hosted, linux, ARM]
+
+    steps:
+      # Trust that the runner has a good golang version
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Test
+        run: go test ./...
+
+      - name: Vet
+        run: go vet ./...
+
+      - name: Build Debian package
+        uses: dawidd6/action-debian-package@v1
+        with:
+          source_directory: .
+          artifacts_directory: dist
+
+      - name: Release
+        uses: softprops/action-gh-release@v1
+        if: startsWith(github.ref, 'refs/tags/')
+        with:
+          files: dist/*.deb
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
   release-windows:
     name: Build the Windows release artifact
     runs-on: windows-latest
