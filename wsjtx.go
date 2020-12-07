@@ -7,10 +7,6 @@ import (
 	"reflect"
 )
 
-type WebsocketMessage struct {
-	Wsjtx WsjtxMessage `json:"wsjtx"`
-}
-
 type WsjtxMessage struct {
 	MsgType string      `json:"type"`
 	Payload interface{} `json:"payload"`

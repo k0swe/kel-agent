@@ -2,7 +2,6 @@ package main
 
 import (
 	"flag"
-	"github.com/gorilla/websocket"
 	"log"
 	"net/http"
 )
@@ -32,9 +31,13 @@ func main() {
 		secure = true
 		protocol = "wss://"
 	}
-
 	log.Println("Allowed origins are", allowedOrigins)
-	http.HandleFunc("/websocket", websocketHandler)
+
+	hub := newHub()
+	go hub.run()
+	http.HandleFunc("/websocket", func(w http.ResponseWriter, r *http.Request) {
+		serveWs(hub, w, r)
+	})
 	http.HandleFunc("/", indexHandler)
 	log.Printf("kel-agent ready to serve at %s%s", protocol, *addr)
 	if *debug {
@@ -50,38 +53,4 @@ func main() {
 func indexHandler(w http.ResponseWriter, _ *http.Request) {
 	_, _ = w.Write([]byte("Congratulations, you've reached kel-agent! " +
 		"If you can see this, you should be able to connect to the websocket."))
-}
-
-var upgrader = websocket.Upgrader{}
-
-func websocketHandler(w http.ResponseWriter, r *http.Request) {
-	upgrader.CheckOrigin = logbookCheckOrigin
-	ws, err := upgrader.Upgrade(w, r, nil)
-	if err != nil {
-		log.Println("upgrade:", err)
-		return
-	}
-
-	defer ws.Close()
-	log.Println("Established websocket session with", r.RemoteAddr)
-
-	wsjtChan := make(chan []byte, 5)
-	go handleWsjtx(wsjtChan)
-	for {
-		select {
-		case w := <-wsjtChan:
-			_ = ws.WriteMessage(websocket.TextMessage, w)
-		}
-	}
-}
-
-func logbookCheckOrigin(r *http.Request) bool {
-	origin := r.Header.Get("Origin")
-	for _, allowed := range allowedOrigins {
-		if origin == allowed {
-			return true
-		}
-	}
-	log.Println("Rejecting websocket request from origin", origin)
-	return false
 }
