@@ -42,9 +42,12 @@ jobs:
 
   release-rpi:
     name: Build the Raspberry Pi release artifact
-    runs-on: [self-hosted, linux, ARM]
+    runs-on: [ self-hosted, linux, ARM ]
 
     steps:
+      - name: Reset docker container
+        run: docker stop kel-agent && docker container rm kel-agent
+
       # Trust that the runner has a good golang version
       - name: Checkout code
         uses: actions/checkout@v2
