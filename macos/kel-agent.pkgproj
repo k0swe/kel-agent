@@ -418,9 +418,9 @@
 													<key>GID</key>
 													<integer>0</integer>
 													<key>PATH</key>
-													<string>/Users/chris/src/kel-agent/kel-agent</string>
+													<string>../kel-agent</string>
 													<key>PATH_TYPE</key>
-													<integer>0</integer>
+													<integer>1</integer>
 													<key>PERMISSIONS</key>
 													<integer>493</integer>
 													<key>TYPE</key>
@@ -457,9 +457,9 @@
 																	<key>GID</key>
 																	<integer>0</integer>
 																	<key>PATH</key>
-																	<string>/Users/chris/src/kel-agent/debian/kel-agent.1</string>
+																	<string>../debian/kel-agent.1</string>
 																	<key>PATH_TYPE</key>
-																	<integer>0</integer>
+																	<integer>1</integer>
 																	<key>PERMISSIONS</key>
 																	<integer>420</integer>
 																	<key>TYPE</key>
