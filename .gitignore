@@ -1,6 +1,8 @@
 # Compiled binary
 kel-agent
+kel-agent.pkg
 
 .idea/
 
 .pc
+.DS_Store
