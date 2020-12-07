@@ -98,11 +98,14 @@ jobs:
       - name: Package
         run: packagesbuild macos/kel-agent.pkgproj
 
+      - name: Rename package
+        run: mv kel-agent.pkg kel-agent_mac.pkg
+
       - name: Release
         uses: softprops/action-gh-release@v1
         if: startsWith(github.ref, 'refs/tags/')
         with:
-          files: kel-agent.pkg
+          files: kel-agent_mac.pkg
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
