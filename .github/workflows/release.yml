@@ -69,6 +69,40 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
+  release-macos:
+    name: Build the MacOS release artifact
+    runs-on: macos-latest
+
+    steps:
+      - name: Install WhiteBox Packages
+        run: |
+          curl "http://s.sudre.free.fr/Software/files/Packages.dmg" --output ${HOME}/Packages.dmg
+          sudo hdiutil attach ${HOME}/Packages.dmg
+          find /Volumes -name "Install Packages.pkg" | xargs -I {} sudo installer -pkg "{}" -target /
+
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Test
+        run: go test ./...
+
+      - name: Vet
+        run: go vet ./...
+
+      - name: Build
+        run: go build
+
+      - name: Package
+        run: packagesbuild macos/kel-agent.pkgproj
+
+      - name: Release
+        uses: softprops/action-gh-release@v1
+        if: startsWith(github.ref, 'refs/tags/')
+        with:
+          files: kel-agent.pkg
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
   release-windows:
     name: Build the Windows release artifact
     runs-on: windows-latest
