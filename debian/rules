@@ -12,7 +12,7 @@ clean:
 	rm -rf $(PKGDIR)
 
 build:
-	go build
+	make kel-agent
 
 binary: clean build
 	dh_prep

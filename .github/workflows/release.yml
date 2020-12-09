@@ -93,7 +93,7 @@ jobs:
         run: go vet ./...
 
       - name: Build
-        run: go build
+        run: make kel-agent
 
       - name: Package
         run: packagesbuild macos/kel-agent.pkgproj
@@ -129,7 +129,7 @@ jobs:
         run: go vet ./...
 
       - name: Build
-        run: go build
+        run: make kel-agent
 
       - name: Release
         uses: softprops/action-gh-release@v1
