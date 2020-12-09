@@ -4,6 +4,7 @@ import (
 	"flag"
 	"log"
 	"net/http"
+	"runtime"
 )
 
 const defaultAddr = "localhost:8081"
@@ -16,6 +17,7 @@ var allowedOrigins sliceFlag = []string{
 var debug *bool
 
 func main() {
+	log.Printf("kel-agent %v (%v) %v %v %v", Version, GitRev, runtime.Version(), runtime.GOOS, runtime.GOARCH)
 	flag.Var(&allowedOrigins, "origins", "comma-separated list of allowed origins")
 	debug = flag.Bool("v", false, "verbose debugging output")
 	addr := flag.String("host", defaultAddr, "hosting address")
@@ -39,7 +41,7 @@ func main() {
 		serveWs(hub, w, r)
 	})
 	http.HandleFunc("/", indexHandler)
-	log.Printf("kel-agent ready to serve at %s%s", protocol, *addr)
+	log.Printf("ready to serve at %s%s", protocol, *addr)
 	if *debug {
 		log.Println("Verbose output enabled")
 	}
