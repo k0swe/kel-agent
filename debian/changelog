@@ -1,3 +1,9 @@
+kel-agent (0.1.5-1) UNRELEASED; urgency=medium
+
+  * Test new Makefile release workflow
+
+ -- Chris Keller <xylo04@gmail.com>  Mon, 09 Dec 2020 12:35:52 -0700
+
 kel-agent (0.1.4-1) UNRELEASED; urgency=medium
 
   * Improved websocket client handling
