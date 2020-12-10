@@ -1,6 +1,7 @@
 # Compiled binary
 kel-agent
 kel-agent.pkg
+kel-agent_mac.pkg
 
 .idea/
 

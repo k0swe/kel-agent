@@ -89,14 +89,8 @@ jobs:
       - name: Vet
         run: go vet ./...
 
-      - name: Build
-        run: make kel-agent
-
-      - name: Package
-        run: packagesbuild macos/kel-agent.pkgproj
-
-      - name: Rename package
-        run: mv kel-agent.pkg kel-agent_mac.pkg
+      - name: Build Mac package
+        run: make mac-package
 
       - name: Release
         uses: softprops/action-gh-release@v1
