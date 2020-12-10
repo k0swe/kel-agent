@@ -17,7 +17,8 @@ var allowedOrigins sliceFlag = []string{
 var debug *bool
 
 func main() {
-	log.Printf("kel-agent %v (%v) %v %v %v", Version, GitRev, runtime.Version(), runtime.GOOS, runtime.GOARCH)
+	log.Printf("kel-agent %v (%v) %v %v %v %v",
+		Version, GitCommit, runtime.Version(), runtime.GOOS, runtime.GOARCH, BuildTime)
 	flag.Var(&allowedOrigins, "origins", "comma-separated list of allowed origins")
 	debug = flag.Bool("v", false, "verbose debugging output")
 	addr := flag.String("host", defaultAddr, "hosting address")

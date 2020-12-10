@@ -2,9 +2,7 @@ all: kel-agent
 .PHONY: all
 
 kel-agent:
-	VERSION=$$(< debian/changelog head -1 | sed -r 's/.*\(([0-9]+\.[0-9]+\.[0-9]+)-.*\).*/v\1/g'); \
-	GIT_REV=$$(git rev-parse --short HEAD); \
-	go build -ldflags "-X main.GitRev=$$GIT_REV -X main.Version=$$VERSION"
+	scripts/build.sh
 
 architecture.svg:
 	dot -T svg -o architecture.svg < architecture.dot
