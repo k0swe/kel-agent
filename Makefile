@@ -1,7 +1,12 @@
 all: kel-agent
 .PHONY: all
 
-kel-agent:
+.PHONY: test
+test:
+	go test ./...
+	go vet ./...
+
+kel-agent: test
 	scripts/build.sh
 
 architecture.svg:

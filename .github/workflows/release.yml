@@ -21,10 +21,7 @@ jobs:
         uses: actions/checkout@v2
 
       - name: Test
-        run: go test ./...
-
-      - name: Vet
-        run: go vet ./...
+        run: make test
 
       - name: Build Debian package
         uses: dawidd6/action-debian-package@v1
@@ -50,10 +47,7 @@ jobs:
         uses: actions/checkout@v2
 
       - name: Test
-        run: go test ./...
-
-      - name: Vet
-        run: go vet ./...
+        run: make test
 
       - name: Build Debian package
         uses: dawidd6/action-debian-package@v1.2.0
@@ -84,10 +78,7 @@ jobs:
         uses: actions/checkout@v2
 
       - name: Test
-        run: go test ./...
-
-      - name: Vet
-        run: go vet ./...
+        run: make test
 
       - name: Build Mac package
         run: make mac-package
@@ -114,10 +105,7 @@ jobs:
         uses: actions/checkout@v2
 
       - name: Test
-        run: go test ./...
-
-      - name: Vet
-        run: go vet ./...
+        run: make test
 
       - name: Build
         run: make kel-agent
