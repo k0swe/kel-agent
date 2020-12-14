@@ -1,0 +1,21 @@
+<?xml version='1.0' encoding='utf-8'?>
+<Wix xmlns='http://schemas.microsoft.com/wix/2006/wi'>
+	<Product Name='Foobar 1.0' Manufacturer='Acme Ltd.' Id='65e88664-9b32-4cc4-be4d-a4f6d1f93fe7' UpgradeCode='d7847e65-d1a3-4fd7-b255-20bd8fb8bf5c' Language='1033' Codepage='1252' Version='1.0.0'>
+		<Package Id='*' Keywords='Installer' Description="Acme's Foobar 1.0 Installer" Comments='Foobar is a registered trademark of Acme Ltd.' Manufacturer='Acme Ltd.' InstallerVersion='100' Languages='1033' Compressed='yes' SummaryCodepage='1252'/>
+		<Media Id='1' Cabinet='Sample.cab' EmbedCab='yes'/>
+		<Directory Id='TARGETDIR' Name='SourceDir'>
+			<Directory Id='ProgramFilesFolder' Name='PFiles'>
+				<Directory Id='Acme' Name='Acme'>
+					<Directory Id='INSTALLDIR' Name='Foobar 1.0'>
+						<Component Id='MainExecutable' Guid='3f9294be-b4fe-481c-a8ad-558994e5e38e'>
+							<File Id='KelAgentEXE' Name='kel-agent.exe' DiskId='1' Source='../kel-agent.exe' KeyPath='yes'/>
+						</Component>
+					</Directory>
+				</Directory>
+			</Directory>
+		</Directory>
+		<Feature Id='Complete' Level='1'>
+			<ComponentRef Id='MainExecutable'/>
+		</Feature>
+	</Product>
+</Wix>
