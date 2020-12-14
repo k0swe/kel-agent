@@ -1,7 +1,11 @@
 # Compiled binary
 kel-agent
+kel-agent.exe
 kel-agent.pkg
 kel-agent_mac.pkg
+win/kel-agent.msi
+win/kel-agent.wixobj
+win/kel-agent.wixpdb
 
 .idea/
 

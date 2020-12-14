@@ -24,6 +24,11 @@ mac-package: kel-agent
 	packagesbuild macos/kel-agent.pkgproj
 	mv kel-agent.pkg kel-agent_mac.pkg
 
+.PHONY: win-package
+win-package: kel-agent
+	# https://wixtoolset.org/
+	cd win && candle kel-agent.wxs && light kel-agent.wixobj
+
 .PHONY: clean
 clean:
 	rm -f kel-agent kel-agent_mac.pkg
