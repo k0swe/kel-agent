@@ -1,3 +1,9 @@
+kel-agent (0.2.1-1) UNRELEASED; urgency=medium
+
+  * Add Windows release packaging
+
+ -- Chris Keller <xylo04@gmail.com>  Mon, 14 Dec 2020 16:58:53 -0700
+
 kel-agent (0.2.0-1) UNRELEASED; urgency=medium
 
   * Add version info to websocket messages
