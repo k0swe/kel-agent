@@ -43,6 +43,9 @@ jobs:
 
     steps:
       # Trust that the runner has a good golang version and apt deps
+      - name: Remove old release artifacts
+        run: rm -f ../kel-agent_*
+
       - name: Checkout code
         uses: actions/checkout@v2
 
