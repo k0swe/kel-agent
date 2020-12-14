@@ -2,6 +2,7 @@ package main
 
 import (
 	"flag"
+	"fmt"
 	"log"
 	"net/http"
 	"runtime"
@@ -36,7 +37,7 @@ func main() {
 	}
 	log.Println("Allowed origins are", allowedOrigins)
 
-	hub := newHub()
+	hub := newHub(fmt.Sprintf("kel-agent %v (%v)", Version, GitCommit))
 	go hub.run()
 	http.HandleFunc("/websocket", func(w http.ResponseWriter, r *http.Request) {
 		serveWs(hub, w, r)

@@ -5,11 +5,14 @@
 package main
 
 import (
+	"encoding/json"
 	"log"
 )
 
 type WebsocketMessage struct {
-	Wsjtx WsjtxMessage `json:"wsjtx"`
+	// kel-agent version info
+	Version string       `json:"version"`
+	Wsjtx   WsjtxMessage `json:"wsjtx"`
 }
 
 // Hub maintains the set of active clients and broadcasts messages to the
@@ -28,11 +31,14 @@ type Hub struct {
 	unregister chan *Client
 
 	// WSJT-X message channel
-	wsjtx chan []byte
+	wsjtx chan WsjtxMessage
 }
 
-func newHub() *Hub {
-	wsjtChan := make(chan []byte, 5)
+var versionInfo string
+
+func newHub(version string) *Hub {
+	versionInfo = version
+	wsjtChan := make(chan WsjtxMessage, 5)
 	go handleWsjtx(wsjtChan)
 
 	return &Hub{
@@ -60,15 +66,19 @@ func (h *Hub) run() {
 			// TODO: route this to a backend
 			log.Printf("Command from client: %v", command)
 		case wsjtxMessage := <-h.wsjtx:
-			h.broadcast(wsjtxMessage)
+			h.broadcast(WebsocketMessage{
+				Version: versionInfo,
+				Wsjtx:   wsjtxMessage,
+			})
 		}
 	}
 }
 
-func (h *Hub) broadcast(message []byte) {
+func (h *Hub) broadcast(message WebsocketMessage) {
+	jsn, _ := json.Marshal(message)
 	for client := range h.clients {
 		select {
-		case client.send <- message:
+		case client.send <- jsn:
 		default:
 			close(client.send)
 			delete(h.clients, client)
