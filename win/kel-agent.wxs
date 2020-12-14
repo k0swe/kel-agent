@@ -1,15 +1,18 @@
 <?xml version='1.0' encoding='utf-8'?>
 <Wix xmlns='http://schemas.microsoft.com/wix/2006/wi'>
-	<Product Name='Foobar 1.0' Manufacturer='Acme Ltd.' Id='65e88664-9b32-4cc4-be4d-a4f6d1f93fe7' UpgradeCode='d7847e65-d1a3-4fd7-b255-20bd8fb8bf5c' Language='1033' Codepage='1252' Version='1.0.0'>
-		<Package Id='*' Keywords='Installer' Description="Acme's Foobar 1.0 Installer" Comments='Foobar is a registered trademark of Acme Ltd.' Manufacturer='Acme Ltd.' InstallerVersion='100' Languages='1033' Compressed='yes' SummaryCodepage='1252'/>
-		<Media Id='1' Cabinet='Sample.cab' EmbedCab='yes'/>
+	<Product Name='kel-agent v0.2.0' Manufacturer='Chris Keller K0SWE' Id='a22db0cd-1d0b-4f91-b78e-8e0c0d0b5c45' UpgradeCode='677cd06e-cca4-453d-9c1a-1854946c789d' Language='1033' Codepage='1252' Version='0.2.2'>
+		<Package Id='*' Keywords='Installer' Description="K0SWE kel-agent v0.2.0 Installer" Manufacturer='Chris Keller K0SWE' InstallerVersion='100' Languages='1033' Compressed='yes' SummaryCodepage='1252'/>
+		<Media Id='1' Cabinet='Kelagent.cab' EmbedCab='yes'/>
 		<Directory Id='TARGETDIR' Name='SourceDir'>
 			<Directory Id='ProgramFilesFolder' Name='PFiles'>
-				<Directory Id='Acme' Name='Acme'>
-					<Directory Id='INSTALLDIR' Name='Foobar 1.0'>
-						<Component Id='MainExecutable' Guid='3f9294be-b4fe-481c-a8ad-558994e5e38e'>
-							<File Id='KelAgentEXE' Name='kel-agent.exe' DiskId='1' Source='../kel-agent.exe' KeyPath='yes'/>
-						</Component>
+				<Directory Id='K0SWE' Name='K0SWE'>
+					<Directory Id='INSTALLDIR' Name='kel-agent'>
+						<Directory Id='BinDir' Name='bin'>
+							<Component Id='MainExecutable' Guid='6944ce5e-fb7a-4c98-a28f-9d2411182e2c'>
+								<File Id='KelAgentEXE' Name='kel-agent.exe' DiskId='1' Source='../kel-agent.exe' KeyPath='yes'/>
+								<Environment Id="SET_ENV" Action="set" Name="PATH" Part="last" Permanent="no" System="yes" Value="[BinDir]"/>
+							</Component>
+						</Directory>
 					</Directory>
 				</Directory>
 			</Directory>
