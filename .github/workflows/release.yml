@@ -108,7 +108,9 @@ jobs:
         run: make test
 
       - name: Build Windows package
-        run: make win-package
+        run: |
+          $env:PATH += ";$env:WIX\bin"
+          make win-package
 
       - name: Release
         uses: softprops/action-gh-release@v1
