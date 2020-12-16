@@ -9,11 +9,11 @@ that needs to communicate with amateur radio installed programs.
 
 ![Architecture](architecture.svg)
 
-This currently supports communication with WSJT-X. Planned support includes `rigctld` and Ham
-Radio Deluxe for transceiver remote control.
+This currently supports communication with WSJT-X. Planned support includes `rigctld` and Ham Radio
+Deluxe for transceiver remote control.
 
 To get started using `kel-agent`, download an appropriate executable from the
-[latest release](https://github.com/k0swe/kel-agent/releases/latest). Windows and Linux binaries are
-provided with planned support for Mac and Raspberry Pi.
+[latest release](https://github.com/k0swe/kel-agent/releases/latest). Windows, Mac, Debian/Ubuntu
+Linux and Raspberry Pi installers are available.
 
 See the [Running documentation](RUNNING.md) for how to configure, execute and serve `kel-agent`.
