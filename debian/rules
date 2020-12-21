@@ -3,6 +3,8 @@
 # build with `dpkg-buildpackage -uc -us -b`
 
 PKGDIR=debian/kel-agent
+HOME=$(CURDIR)
+GITCOMMIT = $(shell autorevision -f -o autorevision.cache -s VCS_SHORT_HASH)
 
 %:
 	dh $@
@@ -12,7 +14,7 @@ clean:
 	rm -rf $(PKGDIR)
 
 build:
-	make kel-agent
+	export GITCOMMIT=$(GITCOMMIT) && scripts/build.sh
 
 binary: clean build
 	dh_prep
