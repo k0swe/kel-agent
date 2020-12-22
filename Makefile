@@ -28,7 +28,7 @@ deb-tarball: autorevision.cache
 .PHONY: deb-package
 deb-package: deb-tarball
 	# https://wiki.debian.org/sbuild
-	sbuild
+	sbuild -d stable
 
 .PHONY: mac-package
 mac-package: kel-agent
