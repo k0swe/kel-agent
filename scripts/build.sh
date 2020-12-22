@@ -2,7 +2,6 @@
 set -eu
 
 VERSION=${VERSION:-v$(< debian/changelog head -1 | egrep -o "[0-9]+\.[0-9]+\.[0-9]+")}
-GITCOMMIT=${GITCOMMIT:-$(git rev-parse --short HEAD 2> /dev/null || true)}
 BUILDTIME=${BUILDTIME:-$(date -u +"%Y-%m-%dT%H:%M:%SZ")}
 
 export LDFLAGS="\
