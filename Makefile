@@ -23,7 +23,7 @@ autorevision.cache:
 
 .PHONY: deb-tarball
 deb-tarball: autorevision.cache
-	cd .. && tar -cvJf kel-agent_$(VERSION).orig.tar.xz --exclude-vcs --exclude=debian --exclude=.github kel-agent
+	cd .. && tar -cvJf kel-agent_$(VERSION).orig.tar.xz --exclude-vcs --exclude=.github kel-agent
 
 .PHONY: deb-package
 deb-package: deb-tarball
