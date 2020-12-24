@@ -25,6 +25,10 @@ autorevision.cache:
 deb-tarball: autorevision.cache
 	cd .. && tar -cvJf kel-agent_$(VERSION).orig.tar.xz --exclude-vcs --exclude=.github kel-agent
 
+.PHONY: deb-orig-tarball
+deb-tarball: autorevision.cache
+	cd .. && tar -cvJf kel-agent_$(VERSION).orig.tar.xz --exclude-vcs --exclude=debian --exclude=.github kel-agent
+
 .PHONY: deb-package
 deb-package: deb-tarball
 	# https://wiki.debian.org/sbuild
