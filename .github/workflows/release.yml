@@ -70,6 +70,13 @@ jobs:
           sudo hdiutil attach ${HOME}/Packages.dmg
           find /Volumes -name "Install Packages.pkg" | xargs -I {} sudo installer -pkg "{}" -target /
 
+      - name: Create keychain with signing certificate
+        uses: apple-actions/import-codesign-certs@v1
+        with:
+          keychain: k0swe
+          p12-file-base64: ${{ secrets.CERTIFICATES_P12 }}
+          p12-password: ${{ secrets.CERTIFICATES_P12_PASSWORD }}
+
       - name: Checkout code
         uses: actions/checkout@v2
 

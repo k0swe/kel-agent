@@ -49,8 +49,11 @@ deb-package: deb-tarball wsjtx-go.deb leemcloughlin-jdn.deb
 .PHONY: mac-package
 mac-package: kel-agent
 	# http://s.sudre.free.fr/Software/Packages/about.html
-	packagesbuild macos/kel-agent.pkgproj
-	mv kel-agent.pkg kel-agent_mac.pkg
+	packagesbuild --package-version $(VERSION) macos/kel-agent.pkgproj
+	productsign --keychain `security list-keychains | grep k0swe | tr -d \"` \
+      --sign "Developer ID Installer: Chris Keller (2UK8VD3UP4)" \
+      kel-agent.pkg kel-agent-signed.pkg
+	mv kel-agent-signed.pkg kel-agent_mac.pkg
 
 .PHONY: win-package
 win-package: kel-agent
