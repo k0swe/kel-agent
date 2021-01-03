@@ -1,3 +1,11 @@
+kel-agent (0.2.3-1) UNRELEASED; urgency=medium
+
+  * Fixes bug: multiple JSON docs in one message (https://github.com/k0swe/kel-agent/issues/22)
+  * Debian build improvements
+  * Mac build improvements
+
+ -- Chris Keller <xylo04@gmail.com>  Sun, 03 Jan 2021 11:05:09 -0700
+
 kel-agent (0.2.2-1) UNRELEASED; urgency=medium
 
   * Use sbuild chroot for debian builds
