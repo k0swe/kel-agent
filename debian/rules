@@ -1,34 +1,17 @@
 #!/usr/bin/make -f
-# -*- makefile -*-
-# build with `dpkg-buildpackage -uc -us -b`
 
-PKGDIR=debian/kel-agent
-HOME=$(CURDIR)
+include /usr/share/dpkg/pkg-info.mk
+
+BUILDTIME = $(shell date --utc +'%Y-%m-%dT%H:%M:%SZ')
 GITCOMMIT = $(shell autorevision -f -o autorevision.cache -s VCS_SHORT_HASH)
+VERSION =  $(shell autorevision -f -o autorevision.cache -s VCS_TAG | sed 's/v//g')
+GO_LDFLAGS := "-X 'main.Version=v$(VERSION)' -X 'main.GitCommit=$(GITCOMMIT)' -X 'main.BuildTime=$(BUILDTIME)'"
 
 %:
-	dh $@
+	dh $@ --builddirectory=_build --buildsystem=golang --with=golang
 
-clean:
-	dh_clean
-	rm -rf $(PKGDIR)
+override_dh_auto_build:
+	dh_auto_build -O--buildsystem=golang -- --ldflags $(GO_LDFLAGS)
 
-build:
-	export GITCOMMIT=$(GITCOMMIT) && scripts/build.sh
-
-binary: clean build
-	dh_prep
-	dh_installdirs
-
-	mkdir -p $(PKGDIR)/usr/bin
-
-	mv ./kel-agent $(PKGDIR)/usr/bin/
-
-	dh_installman
-	dh_strip
-	dh_compress
-	dh_fixperms
-	dh_installdeb
-	dh_gencontrol
-	dh_md5sums
-	dh_builddeb
+override_dh_auto_install:
+	dh_auto_install -- --no-source
