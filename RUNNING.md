@@ -87,11 +87,11 @@ computer.
 
 As part of the same-origin policy which is standard in web browsers, `kel-agent` will only accept
 browser connections from certain origins (basically, websites). By default, only the website
-`https://log.k0swe.radio` plus some local developer addresses are allowed to connect to `kel-agent`,
+`https://forester.radio` plus some local developer addresses are allowed to connect to `kel-agent`,
 but this can be customized if others develop web applications that use `kel-agent`. I'm happy to 
 accept pull requests to expand the default list!
 
 ```
-$ kel-agent -origins "https://log.k0swe.radio,https://someother.nifty.app"
-2020/10/10 19:18:52 Allowed origins are [https://log.k0swe.radio https://someother.nifty.app]
+$ kel-agent -origins "https://forester.radio,https://someother.nifty.app"
+2020/10/10 19:18:52 Allowed origins are [https://forester.radio https://someother.nifty.app]
 ```

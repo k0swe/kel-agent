@@ -11,7 +11,7 @@ import (
 const defaultAddr = "localhost:8081"
 
 var allowedOrigins sliceFlag = []string{
-	"https://log.k0swe.radio",
+	"https://forester.radio",
 	"http://localhost:8080",
 	"http://localhost:4200",
 }
