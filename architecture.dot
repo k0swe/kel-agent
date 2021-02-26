@@ -14,7 +14,7 @@ digraph {
         };
         agent [label="kel-agent"; shape=box; style=filled; fillcolor=lightblue]
         WSJTX [label="WSJT-X"]
-        rigctld [label="hamlib\nrigctld"]
+        rigctld [label="goHamlib"]
         HRD;
         etc [label="..."];
     }
@@ -24,7 +24,7 @@ digraph {
     Internet -> Application
     Application -> agent [label=" websocket"]
     agent -> WSJTX [label="UDP"]
-    agent -> rigctld [label="TCP"; style=dotted]
+    agent -> rigctld [label="lib"]
     agent -> HRD    [label="UDP"; style=dotted]
     agent -> etc   [style=dotted]
 }

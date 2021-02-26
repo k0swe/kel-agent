@@ -12,6 +12,7 @@ require (
 	github.com/k0swe/wsjtx-go/v4 v4.0.6
 	github.com/rs/zerolog v1.33.0
 	github.com/stretchr/testify v1.9.0
+	github.com/xylo04/goHamlib v0.0.0-20240309005711-30dd4ae13b38
 	gopkg.in/yaml.v3 v3.0.1
 )
 
@@ -26,5 +27,5 @@ require (
 	github.com/mazznoer/csscolorparser v0.1.3 // indirect
 	github.com/pmezard/go-difflib v1.0.0 // indirect
 	github.com/wk8/go-ordered-map/v2 v2.1.8 // indirect
-	golang.org/x/sys v0.18.0 // indirect
+	golang.org/x/sys v0.21.0 // indirect
 )

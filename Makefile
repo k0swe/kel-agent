@@ -1,4 +1,5 @@
 export ROOT_DIR = $(shell git rev-parse --show-toplevel)
+export PKG_CONFIG_PATH = $(ROOT_DIR)/build/Hamlib-4.5.1/prefix/usr/local/lib/pkgconfig
 VERSION = $(shell head -1 < debian/changelog | egrep -o "[0-9]+\.[0-9]+\.[0-9]+")
 GITCOMMIT = $(shell git rev-parse --short HEAD 2> /dev/null || true)
 
@@ -9,8 +10,11 @@ GENERATED = kel-agent kel-agent_*.pkg win/kel-agent_*.msi win/kel-agent.wixobj a
 .PHONY: all
 all: kel-agent
 
+build/Hamlib-4.5.1/prefix/usr/local/lib/pkgconfig/hamlib.pc:
+	scripts/hamlib.sh
+
 .PHONY: test
-test:
+test: build/Hamlib-4.5.1/prefix/usr/local/lib/pkgconfig/hamlib.pc
 	go test ./...
 	go vet ./...
 	if command -v appstream-util; then appstream-util validate --nonet assets/radio.k0swe.Kel_Agent.metainfo.xml; fi
