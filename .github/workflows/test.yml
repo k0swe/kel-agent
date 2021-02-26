@@ -21,6 +21,9 @@ jobs:
         with:
           go-version: ${{ matrix.go-version }}
 
+      - name: Install hamlib
+        run: sudo apt-get install -y libhamlib4 libhamlib-dev
+
       - name: Checkout code
         uses: actions/checkout@v4
 

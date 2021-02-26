@@ -56,6 +56,9 @@ github.com/stretchr/testify/suite
 # github.com/wk8/go-ordered-map/v2 v2.1.8
 ## explicit; go 1.18
 github.com/wk8/go-ordered-map/v2
+# github.com/xylo04/goHamlib v0.0.0-20240309005711-30dd4ae13b38
+## explicit; go 1.14
+github.com/xylo04/goHamlib
 # golang.org/x/net v0.22.0
 ## explicit; go 1.18
 golang.org/x/net/internal/socks

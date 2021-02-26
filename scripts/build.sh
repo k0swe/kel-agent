@@ -1,6 +1,7 @@
 #!/usr/bin/env bash
 set -eu
 echo "$ROOT_DIR"
+echo "$PKG_CONFIG_PATH"
 cd "$ROOT_DIR" || exit 1
 
 VERSION=${VERSION:-v$(< debian/changelog head -1 | egrep -o "[0-9]+\.[0-9]+\.[0-9]+")}

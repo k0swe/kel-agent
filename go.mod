@@ -12,6 +12,7 @@ require (
 	github.com/k0swe/wsjtx-go/v4 v4.1.2
 	github.com/rs/zerolog v1.33.0
 	github.com/stretchr/testify v1.9.0
+	github.com/xylo04/goHamlib v0.0.0-20240309005711-30dd4ae13b38
 	gopkg.in/yaml.v3 v3.0.1
 )
 
