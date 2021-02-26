@@ -18,7 +18,7 @@ type RigState struct {
 	Width     int    `json:"passbandWidthHz"`
 }
 
-const pollInterval = 500 * time.Millisecond
+const pollInterval = 300 * time.Millisecond
 const maxWaitInterval = 10 * time.Second
 
 var lastState RigState
