@@ -1,7 +1,7 @@
 app-id: radio.k0swe.Kel_Agent
 default-branch: main
 runtime: org.freedesktop.Platform
-runtime-version: "20.08"
+runtime-version: "23.08"
 sdk: org.freedesktop.Sdk
 sdk-extensions:
   - org.freedesktop.Sdk.Extension.golang
@@ -16,13 +16,21 @@ modules:
   - name: kel-agent
     sources:
       - type: git
-        url: https://dario.cat/mergo.git
+        url: https://github.com/imdario/mergo.git
         tag: v1.0.0
         dest: vendor/dario.cat/mergo/
       - type: git
         url: https://github.com/adrg/xdg.git
         tag: v0.4.0
         dest: vendor/github.com/adrg/xdg/
+      - type: git
+        url: https://github.com/bahlo/generic-list-go.git
+        tag: v0.2.0
+        dest: vendor/github.com/bahlo/generic-list-go/
+      - type: git
+        url: https://github.com/buger/jsonparser.git
+        tag: v1.1.1
+        dest: vendor/github.com/buger/jsonparser/
       - type: git
         url: https://github.com/davecgh/go-spew.git
         tag: v1.1.1
@@ -32,6 +40,10 @@ modules:
         tag: v1.5.1
         dest: vendor/github.com/gorilla/websocket/
       - type: git
+        url: https://github.com/invopop/jsonschema.git
+        tag: v0.12.0
+        dest: vendor/github.com/invopop/jsonschema/
+      - type: git
         url: https://github.com/k0swe/wsjtx-go.git
         tag: v4.0.6
         dest: vendor/github.com/k0swe/wsjtx-go/v4/
@@ -39,6 +51,10 @@ modules:
         url: https://github.com/leemcloughlin/jdn.git
         commit: 6f88db6a6bf2176674100d1a1c692596fcf6e2ba
         dest: vendor/github.com/leemcloughlin/jdn/
+      - type: git
+        url: https://github.com/mailru/easyjson.git
+        tag: v0.7.7
+        dest: vendor/github.com/mailru/easyjson/
       - type: git
         url: https://github.com/mattn/go-colorable.git
         tag: v0.1.13
@@ -64,6 +80,14 @@ modules:
         tag: v1.9.0
         dest: vendor/github.com/stretchr/testify/
       - type: git
+        url: https://github.com/wk8/go-ordered-map.git
+        tag: v2.1.8
+        dest: vendor/github.com/wk8/go-ordered-map/v2/
+      - type: git
+        url: https://github.com/xylo04/goHamlib.git
+        commit: 30dd4ae13b3821025e0afdae55f6093d6f833ba5
+        dest: vendor/github.com/xylo04/goHamlib/
+      - type: git
         url: https://github.com/golang/net.git
         tag: v0.22.0
         dest: vendor/golang.org/x/net/
@@ -75,6 +99,10 @@ modules:
         url: https://github.com/go-yaml/yaml.git
         tag: v3.0.1
         dest: vendor/gopkg.in/yaml.v3/
+      - type: git
+        url: https://github.com/Hamlib/Hamlib.git
+        tag: 4.5.1
+        dest: build/Hamlib-4.5.1/
 
       - type: dir
         path: ..
@@ -85,6 +113,7 @@ modules:
     buildsystem: simple
     build-commands:
       - cp assets/modules.txt vendor/
+      - ./scripts/hamlib.sh
       - make
       - install -D kel-agent /app/bin/kel-agent
       - install -Dm644 assets/radio.k0swe.Kel_Agent.svg
