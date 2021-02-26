@@ -1,3 +1,5 @@
+github.com/dh1tw/goHamlib v0.0.0-20181218214755-d4da0f6f14c2 h1:luUZSiuJ4zZ7D1QO9Q2tILEICjj8j7wXFwCKNga2GOs=
+github.com/dh1tw/goHamlib v0.0.0-20181218214755-d4da0f6f14c2/go.mod h1:tV9TEPFlb00Muc9G1jU9Wh5h9SHtQ87M9J9XxwHlScY=
 github.com/gorilla/websocket v1.4.2 h1:+/TMaTYc4QFitKJxsQ7Yye35DkWvkdLcvGKqM+x0Ufc=
 github.com/gorilla/websocket v1.4.2/go.mod h1:YR8l580nyteQvAITg2hZ9XVh4b55+EU/adAjf1fMHhE=
 github.com/k0swe/wsjtx-go v1.1.1 h1:zXSA49nqIMbVQTvftQ5YnSF3j1yxQIi51vVbsQeqofs=

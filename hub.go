@@ -40,6 +40,7 @@ func newHub(version string) *Hub {
 	versionInfo = version
 	wsjtChan := make(chan WsjtxMessage, 5)
 	go handleWsjtx(wsjtChan)
+	go handleHamlib()
 
 	return &Hub{
 		command:    make(chan []byte),
