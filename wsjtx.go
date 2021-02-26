@@ -7,8 +7,8 @@ import (
 )
 
 type WsjtxMessage struct {
-	MsgType string      `json:"type"`
-	Payload interface{} `json:"payload"`
+	MsgType string      `json:"type,omitempty"`
+	Payload interface{} `json:"payload,omitempty"`
 }
 
 func handleWsjtx(msgChan chan WsjtxMessage) {
