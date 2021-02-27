@@ -2,6 +2,7 @@ package main
 
 import (
 	"github.com/dh1tw/goHamlib"
+	"log"
 	"reflect"
 	"time"
 )
@@ -18,7 +19,7 @@ type RigState struct {
 	Width     int    `json:"passbandWidthHz"`
 }
 
-const pollInterval = 300 * time.Millisecond
+const pollInterval = 100 * time.Millisecond
 const maxWaitInterval = 10 * time.Second
 
 var lastState RigState
@@ -30,7 +31,7 @@ func handleHamlib(msgChan chan HamlibMessage) {
 	websocketChannel = msgChan
 	rig := goHamlib.Rig{}
 	goHamlib.SetDebugLevel(goHamlib.DebugNone)
-	if err := rig.Init(214); err != nil {
+	if err := rig.Init(373); err != nil {
 		panic(err)
 	}
 	if err := rig.SetPort(goHamlib.Port{
@@ -53,15 +54,28 @@ func handleHamlib(msgChan chan HamlibMessage) {
 	for {
 		select {
 		case <-poller.C:
-			state := getCurrentState(rig)
+			state, err := getCurrentState(rig)
+			if err != nil {
+				maybeReport(err)
+				continue
+			}
 			if state != lastState {
 				sendState(state)
 			}
 		case <-maximumWait.C:
-			state := getCurrentState(rig)
+			state, err := getCurrentState(rig)
+			if err != nil {
+				maybeReport(err)
+				continue
+			}
 			sendState(state)
 		}
 	}
+}
+
+func maybeReport(err error) {
+	// TODO: how can I cast this to a HamlibErrorCode?
+	log.Printf("%v", err)
 }
 
 func sendState(state RigState) {
@@ -74,10 +88,10 @@ func sendState(state RigState) {
 	maximumWait.Reset(maxWaitInterval)
 }
 
-func getCurrentState(rig goHamlib.Rig) RigState {
+func getCurrentState(rig goHamlib.Rig) (RigState, error) {
 	freq, err := rig.GetFreq(goHamlib.VFOCurrent)
 	if err != nil {
-		panic(err)
+		return RigState{}, err
 	}
 	mode, width, err := rig.GetMode(goHamlib.VFOCurrent)
 	state := RigState{
@@ -86,5 +100,5 @@ func getCurrentState(rig goHamlib.Rig) RigState {
 		Mode:      goHamlib.ModeName[mode],
 		Width:     width,
 	}
-	return state
+	return state, err
 }
