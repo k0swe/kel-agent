@@ -1,6 +1,6 @@
 module github.com/k0swe/kel-agent
 
-go 1.14
+go 1.15
 
 require (
 	github.com/ftl/rigproxy v0.0.0-20210129152621-d47864ba93b5
