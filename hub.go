@@ -11,8 +11,9 @@ import (
 
 type WebsocketMessage struct {
 	// kel-agent version info
-	Version string       `json:"version"`
-	Wsjtx   WsjtxMessage `json:"wsjtx"`
+	Version string        `json:"version"`
+	Wsjtx   WsjtxMessage  `json:"wsjtx,omitempty"`
+	Hamlib  HamlibMessage `json:"hamlib,omitempty"`
 }
 
 // Hub maintains the set of active clients and broadcasts messages to the
@@ -32,6 +33,9 @@ type Hub struct {
 
 	// WSJT-X message channel
 	wsjtx chan WsjtxMessage
+
+	// HamLib message channel
+	hamlib chan HamlibMessage
 }
 
 var versionInfo string
@@ -40,6 +44,8 @@ func newHub(version string) *Hub {
 	versionInfo = version
 	wsjtChan := make(chan WsjtxMessage, 5)
 	go handleWsjtx(wsjtChan)
+	hamlibChan := make(chan HamlibMessage, 5)
+	go handleHamlib(hamlibChan)
 
 	return &Hub{
 		command:    make(chan []byte),
@@ -47,6 +53,7 @@ func newHub(version string) *Hub {
 		unregister: make(chan *Client),
 		clients:    make(map[*Client]bool),
 		wsjtx:      wsjtChan,
+		hamlib:     hamlibChan,
 	}
 }
 
@@ -69,6 +76,11 @@ func (h *Hub) run() {
 			h.broadcast(WebsocketMessage{
 				Version: versionInfo,
 				Wsjtx:   wsjtxMessage,
+			})
+		case hamlibMessage := <-h.hamlib:
+			h.broadcast(WebsocketMessage{
+				Version: versionInfo,
+				Hamlib:  hamlibMessage,
 			})
 		}
 	}
