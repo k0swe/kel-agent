@@ -39,7 +39,7 @@
 <!-- agent -->
 <g id="node3" class="node">
 <title>agent</title>
-<polygon fill="lightblue" stroke="black" points="259,-152.74 173,-152.74 173,-116.74 259,-116.74 259,-152.74"/>
+<polygon fill="lightblue" stroke="black" points="257.5,-152.74 174.5,-152.74 174.5,-116.74 257.5,-116.74 257.5,-152.74"/>
 <text text-anchor="middle" x="216" y="-131.04" font-family="Times,serif" font-size="14.00">kel&#45;agent</text>
 </g>
 <!-- Application&#45;&gt;agent -->
@@ -70,7 +70,7 @@
 <!-- agent&#45;&gt;rigctld -->
 <g id="edge4" class="edge">
 <title>agent&#45;&gt;rigctld</title>
-<path fill="none" stroke="black" stroke-dasharray="1,5" d="M206.75,-116.41C199.5,-102.84 189.32,-83.79 181.22,-68.62"/>
+<path fill="none" stroke="black" stroke-width="2" d="M206.75,-116.41C199.5,-102.84 189.32,-83.79 181.22,-68.62"/>
 <text text-anchor="middle" x="207" y="-90.74" font-family="Times,serif" font-size="10.00">TCP</text>
 </g>
 <!-- HRD -->
