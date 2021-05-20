@@ -29,10 +29,10 @@ deb-tarball: autorevision.cache
 deb-orig-tarball: autorevision.cache
 	cd .. && tar -cvJf kel-agent_$(VERSION).orig.tar.xz --exclude-vcs --exclude=debian --exclude=.github --exclude=.idea kel-agent
 
-# TODO: This target can be removed once the package is in Debian stable and Ubuntu stable, 2021-05
+# TODO: This target can be removed once the package is in Debian stable and Ubuntu stable
 wsjtx-go.deb:
 	cd .. && \
-	wget http://ftp.debian.org/debian/pool/main/g/golang-github-k0swe-wsjtx-go/golang-github-k0swe-wsjtx-go-dev_1.1.0-2_all.deb
+	wget https://github.com/k0swe/wsjtx-go/releases/download/v2.1.0/golang-github-k0swe-wsjtx-go-dev_2.1.0-1_all.deb
 
 # TODO: This target can be removed once the package is in Debian stable and Ubuntu stable, 2021-05
 leemcloughlin-jdn.deb:
@@ -43,7 +43,7 @@ leemcloughlin-jdn.deb:
 deb-package: deb-tarball wsjtx-go.deb leemcloughlin-jdn.deb
 	# https://wiki.debian.org/sbuild
 	sbuild -d stable \
-      --extra-package=../golang-github-k0swe-wsjtx-go-dev_1.1.0-2_all.deb \
+      --extra-package=../golang-github-k0swe-wsjtx-go-dev_2.1.0-1_all.deb \
       --extra-package=../golang-github-leemcloughlin-jdn-dev_0.0~git20201102.6f88db6-2_all.deb
 
 .PHONY: mac-package

@@ -1,4 +1,4 @@
-kel-agent (0.2.4-1) UNRELEASED; urgency=medium
+kel-agent (0.3.0-1) UNRELEASED; urgency=medium
 
   * Update Forester domain in default allowed origins
 
