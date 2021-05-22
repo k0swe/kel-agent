@@ -17,3 +17,8 @@ To get started using `kel-agent`, download an appropriate executable from the
 Linux and Raspberry Pi installers are available.
 
 See the [Running documentation](RUNNING.md) for how to configure, execute and serve `kel-agent`.
+
+## Acknowledgements
+
+The wire logo for `kel-agent` was created by [Freepik](https://www.flaticon.com/authors/freepik)
+on [Flaticon](https://www.flaticon.com).
