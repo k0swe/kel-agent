@@ -65,7 +65,11 @@ jobs:
 
     steps:
       - name: Install Flatpak
-        run: sudo apt install flatpak flatpak-builder
+        run: |
+          sudo apt install flatpak flatpak-builder
+          flatpak install --user flathub runtime/org.freedesktop.Platform/x86_64/20.08
+          flatpak install --user flathub runtime/org.freedesktop.Sdk/x86_64/20.08
+          flatpak install --user flathub runtime/org.freedesktop.Sdk.Extension.golang/x86_64/20.08
 
       - name: Checkout code
         uses: actions/checkout@v2
