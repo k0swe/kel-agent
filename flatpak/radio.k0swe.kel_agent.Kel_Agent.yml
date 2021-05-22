@@ -22,7 +22,7 @@ modules:
         path: ..
 #      - type: git
 #        url: ssh://git@github.com/k0swe/kel-agent.git
-#        tag: v0.3.0
+#        tag: v0.3.1
 #        commit: a0d6751f8c490941ddf9815f409b111a2c4dbbff
     buildsystem: simple
     build-commands:

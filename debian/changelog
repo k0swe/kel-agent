@@ -1,4 +1,16 @@
+kel-agent (0.3.1-1) UNRELEASED; urgency=medium
+
+  * Add flatpak build
+
+ -- Chris Keller <xylo04@gmail.com>  Sat, 22 May 2021 15:52:15 -0600
+
 kel-agent (0.3.0-1) UNRELEASED; urgency=medium
+
+  * Update wsjtx-go for parser stability
+
+ -- Chris Keller <xylo04@gmail.com>  Wed, 19 May 2021 22:34:32 -0600
+
+kel-agent (0.2.4-1) UNRELEASED; urgency=medium
 
   * Update Forester domain in default allowed origins
 
