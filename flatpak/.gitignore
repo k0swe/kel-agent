@@ -1,0 +1,4 @@
+/build-out/
+/.flatpak-builder/
+kel_agent.flatpak
+repo

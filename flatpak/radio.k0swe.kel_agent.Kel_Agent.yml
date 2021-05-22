@@ -1,0 +1,32 @@
+app-id: radio.k0swe.kel_agent.Kel_Agent
+default-branch: main
+runtime: org.freedesktop.Platform
+runtime-version: '20.08'
+sdk: org.freedesktop.Sdk
+sdk-extensions:
+  - org.freedesktop.Sdk.Extension.golang
+build-options:
+  append-path: /usr/lib/sdk/golang/bin
+  build-args:
+    # `go get` needs the network
+    - '--share=network'
+  env:
+    - 'LDFLAGS='
+command: kel-agent
+finish-args:
+  - --share=network
+modules:
+  - name: kel-agent
+    sources:
+      - type: dir
+        path: ..
+#      - type: git
+#        url: ssh://git@github.com/k0swe/kel-agent.git
+#        tag: v0.3.0
+#        commit: a0d6751f8c490941ddf9815f409b111a2c4dbbff
+    buildsystem: simple
+    build-commands:
+      - make
+      - install -D kel-agent /app/bin/kel-agent
+    cleanup:
+      - /lib/debug

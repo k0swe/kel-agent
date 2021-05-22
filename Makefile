@@ -46,6 +46,12 @@ deb-package: deb-tarball wsjtx-go.deb leemcloughlin-jdn.deb
       --extra-package=../golang-github-k0swe-wsjtx-go-dev_2.1.0-1_all.deb \
       --extra-package=../golang-github-leemcloughlin-jdn-dev_0.0~git20201102.6f88db6-2_all.deb
 
+.PHONY: flatpak
+flatpak: kel-agent
+	cd flatpak && \
+      flatpak-builder --force-clean build-out radio.k0swe.kel_agent.Kel_Agent.yml --repo=repo && \
+      flatpak build-bundle repo kel_agent.flatpak radio.k0swe.kel_agent.Kel_Agent main
+
 .PHONY: mac-package
 mac-package: kel-agent
 	# http://s.sudre.free.fr/Software/Packages/about.html
