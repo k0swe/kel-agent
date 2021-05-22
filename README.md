@@ -1,5 +1,5 @@
 [![Go Report Card](https://goreportcard.com/badge/github.com/k0swe/kel-agent)](https://goreportcard.com/report/github.com/k0swe/kel-agent)
-![Release](https://github.com/k0swe/kel-agent/workflows/Release/badge.svg)
+[![Release](https://github.com/k0swe/kel-agent/workflows/Release/badge.svg)](https://github.com/k0swe/kel-agent/releases/latest)
 
 # kel-agent
 
