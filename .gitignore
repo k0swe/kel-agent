@@ -1,4 +1,4 @@
-# Compiled binary
+# Compiled assets
 kel-agent
 kel-agent.exe
 kel-agent.pkg
@@ -7,6 +7,10 @@ win/kel-agent.msi
 win/kel-agent.wixobj
 win/kel-agent.wixpdb
 autorevision.cache
+repo/
+.flatpak-builder/
+kel-agent.flatpak
+flatpak_app/
 
 .idea/
 

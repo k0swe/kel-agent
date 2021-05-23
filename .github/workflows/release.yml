@@ -10,9 +10,12 @@ jobs:
   release-linux:
     name: Build the Linux release artifact
     runs-on: [ self-hosted, linux, x64 ]
+    # Trust that the runner has an sbuild chroot
+    # sudo apt install autorevision sbuild-debian-developer-setup debhelper dh-golang
+    # newgrp sbuild
+    # sudo sbuild-debian-developer-setup --suite=stable
 
     steps:
-      # Trust that the runner has an sbuild chroot
       - name: Remove old release artifacts
         run: rm -f ../kel-agent_*
 
@@ -36,9 +39,12 @@ jobs:
   release-rpi:
     name: Build the Raspberry Pi release artifact
     runs-on: [ self-hosted, linux, ARM ]
+    # Trust that the runner has an sbuild chroot:
+    # sudo apt install autorevision sbuild-debian-developer-setup debhelper dh-golang
+    # newgrp sbuild
+    # sudo sbuild-debian-developer-setup --suite=stable
 
     steps:
-      # Trust that the runner has an sbuild chroot
       - name: Remove old release artifacts
         run: rm -f ../kel-agent_*
 
@@ -61,31 +67,28 @@ jobs:
 
   release-flatpak:
     name: Build the Flatpak release artifact
-    runs-on: ubuntu-20.04
+    runs-on: ubuntu-latest
+    container:
+      image: bilelmoussaoui/flatpak-github-actions:freedesktop-20.08
+      options: --privileged
 
     steps:
-      - name: Install Flatpak
-        run: |
-          sudo apt install flatpak flatpak-builder
-          sudo flatpak remote-add --if-not-exists flathub https://flathub.org/repo/flathub.flatpakrepo
-          flatpak install --user flathub runtime/org.freedesktop.Platform/x86_64/20.08
-          flatpak install --user flathub runtime/org.freedesktop.Sdk/x86_64/20.08
-          flatpak install --user flathub runtime/org.freedesktop.Sdk.Extension.golang/x86_64/20.08
-
       - name: Checkout code
         uses: actions/checkout@v2
 
-      - name: Test
-        run: make test
-
       - name: Build Flatpak
-        run: make flatpak
+        uses: bilelmoussaoui/flatpak-github-actions/flatpak-builder@v3
+        with:
+          bundle: kel-agent.flatpak
+          manifest-path: flatpak/radio.k0swe.kel_agent.Kel_Agent.yml
+          branch: main
+          cache-key: flatpak-builder-${{ github.sha }}
 
       - name: Release
         uses: softprops/action-gh-release@v1
         if: startsWith(github.ref, 'refs/tags/')
         with:
-          files: flatpak/kel_agent.flatpak
+          files: kel-agent.flatpak
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 

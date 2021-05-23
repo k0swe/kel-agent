@@ -1,7 +1,8 @@
 VERSION = $(shell < debian/changelog head -1 | egrep -o "[0-9]+\.[0-9]+\.[0-9]+")
 GITCOMMIT = $(shell git rev-parse --short HEAD 2> /dev/null || true)
 
-GENERATED = kel-agent kel-agent_*.pkg win/kel-agent_*.msi win/kel-agent.wixobj autorevision.cache ../kel-agent_* ../*.deb
+GENERATED = kel-agent kel-agent_*.pkg win/kel-agent_*.msi win/kel-agent.wixobj autorevision.cache \
+  ../kel-agent_* ../*.deb repo/ .flatpak-builder/ kel-agent.flatpak flatpak_app/
 
 .PHONY: all
 all: kel-agent
@@ -68,4 +69,4 @@ win-package: kel-agent
 
 .PHONY: clean
 clean:
-	rm -f $(GENERATED)
+	rm -rf $(GENERATED)
