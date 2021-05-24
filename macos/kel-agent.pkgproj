@@ -457,7 +457,7 @@
 																	<key>GID</key>
 																	<integer>0</integer>
 																	<key>PATH</key>
-																	<string>../debian/kel-agent.1</string>
+																	<string>../assets/kel-agent.1</string>
 																	<key>PATH_TYPE</key>
 																	<integer>1</integer>
 																	<key>PERMISSIONS</key>

@@ -11,6 +11,8 @@ all: kel-agent
 test:
 	go test ./...
 	go vet ./...
+	if command -v appstream-util; then appstream-util validate-relax assets/radio.k0swe.kel_agent.Kel_Agent.metainfo.xml; fi
+	if command -v desktop-file-validate; then desktop-file-validate assets/radio.k0swe.kel_agent.Kel_Agent.desktop; fi
 
 kel-agent: test
 	export GITCOMMIT=$(GITCOMMIT) && scripts/build.sh
