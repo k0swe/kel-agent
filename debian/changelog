@@ -1,3 +1,15 @@
+kel-agent (0.3.3-1) UNRELEASED; urgency=medium
+
+  * Flatpak build is now hermetic
+
+ -- Chris Keller <xylo04@gmail.com>  Mon, 31 May 2021 19:25:00 -0600
+
+kel-agent (0.3.2-1) UNRELEASED; urgency=medium
+
+  * Add Freedesktop metadata to flatpak
+
+ -- Chris Keller <xylo04@gmail.com>  Sun, 23 May 2021 22:41:00 -0600
+
 kel-agent (0.3.1-1) UNRELEASED; urgency=medium
 
   * Add flatpak build
