@@ -1,3 +1,9 @@
+kel-agent (0.3.4-1) UNRELEASED; urgency=medium
+
+  * Fix flatpak app ID
+
+ -- Chris Keller <xylo04@gmail.com>  Mon, 31 May 2021 21:09:00 -0600
+
 kel-agent (0.3.3-1) UNRELEASED; urgency=medium
 
   * Flatpak build is now hermetic
