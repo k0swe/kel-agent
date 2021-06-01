@@ -2,6 +2,6 @@
 Name=kel-agent
 Exec=kel-agent
 Type=Application
-Icon=radio.k0swe.kel_agent.Kel_Agent
+Icon=radio.k0swe.Kel_Agent
 Categories=HamRadio;Network
 Terminal=true

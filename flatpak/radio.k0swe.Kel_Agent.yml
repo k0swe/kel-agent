@@ -1,4 +1,4 @@
-app-id: radio.k0swe.kel_agent.Kel_Agent
+app-id: radio.k0swe.Kel_Agent
 default-branch: main
 runtime: org.freedesktop.Platform
 runtime-version: '20.08'
@@ -39,8 +39,8 @@ modules:
       - cp assets/modules.txt vendor/
       - make
       - install -D kel-agent /app/bin/kel-agent
-      - install -Dm644 assets/radio.k0swe.kel_agent.Kel_Agent.svg /app/share/icons/hicolor/scalable/apps/radio.k0swe.kel_agent.Kel_Agent.svg
-      - install -Dm644 assets/radio.k0swe.kel_agent.Kel_Agent.metainfo.xml /app/share/metainfo/radio.k0swe.kel_agent.Kel_Agent.metainfo.xml
-      - install -Dm644 assets/radio.k0swe.kel_agent.Kel_Agent.desktop /app/share/applications/radio.k0swe.kel_agent.Kel_Agent.desktop
+      - install -Dm644 assets/radio.k0swe.Kel_Agent.svg /app/share/icons/hicolor/scalable/apps/radio.k0swe.Kel_Agent.svg
+      - install -Dm644 assets/radio.k0swe.Kel_Agent.metainfo.xml /app/share/metainfo/radio.k0swe.Kel_Agent.metainfo.xml
+      - install -Dm644 assets/radio.k0swe.Kel_Agent.desktop /app/share/applications/radio.k0swe.Kel_Agent.desktop
     cleanup:
       - /lib/debug

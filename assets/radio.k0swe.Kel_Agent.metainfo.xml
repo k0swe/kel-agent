@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <component type="console-application">
-    <id>radio.k0swe.kel_agent.Kel_Agent</id>
+    <id>radio.k0swe.Kel_Agent</id>
     <metadata_license>CC0-1.0</metadata_license>
     <project_license>Apache-2.0</project_license>
     <name>kel-agent</name>

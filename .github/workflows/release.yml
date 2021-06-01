@@ -80,7 +80,7 @@ jobs:
         uses: bilelmoussaoui/flatpak-github-actions/flatpak-builder@v3
         with:
           bundle: kel-agent.flatpak
-          manifest-path: flatpak/radio.k0swe.kel_agent.Kel_Agent.yml
+          manifest-path: flatpak/radio.k0swe.Kel_Agent.yml
           branch: main
           cache-key: flatpak-builder-${{ github.sha }}
 

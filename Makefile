@@ -11,8 +11,8 @@ all: kel-agent
 test:
 	go test ./...
 	go vet ./...
-	if command -v appstream-util; then appstream-util validate-relax assets/radio.k0swe.kel_agent.Kel_Agent.metainfo.xml; fi
-	if command -v desktop-file-validate; then desktop-file-validate assets/radio.k0swe.kel_agent.Kel_Agent.desktop; fi
+	if command -v appstream-util; then appstream-util validate-relax assets/radio.k0swe.Kel_Agent.metainfo.xml; fi
+	if command -v desktop-file-validate; then desktop-file-validate assets/radio.k0swe.Kel_Agent.desktop; fi
 
 kel-agent: test
 	export GITCOMMIT=$(GITCOMMIT) && scripts/build.sh
@@ -52,8 +52,8 @@ deb-package: deb-tarball wsjtx-go.deb leemcloughlin-jdn.deb
 .PHONY: flatpak
 flatpak: kel-agent
 	cd flatpak && \
-      flatpak-builder --force-clean build-out radio.k0swe.kel_agent.Kel_Agent.yml --repo=repo && \
-      flatpak build-bundle repo kel_agent.flatpak radio.k0swe.kel_agent.Kel_Agent main
+      flatpak-builder --force-clean build-out radio.k0swe.Kel_Agent.yml --repo=repo && \
+      flatpak build-bundle repo kel_agent.flatpak radio.k0swe.Kel_Agent main
 
 .PHONY: mac-package
 mac-package: kel-agent
