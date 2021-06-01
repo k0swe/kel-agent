@@ -7,9 +7,6 @@ sdk-extensions:
   - org.freedesktop.Sdk.Extension.golang
 build-options:
   append-path: /usr/lib/sdk/golang/bin
-  build-args:
-    # `go get` needs the network
-    - '--share=network'
   env:
     - 'LDFLAGS='
 command: kel-agent
@@ -18,6 +15,19 @@ finish-args:
 modules:
   - name: kel-agent
     sources:
+      - type: git
+        url: https://github.com/gorilla/websocket.git
+        tag: v1.4.2
+        dest: vendor/github.com/gorilla/websocket/
+      - type: git
+        url: https://github.com/k0swe/wsjtx-go.git
+        tag: v2.1.0
+        dest: vendor/github.com/k0swe/wsjtx-go/v2/
+      - type: git
+        url: https://github.com/leemcloughlin/jdn.git
+        commit: 6f88db6a6bf2176674100d1a1c692596fcf6e2ba
+        dest: vendor/github.com/leemcloughlin/jdn/
+
       - type: dir
         path: ..
 #      - type: git
@@ -26,10 +36,11 @@ modules:
 #        commit: a0d6751f8c490941ddf9815f409b111a2c4dbbff
     buildsystem: simple
     build-commands:
+      - cp assets/modules.txt vendor/
       - make
       - install -D kel-agent /app/bin/kel-agent
-      - mkdir -p /app/share/icons/hicolor/scalable/apps/ && cp assets/radio.k0swe.kel_agent.Kel_Agent.svg /app/share/icons/hicolor/scalable/apps/
-      - mkdir -p /app/share/metainfo/ && cp assets/radio.k0swe.kel_agent.Kel_Agent.metainfo.xml /app/share/metainfo/
-      - mkdir -p /app/share/applications/ && cp assets/radio.k0swe.kel_agent.Kel_Agent.desktop /app/share/applications/
+      - install -Dm644 assets/radio.k0swe.kel_agent.Kel_Agent.svg /app/share/icons/hicolor/scalable/apps/radio.k0swe.kel_agent.Kel_Agent.svg
+      - install -Dm644 assets/radio.k0swe.kel_agent.Kel_Agent.metainfo.xml /app/share/metainfo/radio.k0swe.kel_agent.Kel_Agent.metainfo.xml
+      - install -Dm644 assets/radio.k0swe.kel_agent.Kel_Agent.desktop /app/share/applications/radio.k0swe.kel_agent.Kel_Agent.desktop
     cleanup:
       - /lib/debug

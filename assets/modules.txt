@@ -1,0 +1,8 @@
+# github.com/gorilla/websocket v1.4.2
+## explicit
+github.com/gorilla/websocket
+# github.com/k0swe/wsjtx-go/v2 v2.1.0
+## explicit
+github.com/k0swe/wsjtx-go/v2
+# github.com/leemcloughlin/jdn v0.0.0-20201102080031-6f88db6a6bf2
+github.com/leemcloughlin/jdn

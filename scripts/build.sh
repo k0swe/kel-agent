@@ -12,4 +12,10 @@ export LDFLAGS="\
     ${LDFLAGS:-} \
 "
 
-go build --ldflags "${LDFLAGS}"
+mod=""
+if [ -d vendor ]; then
+  mod="-mod vendor"
+fi
+
+# shellcheck disable=SC2086
+go build $mod --ldflags "$LDFLAGS"
