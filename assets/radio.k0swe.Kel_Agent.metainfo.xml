@@ -19,11 +19,21 @@
     <content_rating type="oars-1.0">
         <content_attribute id="social-info">mild</content_attribute>
     </content_rating>
-<!--    <screenshots>-->
-<!--        <screenshot type="default">-->
-<!--            <caption>The kel-agent main window.</caption>-->
-<!--            <image type="source" width="1600" height="900">https://example.com/foobar/screenshot-1.png</image>-->
-<!--        </screenshot>-->
-<!--    </screenshots>-->
+    <screenshots>
+        <screenshot type="default">
+            <caption>kel-agent opening terminal output</caption>
+            <image type="source" width="2168" height="664">
+                https://github.com/k0swe/kel-agent/raw/main/assets/screenshot.png
+            </image>
+        </screenshot>
+    </screenshots>
+    <releases>
+        <release version="0.3.4" date="2021-05-31">
+            <description>
+                <p>Fix flatpak app ID</p>
+            </description>
+            <url>https://github.com/k0swe/kel-agent/releases/tag/v0.3.4</url>
+        </release>
+    </releases>
     <update_contact>xylo04_AT_gmail.com</update_contact>
 </component>
