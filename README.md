@@ -1,5 +1,6 @@
 [![Go Report Card](https://goreportcard.com/badge/github.com/k0swe/kel-agent)](https://goreportcard.com/report/github.com/k0swe/kel-agent)
 [![Release](https://github.com/k0swe/kel-agent/workflows/Release/badge.svg)](https://github.com/k0swe/kel-agent/releases/latest)
+[![FOSSA Status](https://app.fossa.com/api/projects/git%2Bgithub.com%2Fk0swe%2Fkel-agent.svg?type=shield)](https://app.fossa.com/projects/git%2Bgithub.com%2Fk0swe%2Fkel-agent?ref=badge_shield)
 
 # <img src="https://raw.githubusercontent.com/k0swe/kel-agent/main/assets/radio.k0swe.Kel_Agent.svg" width="100px" alt="kel-agent logo"> kel-agent
 
@@ -22,3 +23,7 @@ See the [Running documentation](RUNNING.md) for how to configure, execute and se
 
 The wire logo for `kel-agent` was created by [Freepik](https://www.flaticon.com/authors/freepik)
 on [Flaticon](https://www.flaticon.com).
+
+
+## License
+[![FOSSA Status](https://app.fossa.com/api/projects/git%2Bgithub.com%2Fk0swe%2Fkel-agent.svg?type=large)](https://app.fossa.com/projects/git%2Bgithub.com%2Fk0swe%2Fkel-agent?ref=badge_large)
