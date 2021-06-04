@@ -23,7 +23,3 @@ See the [Running documentation](RUNNING.md) for how to configure, execute and se
 
 The wire logo for `kel-agent` was created by [Freepik](https://www.flaticon.com/authors/freepik)
 on [Flaticon](https://www.flaticon.com).
-
-
-## License
-[![FOSSA Status](https://app.fossa.com/api/projects/git%2Bgithub.com%2Fk0swe%2Fkel-agent.svg?type=large)](https://app.fossa.com/projects/git%2Bgithub.com%2Fk0swe%2Fkel-agent?ref=badge_large)
