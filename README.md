@@ -1,5 +1,6 @@
 [![Go Report Card](https://goreportcard.com/badge/github.com/k0swe/kel-agent)](https://goreportcard.com/report/github.com/k0swe/kel-agent)
 [![Release](https://github.com/k0swe/kel-agent/workflows/Release/badge.svg)](https://github.com/k0swe/kel-agent/releases/latest)
+[![Release version](https://img.shields.io/github/v/release/k0swe/kel-agent)](https://github.com/k0swe/kel-agent/releases/latest)
 
 # <img src="https://raw.githubusercontent.com/k0swe/kel-agent/main/assets/radio.k0swe.Kel_Agent.svg" width="100px" alt="kel-agent logo"> kel-agent
 
