@@ -77,7 +77,7 @@ jobs:
         uses: actions/checkout@v2
 
       - name: Build Flatpak
-        uses: bilelmoussaoui/flatpak-github-actions/flatpak-builder@v3
+        uses: bilelmoussaoui/flatpak-github-actions/flatpak-builder@v4
         with:
           bundle: kel-agent.flatpak
           manifest-path: flatpak/radio.k0swe.Kel_Agent.yml
