@@ -6,10 +6,11 @@ package main
 
 import (
 	"bytes"
-	"github.com/gorilla/websocket"
-	"log"
 	"net/http"
 	"time"
+
+	"github.com/gorilla/websocket"
+	"github.com/rs/zerolog/log"
 )
 
 const (
@@ -64,7 +65,7 @@ func (c *Client) readPump() {
 		_, message, err := c.conn.ReadMessage()
 		if err != nil {
 			if websocket.IsUnexpectedCloseError(err, websocket.CloseGoingAway, websocket.CloseAbnormalClosure) {
-				log.Printf("error: %v", err)
+				log.Warn().Err(err).Msg("websocket unexpectedly closed")
 			}
 			break
 		}
@@ -117,7 +118,7 @@ func serveWs(hub *Hub, w http.ResponseWriter, r *http.Request) {
 	upgrader.CheckOrigin = kelagentCheckOrigin
 	conn, err := upgrader.Upgrade(w, r, nil)
 	if err != nil {
-		log.Println(err)
+		log.Warn().Err(err).Msg("error upgrading websocket")
 		return
 	}
 	client := &Client{hub: hub, conn: conn, send: make(chan []byte, 256)}
@@ -131,11 +132,11 @@ func serveWs(hub *Hub, w http.ResponseWriter, r *http.Request) {
 
 func kelagentCheckOrigin(r *http.Request) bool {
 	origin := r.Header.Get("Origin")
-	for _, allowed := range allowedOrigins {
+	for _, allowed := range conf.Websocket.AllowedOrigins {
 		if origin == allowed {
 			return true
 		}
 	}
-	log.Println("Rejecting websocket request from origin", origin)
+	log.Warn().Msgf("rejecting websocket request from origin '%s'", origin)
 	return false
 }

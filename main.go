@@ -1,56 +1,52 @@
 package main
 
 import (
-	"flag"
 	"fmt"
-	"log"
 	"net/http"
+	"os"
 	"runtime"
+
+	"github.com/k0swe/kel-agent/internal/config"
+	"github.com/rs/zerolog"
+	"github.com/rs/zerolog/log"
 )
 
-const defaultAddr = "localhost:8081"
-
-var allowedOrigins sliceFlag = []string{
-	"https://forester.radio",
-	"http://localhost:8080",
-	"http://localhost:4200",
-}
-var debug *bool
+var versionInfo string
+var conf config.Config
 
 func main() {
-	log.Printf("kel-agent %v (%v) %v %v %v %v",
-		Version, GitCommit, runtime.Version(), runtime.GOOS, runtime.GOARCH, BuildTime)
-	flag.Var(&allowedOrigins, "origins", "comma-separated list of allowed origins")
-	debug = flag.Bool("v", false, "verbose debugging output")
-	addr := flag.String("host", defaultAddr, "hosting address")
-	key := flag.String("key", "", "TLS key")
-	cert := flag.String("cert", "", "TLS certificate")
-	flag.Parse()
-	if *key != "" && *cert == "" || *key == "" && *cert != "" {
+	versionInfo = fmt.Sprintf("kel-agent %v (%v)", Version, GitCommit)
+	fmt.Printf("%v %v %v %v %v\n",
+		versionInfo, runtime.Version(), runtime.GOOS, runtime.GOARCH, BuildTime)
+
+	log.Logger = log.Output(zerolog.ConsoleWriter{Out: os.Stderr})
+	conf = config.ParseAllConfigs()
+	log.Debug().Msg("Verbose output enabled")
+
+	if conf.Websocket.Key != "" && conf.Websocket.Cert == "" ||
+		conf.Websocket.Key == "" && conf.Websocket.Cert != "" {
 		panic("-key and -cert must be used together")
 	}
 	secure := false
 	protocol := "ws://"
-	if *key != "" && *cert != "" {
+	if conf.Websocket.Key != "" && conf.Websocket.Cert != "" {
 		secure = true
 		protocol = "wss://"
 	}
-	log.Println("Allowed origins are", allowedOrigins)
 
-	hub := newHub(fmt.Sprintf("kel-agent %v (%v)", Version, GitCommit))
+	hub := newHub()
 	go hub.run()
 	http.HandleFunc("/websocket", func(w http.ResponseWriter, r *http.Request) {
 		serveWs(hub, w, r)
 	})
 	http.HandleFunc("/", indexHandler)
-	log.Printf("ready to serve at %s%s", protocol, *addr)
-	if *debug {
-		log.Println("Verbose output enabled")
-	}
+	addrAndPort := fmt.Sprintf("%s:%d", conf.Websocket.Address, conf.Websocket.Port)
+	log.Info().Msgf("ready to serve at %s%s", protocol, addrAndPort)
 	if secure {
-		log.Fatal(http.ListenAndServeTLS(*addr, *cert, *key, nil))
+		log.Fatal().Err(
+			http.ListenAndServeTLS(addrAndPort, conf.Websocket.Cert, conf.Websocket.Key, nil)).Msg("")
 	} else {
-		log.Fatal(http.ListenAndServe(*addr, nil))
+		log.Fatal().Err(http.ListenAndServe(addrAndPort, nil)).Msg("")
 	}
 }
 

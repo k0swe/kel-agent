@@ -4,5 +4,7 @@ go 1.14
 
 require (
 	github.com/gorilla/websocket v1.4.2
+	github.com/imdario/mergo v0.3.12
 	github.com/k0swe/wsjtx-go/v2 v2.1.0
+	github.com/rs/zerolog v1.25.0
 )
