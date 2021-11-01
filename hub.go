@@ -6,13 +6,15 @@ package main
 
 import (
 	"encoding/json"
-	"log"
+
+	"github.com/k0swe/kel-agent/internal/wsjtx"
+	"github.com/rs/zerolog/log"
 )
 
 type WebsocketMessage struct {
-	// kel-agent version info
-	Version string       `json:"version"`
-	Wsjtx   WsjtxMessage `json:"wsjtx"`
+	// Version is kel-agent version info
+	Version string        `json:"version,omitempty"`
+	Wsjtx   wsjtx.Message `json:"wsjtx,omitempty"`
 }
 
 // Hub maintains the set of active clients and broadcasts messages to the
@@ -31,15 +33,14 @@ type Hub struct {
 	unregister chan *Client
 
 	// WSJT-X message channel
-	wsjtx chan WsjtxMessage
+	wsjtx chan wsjtx.Message
 }
 
-var versionInfo string
-
-func newHub(version string) *Hub {
-	versionInfo = version
-	wsjtChan := make(chan WsjtxMessage, 5)
-	go handleWsjtx(wsjtChan)
+func newHub() *Hub {
+	wsjtChan := make(chan wsjtx.Message, 5)
+	if conf.Wsjtx.Enabled {
+		go wsjtx.HandleWsjtx(conf, wsjtChan)
+	}
 
 	return &Hub{
 		command:    make(chan []byte),
@@ -55,16 +56,16 @@ func (h *Hub) run() {
 		select {
 		case client := <-h.register:
 			h.clients[client] = true
-			log.Printf("Established websocket session with %v", client.conn.RemoteAddr())
+			log.Debug().Msgf("Established websocket session with %v", client.conn.RemoteAddr())
 		case client := <-h.unregister:
 			if _, ok := h.clients[client]; ok {
-				log.Printf("Disconnected from %v", client.conn.RemoteAddr())
+				log.Debug().Msgf("Disconnected from %v", client.conn.RemoteAddr())
 				delete(h.clients, client)
 				close(client.send)
 			}
 		case command := <-h.command:
 			// TODO: route this to a backend
-			log.Printf("Command from client: %v", command)
+			log.Debug().Msgf("Command from client: %v", command)
 		case wsjtxMessage := <-h.wsjtx:
 			h.broadcast(WebsocketMessage{
 				Version: versionInfo,
@@ -75,6 +76,7 @@ func (h *Hub) run() {
 }
 
 func (h *Hub) broadcast(message WebsocketMessage) {
+	log.Trace().Msgf("broadcasting: %v", message)
 	jsn, _ := json.Marshal(message)
 	for client := range h.clients {
 		select {
