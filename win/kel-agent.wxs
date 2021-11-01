@@ -1,8 +1,8 @@
 <?xml version='1.0' encoding='utf-8'?>
 <Wix xmlns='http://schemas.microsoft.com/wix/2006/wi'>
-  <Product Name='kel-agent v0.3.5' Manufacturer='Chris Keller K0SWE' Id='a22db0cd-1d0b-4f91-b78e-8e0c0d0b5c45'
-           UpgradeCode='677cd06e-cca4-453d-9c1a-1854946c789d' Language='1033' Codepage='1252' Version='0.3.5'>
-    <Package Id='*' Keywords='Installer' Description="K0SWE kel-agent v0.3.5 Installer"
+  <Product Name='kel-agent v0.4.0' Manufacturer='Chris Keller K0SWE' Id='a22db0cd-1d0b-4f91-b78e-8e0c0d0b5c45'
+           UpgradeCode='677cd06e-cca4-453d-9c1a-1854946c789d' Language='1033' Codepage='1252' Version='0.4.0'>
+    <Package Id='*' Keywords='Installer' Description="K0SWE kel-agent v0.4.0 Installer"
              Manufacturer='Chris Keller K0SWE' InstallerVersion='100' Languages='1033' Compressed='yes'
              SummaryCodepage='1252'/>
     <Media Id='1' Cabinet='Kelagent.cab' EmbedCab='yes'/>
