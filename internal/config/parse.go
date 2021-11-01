@@ -16,7 +16,7 @@ func ParseAllConfigs() Config {
 		panic("problem merging default config values with flags")
 	}
 	// TODO: use this once I figure out why mergo is overwriting conf.LogLevel
-	//zerolog.SetGlobalLevel(conf.LogLevel)
+	// zerolog.SetGlobalLevel(conf.LogLevel)
 	log.Debug().Msgf("final configuration is %v", conf)
 	return conf
 }
@@ -37,11 +37,12 @@ func parseFlags() Config {
 	flag.Parse()
 	conf.Websocket.AllowedOrigins = origins
 
-	if *trace {
+	switch {
+	case *trace:
 		conf.LogLevel = zerolog.TraceLevel
-	} else if *debug {
+	case *debug:
 		conf.LogLevel = zerolog.DebugLevel
-	} else {
+	default:
 		conf.LogLevel = zerolog.InfoLevel
 	}
 	// TODO: remove this
