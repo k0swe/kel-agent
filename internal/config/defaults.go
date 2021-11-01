@@ -1,7 +1,5 @@
 package config
 
-import "github.com/rs/zerolog"
-
 var defaultConf = Config{
 	Websocket: WebsocketConfig{
 		Address: "localhost",
@@ -17,5 +15,4 @@ var defaultConf = Config{
 		Address: "224.0.0.1",
 		Port:    2237,
 	},
-	LogLevel: zerolog.InfoLevel,
 }

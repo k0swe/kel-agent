@@ -20,8 +20,10 @@ func main() {
 		versionInfo, runtime.Version(), runtime.GOOS, runtime.GOARCH, BuildTime)
 
 	log.Logger = log.Output(zerolog.ConsoleWriter{Out: os.Stderr})
-	conf = config.ParseAllConfigs()
-	log.Debug().Msg("Verbose output enabled")
+	var err error
+	if conf, err = config.ParseAllConfigs(); err != nil {
+		log.Fatal().Err(err).Msg("couldn't get configuration")
+	}
 
 	if conf.Websocket.Key != "" && conf.Websocket.Cert == "" ||
 		conf.Websocket.Key == "" && conf.Websocket.Cert != "" {
