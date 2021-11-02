@@ -14,13 +14,12 @@ test:
 	if command -v appstream-util; then appstream-util validate-relax --nonet assets/radio.k0swe.Kel_Agent.metainfo.xml; fi
 	if command -v desktop-file-validate; then desktop-file-validate assets/radio.k0swe.Kel_Agent.desktop; fi
 
-.PHONY: vendor
-vendor:
+assets/modules.txt:
 	go mod vendor
 	mv vendor/modules.txt assets/
 	rm -rf vendor
 
-kel-agent: test vendor
+kel-agent: test
 	export GITCOMMIT=$(GITCOMMIT) && scripts/build.sh
 
 architecture.svg:

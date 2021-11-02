@@ -16,17 +16,33 @@ modules:
   - name: kel-agent
     sources:
       - type: git
+        url: https://github.com/adrg/xdg.git
+        tag: v0.4.0
+        dest: vendor/github.com/adrg/xdg/
+      - type: git
         url: https://github.com/gorilla/websocket.git
         tag: v1.4.2
         dest: vendor/github.com/gorilla/websocket/
+      - type: git
+        url: https://github.com/imdario/mergo.git
+        tag: v0.3.12
+        dest: vendor/github.com/imdario/mergo/
       - type: git
         url: https://github.com/k0swe/wsjtx-go.git
         tag: v2.1.0
         dest: vendor/github.com/k0swe/wsjtx-go/v2/
       - type: git
+        url: https://github.com/rs/zerolog.git
+        tag: v1.25.0
+        dest: vendor/github.com/rs/zerolog/
+      - type: git
         url: https://github.com/leemcloughlin/jdn.git
         commit: 6f88db6a6bf2176674100d1a1c692596fcf6e2ba
         dest: vendor/github.com/leemcloughlin/jdn/
+      - type: git
+        url: https://github.com/go-yaml/yaml.git
+        tag: v2.4.0
+        dest: vendor/gopkg.in/yaml.v2/
 
       - type: dir
         path: ..
