@@ -1,8 +1,27 @@
+# github.com/adrg/xdg v0.4.0
+## explicit
+github.com/adrg/xdg
+github.com/adrg/xdg/internal/pathutil
 # github.com/gorilla/websocket v1.4.2
 ## explicit
 github.com/gorilla/websocket
+# github.com/imdario/mergo v0.3.12
+## explicit
+github.com/imdario/mergo
 # github.com/k0swe/wsjtx-go/v2 v2.1.0
 ## explicit
 github.com/k0swe/wsjtx-go/v2
 # github.com/leemcloughlin/jdn v0.0.0-20201102080031-6f88db6a6bf2
 github.com/leemcloughlin/jdn
+# github.com/rs/zerolog v1.25.0
+## explicit
+github.com/rs/zerolog
+github.com/rs/zerolog/internal/cbor
+github.com/rs/zerolog/internal/json
+github.com/rs/zerolog/log
+# golang.org/x/sys v0.0.0-20211025201205-69cdffdb9359
+golang.org/x/sys/internal/unsafeheader
+golang.org/x/sys/windows
+# gopkg.in/yaml.v2 v2.3.0
+## explicit
+gopkg.in/yaml.v2
