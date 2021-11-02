@@ -28,11 +28,11 @@
         </screenshot>
     </screenshots>
     <releases>
-        <release version="0.4.1" date="2021-11-01">
+        <release version="0.4.2" date="2021-11-01">
             <description>
                 <p>Add configuration by file</p>
             </description>
-            <url>https://github.com/k0swe/kel-agent/releases/tag/v0.4.1</url>
+            <url>https://github.com/k0swe/kel-agent/releases/tag/v0.4.2</url>
         </release>
         <release version="0.3.5" date="2021-05-31">
             <description>

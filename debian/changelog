@@ -1,8 +1,8 @@
-kel-agent (0.4.1-1) UNRELEASED; urgency=medium
+kel-agent (0.4.2-1) UNRELEASED; urgency=medium
 
   * Add configuration by file
 
- -- Chris Keller <xylo04@gmail.com>  Mon, 01 Nov 2021 17:40:00 -0600
+ -- Chris Keller <xylo04@gmail.com>  Mon, 01 Nov 2021 20:26:00 -0600
 
 kel-agent (0.3.5-1) UNRELEASED; urgency=medium
 
