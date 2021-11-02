@@ -9,8 +9,12 @@ Build-Depends: autorevision,
                debhelper-compat (= 11),
                dh-golang,
                golang-any,
+               golang-github-adrg-xdg-dev,
+               golang-github-imdario-mergo-dev,
                golang-github-k0swe-wsjtx-go-dev,
                golang-github-leemcloughlin-jdn-dev,
+               golang-github-rs-zerolog-dev,
+               golang-gopkg-yaml.v2-dev,
                golang-websocket-dev
 Standards-Version: 4.3.0
 Vcs-Browser: https://salsa.debian.org/go-team/packages/kel-agent

@@ -42,17 +42,17 @@ wsjtx-go.deb:
 	cd .. && \
 	wget https://github.com/k0swe/wsjtx-go/releases/download/v2.1.0/golang-github-k0swe-wsjtx-go-dev_2.1.0-1_all.deb
 
-# TODO: This target can be removed once the package is in Debian stable and Ubuntu stable, 2021-05
-leemcloughlin-jdn.deb:
+# TODO: This target can be removed once the package is in Debian stable and Ubuntu stable
+adrg-xdg.deb:
 	cd .. && \
-	wget http://ftp.debian.org/debian/pool/main/g/golang-github-leemcloughlin-jdn/golang-github-leemcloughlin-jdn-dev_0.0~git20201102.6f88db6-2_all.deb
+	wget http://ftp.us.debian.org/debian/pool/main/g/golang-github-adrg-xdg/golang-github-adrg-xdg-dev_0.3.3-2_all.deb
 
 .PHONY: deb-package
-deb-package: deb-tarball wsjtx-go.deb leemcloughlin-jdn.deb
+deb-package: deb-tarball adrg-xdg.deb
 	# https://wiki.debian.org/sbuild
 	sbuild -d stable \
       --extra-package=../golang-github-k0swe-wsjtx-go-dev_2.1.0-1_all.deb \
-      --extra-package=../golang-github-leemcloughlin-jdn-dev_0.0~git20201102.6f88db6-2_all.deb
+      --extra-package=../golang-github-adrg-xdg-dev_0.3.3-2_all.deb
 
 .PHONY: flatpak
 flatpak: kel-agent
