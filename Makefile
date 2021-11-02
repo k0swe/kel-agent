@@ -49,7 +49,7 @@ adrg-xdg.deb:
 	wget http://ftp.us.debian.org/debian/pool/main/g/golang-github-adrg-xdg/golang-github-adrg-xdg-dev_0.3.3-2_all.deb
 
 .PHONY: deb-package
-deb-package: deb-tarball adrg-xdg.deb
+deb-package: deb-tarball wsjtx-go.deb adrg-xdg.deb
 	# https://wiki.debian.org/sbuild
 	sbuild -d stable \
       --extra-package=../golang-github-k0swe-wsjtx-go-dev_2.1.0-1_all.deb \
