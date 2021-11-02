@@ -20,6 +20,15 @@ const (
 	appName = "kel-agent"
 )
 
+var defaultConfigFile *string
+var configFile *string
+
+func init() {
+	c, _ := xdg.ConfigFile(filepath.Join(appName, "config.yaml"))
+	c = filepath.Clean(c)
+	defaultConfigFile = &c
+}
+
 func ParseAllConfigs() (Config, error) {
 	// Flags take precedence, and need to be parsed first for logging level
 	conf, err := parseFlags()
@@ -43,18 +52,21 @@ func ParseAllConfigs() (Config, error) {
 func parseFlags() (Config, error) {
 	var conf = Config{}
 
-	flag.StringVar(&conf.Websocket.Address, "host", conf.Websocket.Address, "websocket address")
-	flag.UintVar(&conf.Websocket.Port, "port", conf.Websocket.Port, "websocket port")
+	flag.StringVar(&conf.Websocket.Address, "host", conf.Websocket.Address, "websocket hosting address")
+	flag.UintVar(&conf.Websocket.Port, "port", conf.Websocket.Port, "websocket hosting port")
 	flag.StringVar(&conf.Websocket.Key, "key", conf.Websocket.Key, "TLS key")
 	flag.StringVar(&conf.Websocket.Cert, "cert", conf.Websocket.Cert, "TLS certificate")
 	var origins sliceFlag
 	flag.Var(&origins, "origins", "comma-separated list of allowed origins")
 
+	configFile = flag.String("config", *defaultConfigFile, "path to the configuration file")
 	debug := flag.Bool("v", false, "verbose debugging output")
 	trace := flag.Bool("vv", false, "trace debugging output")
 
 	flag.Parse()
 	conf.Websocket.AllowedOrigins = origins
+	c, _ := filepath.Abs(*configFile)
+	configFile = &c
 
 	var ll zerolog.Level
 	switch {
@@ -84,21 +96,17 @@ func parseFlags() (Config, error) {
 }
 
 func parseConfigFile() (Config, error) {
-	path, err := xdg.ConfigFile(filepath.Join(appName, "config.yaml"))
-	if err != nil {
-		return Config{}, err
-	}
 	var conf Config
-	dat, err := ioutil.ReadFile(path)
+	dat, err := ioutil.ReadFile(*configFile)
 	if os.IsNotExist(err) {
-		log.Debug().Msgf("no config file found at '%s'", path)
+		log.Debug().Msgf("no config file found at '%s'", *configFile)
 		if dat, err = yaml.Marshal(defaultConf); err != nil {
 			return Config{}, err
 		}
-		if err := ioutil.WriteFile(path, dat, 0o755); err != nil {
+		if err := ioutil.WriteFile(*configFile, dat, 0o755); err != nil {
 			return Config{}, err
 		}
-		log.Debug().Msgf("wrote default config to '%s'", path)
+		log.Debug().Msgf("wrote default config to '%s'", *configFile)
 		return defaultConf, nil
 	}
 	if err != nil {
@@ -107,6 +115,7 @@ func parseConfigFile() (Config, error) {
 	if err := yaml.Unmarshal(dat, &conf); err != nil {
 		return Config{}, err
 	}
+	log.Debug().Msgf("using config file at '%s'", *configFile)
 	log.Trace().Msgf("file config: %v", conf)
 	return conf, nil
 }
