@@ -8,5 +8,5 @@ require (
 	github.com/imdario/mergo v0.3.12
 	github.com/k0swe/wsjtx-go/v2 v2.1.0
 	github.com/rs/zerolog v1.25.0
-	gopkg.in/yaml.v2 v2.3.0
+	gopkg.in/yaml.v2 v2.4.0
 )
