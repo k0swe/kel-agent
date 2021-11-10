@@ -1,11 +1,11 @@
 package wsjtx
 
 import (
+	"net"
 	"reflect"
-	"strconv"
 
 	"github.com/k0swe/kel-agent/internal/config"
-	"github.com/k0swe/wsjtx-go/v2"
+	"github.com/k0swe/wsjtx-go/v3"
 	"github.com/rs/zerolog/log"
 )
 
@@ -16,9 +16,12 @@ type Message struct {
 
 // HandleWsjtx is a goroutine that listens for WSJT-X messages and puts them on the given channel.
 func HandleWsjtx(conf config.Config, msgChan chan Message) {
-	log.Info().Msgf("Listening to WSJT-X at %s:%d UDP", conf.Wsjtx.Address, conf.Wsjtx.Port)
-	wsjtServ, _ := wsjtx.MakeMulticastServer(
-		conf.Wsjtx.Address, strconv.Itoa(int(conf.Wsjtx.Port)))
+	ipAddr := net.ParseIP(conf.Wsjtx.Address)
+	if ipAddr == nil {
+		log.Error().Str("address", conf.Wsjtx.Address).Msg("couldn't parse WSJT-X IP address")
+	}
+	log.Info().Msgf("Listening to WSJT-X at %v:%d UDP", ipAddr, conf.Wsjtx.Port)
+	wsjtServ, _ := wsjtx.MakeServerGiven(ipAddr, conf.Wsjtx.Port)
 	wsjtChan := make(chan interface{}, 5)
 	errChan := make(chan error, 5)
 	go wsjtServ.ListenToWsjtx(wsjtChan, errChan)

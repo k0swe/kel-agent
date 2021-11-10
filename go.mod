@@ -6,7 +6,7 @@ require (
 	github.com/adrg/xdg v0.4.0
 	github.com/gorilla/websocket v1.4.2
 	github.com/imdario/mergo v0.3.12
-	github.com/k0swe/wsjtx-go/v2 v2.1.1
+	github.com/k0swe/wsjtx-go/v3 v3.0.0
 	github.com/rs/zerolog v1.26.0
 	golang.org/x/sys v0.0.0-20211102061401-a2f17f7b995c // indirect
 	gopkg.in/yaml.v2 v2.4.0
