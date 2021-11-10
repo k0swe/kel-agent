@@ -19,9 +19,14 @@ func HandleWsjtx(conf config.Config, msgChan chan Message) {
 	ipAddr := net.ParseIP(conf.Wsjtx.Address)
 	if ipAddr == nil {
 		log.Error().Str("address", conf.Wsjtx.Address).Msg("couldn't parse WSJT-X IP address")
+		return
 	}
 	log.Info().Msgf("Listening to WSJT-X at %v:%d UDP", ipAddr, conf.Wsjtx.Port)
-	wsjtServ, _ := wsjtx.MakeServerGiven(ipAddr, conf.Wsjtx.Port)
+	wsjtServ, err := wsjtx.MakeServerGiven(ipAddr, conf.Wsjtx.Port)
+	if err != nil {
+		log.Error().Err(err).Msg("couldn't listen to WSJT-X")
+		return
+	}
 	wsjtChan := make(chan interface{}, 5)
 	errChan := make(chan error, 5)
 	go wsjtServ.ListenToWsjtx(wsjtChan, errChan)

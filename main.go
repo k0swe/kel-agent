@@ -46,9 +46,9 @@ func main() {
 	log.Info().Msgf("ready to serve at %s%s", protocol, addrAndPort)
 	if secure {
 		log.Fatal().Err(
-			http.ListenAndServeTLS(addrAndPort, conf.Websocket.Cert, conf.Websocket.Key, nil)).Msg("")
+			http.ListenAndServeTLS(addrAndPort, conf.Websocket.Cert, conf.Websocket.Key, nil)).Msg("websocket dying")
 	} else {
-		log.Fatal().Err(http.ListenAndServe(addrAndPort, nil)).Msg("")
+		log.Fatal().Err(http.ListenAndServe(addrAndPort, nil)).Msg("websocket dying")
 	}
 }
 
