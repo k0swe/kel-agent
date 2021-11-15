@@ -8,6 +8,6 @@ require (
 	github.com/imdario/mergo v0.3.12
 	github.com/k0swe/wsjtx-go/v3 v3.0.0
 	github.com/rs/zerolog v1.26.0
-	golang.org/x/sys v0.0.0-20211102061401-a2f17f7b995c // indirect
+	golang.org/x/sys v0.0.0-20211113001501-0c823b97ae02 // indirect
 	gopkg.in/yaml.v2 v2.4.0
 )
