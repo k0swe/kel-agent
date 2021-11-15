@@ -28,6 +28,13 @@
         </screenshot>
     </screenshots>
     <releases>
+        <release version="0.4.3" date="2021-11-15">
+            <description>
+                <p>WSJT-X listening address fixes</p>
+                <p>Added flag for selecting a custom config file</p>
+            </description>
+            <url>https://github.com/k0swe/kel-agent/releases/tag/v0.4.3</url>
+        </release>
         <release version="0.4.2" date="2021-11-01">
             <description>
                 <p>Add configuration by file</p>

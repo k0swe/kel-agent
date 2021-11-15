@@ -8,7 +8,7 @@ Priority: optional
 Build-Depends: autorevision,
                debhelper-compat (= 11),
                dh-golang,
-               golang-any,
+               golang-any (>= 2:1.15~1),
                golang-github-adrg-xdg-dev,
                golang-github-imdario-mergo-dev,
                golang-github-k0swe-wsjtx-go-dev,

@@ -1,3 +1,10 @@
+kel-agent (0.4.3-1) UNRELEASED; urgency=medium
+
+  * WSJT-X listening address fixes
+  * Added flag for selecting a custom config file
+
+ -- Chris Keller <xylo04@gmail.com>  Mon, 15 Nov 2021 17:11:00 -0600
+
 kel-agent (0.4.2-1) UNRELEASED; urgency=medium
 
   * Add configuration by file
