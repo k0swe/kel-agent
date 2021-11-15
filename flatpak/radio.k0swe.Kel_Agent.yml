@@ -30,7 +30,7 @@ modules:
       - type: git
         url: https://github.com/k0swe/wsjtx-go.git
         tag: v3.0.0
-        dest: vendor/github.com/k0swe/wsjtx-go/v2/
+        dest: vendor/github.com/k0swe/wsjtx-go/v3/
       - type: git
         url: https://github.com/rs/zerolog.git
         tag: v1.25.0
