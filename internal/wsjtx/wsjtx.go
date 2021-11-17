@@ -70,6 +70,13 @@ func (h *Handler) HandleClientCommand(msgType string, payload []byte) error {
 			return err
 		}
 		return h.wsjtxServ.Clear(*clearMsg)
+	case reflect.TypeOf(wsjtx.HaltTxMessage{}).Name():
+		var haltMsg = &wsjtx.HaltTxMessage{}
+		err := json.Unmarshal(payload, haltMsg)
+		if err != nil {
+			return err
+		}
+		return h.wsjtxServ.HaltTx(*haltMsg)
 	default:
 		return fmt.Errorf("implemented wsjtx message type %s", msgType)
 	}
