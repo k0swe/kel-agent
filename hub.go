@@ -32,22 +32,33 @@ type Hub struct {
 	// Unregister requests from websocket clients.
 	unregister chan *Client
 
+	// Wrapper for the WSJT-X connection
+	wsjtxHandler *wsjtx.Handler
+
 	// WSJT-X message channel
 	wsjtx chan wsjtx.Message
 }
 
 func newHub() *Hub {
+	var wh *wsjtx.Handler
 	wsjtChan := make(chan wsjtx.Message, 5)
 	if conf.Wsjtx.Enabled {
-		go wsjtx.HandleWsjtx(conf, wsjtChan)
+		var err error
+		wh, err = wsjtx.NewHandler(conf)
+		if err != nil {
+			log.Warn().Err(err).Msgf("couldn't connect to WSJTX")
+		} else {
+			go wh.HandleWsjtx(wsjtChan)
+		}
 	}
 
 	return &Hub{
-		command:    make(chan []byte),
-		register:   make(chan *Client),
-		unregister: make(chan *Client),
-		clients:    make(map[*Client]bool),
-		wsjtx:      wsjtChan,
+		command:      make(chan []byte),
+		register:     make(chan *Client),
+		unregister:   make(chan *Client),
+		clients:      make(map[*Client]bool),
+		wsjtxHandler: wh,
+		wsjtx:        wsjtChan,
 	}
 }
 
@@ -64,8 +75,8 @@ func (h *Hub) run() {
 				close(client.send)
 			}
 		case command := <-h.command:
-			// TODO: route this to a backend
-			log.Debug().Msgf("Command from client: %v", command)
+			log.Debug().Msgf("Command from client: %v", string(command))
+			h.handleClientCommand(command)
 		case wsjtxMessage := <-h.wsjtx:
 			h.broadcast(WebsocketMessage{
 				Version: versionInfo,
@@ -84,6 +95,22 @@ func (h *Hub) broadcast(message WebsocketMessage) {
 		default:
 			close(client.send)
 			delete(h.clients, client)
+		}
+	}
+}
+
+func (h *Hub) handleClientCommand(command []byte) {
+	var msg = &WebsocketMessage{}
+	if err := json.Unmarshal(command, msg); err != nil {
+		log.Warn().Err(err).Msg("failed to parse client command; dropping")
+		return
+	}
+	if msg.Wsjtx.MsgType != "" {
+		// Don't know all the payload types here, so re-marshal just that and handle in wrapper
+		payload, _ := json.Marshal(msg.Wsjtx.Payload)
+		if err := h.wsjtxHandler.HandleClientCommand(msg.Wsjtx.MsgType, payload); err != nil {
+			log.Warn().Err(err).Msg("failed to handle wsjtx client command; dropping")
+			return
 		}
 	}
 }

@@ -1,6 +1,8 @@
 package wsjtx
 
 import (
+	"encoding/json"
+	"fmt"
 	"net"
 	"reflect"
 
@@ -14,22 +16,36 @@ type Message struct {
 	Payload interface{} `json:"payload"`
 }
 
-// HandleWsjtx is a goroutine that listens for WSJT-X messages and puts them on the given channel.
-func HandleWsjtx(conf config.Config, msgChan chan Message) {
-	ipAddr := net.ParseIP(conf.Wsjtx.Address)
+type Handler struct {
+	wsjtxServ wsjtx.Server
+	conf      config.Config
+}
+
+func NewHandler(c config.Config) (*Handler, error) {
+	ipAddr := net.ParseIP(c.Wsjtx.Address)
 	if ipAddr == nil {
-		log.Error().Str("address", conf.Wsjtx.Address).Msg("couldn't parse WSJT-X IP address")
-		return
+		log.Error().Str("address", c.Wsjtx.Address).Msg("couldn't parse WSJT-X IP address")
+		return nil, fmt.Errorf("couldn't parse WSJT-X IP address %s", c.Wsjtx.Address)
 	}
-	log.Info().Msgf("Listening to WSJT-X at %v:%d UDP", ipAddr, conf.Wsjtx.Port)
-	wsjtServ, err := wsjtx.MakeServerGiven(ipAddr, conf.Wsjtx.Port)
+	log.Info().Msgf("Listening to WSJT-X at %v:%d UDP", ipAddr, c.Wsjtx.Port)
+	var err error
+	serv, err := wsjtx.MakeServerGiven(ipAddr, c.Wsjtx.Port)
 	if err != nil {
 		log.Error().Err(err).Msg("couldn't listen to WSJT-X")
-		return
+		return nil, fmt.Errorf("couldn't listen to WSJT-X: %s", err)
 	}
+	return &Handler{
+		wsjtxServ: serv,
+		conf:      c,
+	}, nil
+}
+
+// HandleWsjtx is a goroutine that listens for WSJT-X messages and puts them on the given channel.
+func (h *Handler) HandleWsjtx(msgChan chan Message) {
+	defer func() { h.wsjtxServ = wsjtx.Server{} }()
 	wsjtChan := make(chan interface{}, 5)
 	errChan := make(chan error, 5)
-	go wsjtServ.ListenToWsjtx(wsjtChan, errChan)
+	go h.wsjtxServ.ListenToWsjtx(wsjtChan, errChan)
 
 	for {
 		select {
@@ -42,5 +58,19 @@ func HandleWsjtx(conf config.Config, msgChan chan Message) {
 		case err := <-errChan:
 			log.Debug().Err(err).Msgf("wsjtx error")
 		}
+	}
+}
+
+func (h *Handler) HandleClientCommand(msgType string, payload []byte) error {
+	switch msgType {
+	case reflect.TypeOf(wsjtx.ClearMessage{}).Name():
+		var clearMsg = &wsjtx.ClearMessage{}
+		err := json.Unmarshal(payload, clearMsg)
+		if err != nil {
+			return err
+		}
+		return h.wsjtxServ.Clear(*clearMsg)
+	default:
+		return fmt.Errorf("implemented wsjtx message type %s", msgType)
 	}
 }
