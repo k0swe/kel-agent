@@ -1,3 +1,9 @@
+kel-agent (0.4.4-1) UNRELEASED; urgency=medium
+
+  * Added the ability to send client commands to WSJT-X
+
+ -- Chris Keller <xylo04@gmail.com>  Thu, 18 Nov 2021 12:07:00 -0600
+
 kel-agent (0.4.3-1) UNRELEASED; urgency=medium
 
   * WSJT-X listening address fixes

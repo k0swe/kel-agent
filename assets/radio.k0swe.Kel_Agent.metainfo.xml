@@ -28,6 +28,12 @@
         </screenshot>
     </screenshots>
     <releases>
+        <release version="0.4.4" date="2021-11-18">
+            <description>
+                <p>Added the ability to send client commands to WSJT-X</p>
+            </description>
+            <url>https://github.com/k0swe/kel-agent/releases/tag/v0.4.4</url>
+        </release>
         <release version="0.4.3" date="2021-11-15">
             <description>
                 <p>WSJT-X listening address fixes</p>
