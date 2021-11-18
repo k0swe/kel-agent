@@ -63,6 +63,13 @@ func (h *Handler) HandleWsjtx(msgChan chan Message) {
 
 func (h *Handler) HandleClientCommand(msgType string, payload []byte) error {
 	switch msgType {
+	case reflect.TypeOf(wsjtx.HeartbeatMessage{}).Name():
+		var heartbeatMsg = &wsjtx.HeartbeatMessage{}
+		err := json.Unmarshal(payload, heartbeatMsg)
+		if err != nil {
+			return err
+		}
+		return h.wsjtxServ.Heartbeat(*heartbeatMsg)
 	case reflect.TypeOf(wsjtx.ClearMessage{}).Name():
 		var clearMsg = &wsjtx.ClearMessage{}
 		err := json.Unmarshal(payload, clearMsg)
@@ -70,6 +77,27 @@ func (h *Handler) HandleClientCommand(msgType string, payload []byte) error {
 			return err
 		}
 		return h.wsjtxServ.Clear(*clearMsg)
+	case reflect.TypeOf(wsjtx.ReplyMessage{}).Name():
+		var replyMsg = &wsjtx.ReplyMessage{}
+		err := json.Unmarshal(payload, replyMsg)
+		if err != nil {
+			return err
+		}
+		return h.wsjtxServ.Reply(*replyMsg)
+	case reflect.TypeOf(wsjtx.CloseMessage{}).Name():
+		var closeMsg = &wsjtx.CloseMessage{}
+		err := json.Unmarshal(payload, closeMsg)
+		if err != nil {
+			return err
+		}
+		return h.wsjtxServ.Close(*closeMsg)
+	case reflect.TypeOf(wsjtx.ReplayMessage{}).Name():
+		var replayMsg = &wsjtx.ReplayMessage{}
+		err := json.Unmarshal(payload, replayMsg)
+		if err != nil {
+			return err
+		}
+		return h.wsjtxServ.Replay(*replayMsg)
 	case reflect.TypeOf(wsjtx.HaltTxMessage{}).Name():
 		var haltMsg = &wsjtx.HaltTxMessage{}
 		err := json.Unmarshal(payload, haltMsg)
@@ -77,13 +105,42 @@ func (h *Handler) HandleClientCommand(msgType string, payload []byte) error {
 			return err
 		}
 		return h.wsjtxServ.HaltTx(*haltMsg)
-	case reflect.TypeOf(wsjtx.ReplayMessage{}).Name():
-		var haltMsg = &wsjtx.ReplayMessage{}
-		err := json.Unmarshal(payload, haltMsg)
+	case reflect.TypeOf(wsjtx.FreeTextMessage{}).Name():
+		var freeTextMsg = &wsjtx.FreeTextMessage{}
+		err := json.Unmarshal(payload, freeTextMsg)
 		if err != nil {
 			return err
 		}
-		return h.wsjtxServ.Replay(*haltMsg)
+		return h.wsjtxServ.FreeText(*freeTextMsg)
+	case reflect.TypeOf(wsjtx.LocationMessage{}).Name():
+		var locationMsg = &wsjtx.LocationMessage{}
+		err := json.Unmarshal(payload, locationMsg)
+		if err != nil {
+			return err
+		}
+		return h.wsjtxServ.Location(*locationMsg)
+	case reflect.TypeOf(wsjtx.HighlightCallsignMessage{}).Name():
+		var highlightMsg = &wsjtx.HighlightCallsignMessage{}
+		err := json.Unmarshal(payload, highlightMsg)
+		if err != nil {
+			return err
+		}
+		return h.wsjtxServ.HighlightCallsign(*highlightMsg)
+	case reflect.TypeOf(wsjtx.SwitchConfigurationMessage{}).Name():
+		var switchConfigMsg = &wsjtx.SwitchConfigurationMessage{}
+		err := json.Unmarshal(payload, switchConfigMsg)
+		if err != nil {
+			return err
+		}
+		return h.wsjtxServ.SwitchConfiguration(*switchConfigMsg)
+	case reflect.TypeOf(wsjtx.ConfigureMessage{}).Name():
+		var configMsg = &wsjtx.ConfigureMessage{}
+		err := json.Unmarshal(payload, configMsg)
+		if err != nil {
+			return err
+		}
+		return h.wsjtxServ.Configure(*configMsg)
+
 	default:
 		return fmt.Errorf("implemented wsjtx message type %s", msgType)
 	}
