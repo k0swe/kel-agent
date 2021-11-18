@@ -41,7 +41,7 @@ deb-orig-tarball: autorevision.cache
 # TODO: This target can be removed once the package is in Debian stable and Ubuntu stable
 wsjtx-go.deb:
 	cd .. && \
-	wget https://github.com/k0swe/wsjtx-go/releases/download/v3.0.0/golang-github-k0swe-wsjtx-go-dev_3.0.0-1_all.deb
+	wget https://github.com/k0swe/wsjtx-go/releases/download/v3.1.0/golang-github-k0swe-wsjtx-go-dev_3.1.0-1_all.deb
 
 # TODO: This target can be removed once the package is in Debian stable and Ubuntu stable
 adrg-xdg.deb:
@@ -52,7 +52,7 @@ adrg-xdg.deb:
 deb-package: deb-tarball wsjtx-go.deb adrg-xdg.deb
 	# https://wiki.debian.org/sbuild
 	sbuild -d stable \
-      --extra-package=../golang-github-k0swe-wsjtx-go-dev_3.0.0-1_all.deb \
+      --extra-package=../golang-github-k0swe-wsjtx-go-dev_3.1.0-1_all.deb \
       --extra-package=../golang-github-adrg-xdg-dev_0.3.3-2_all.deb
 
 .PHONY: flatpak

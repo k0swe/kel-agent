@@ -29,7 +29,7 @@ modules:
         dest: vendor/github.com/imdario/mergo/
       - type: git
         url: https://github.com/k0swe/wsjtx-go.git
-        tag: v3.0.0
+        tag: v3.1.0
         dest: vendor/github.com/k0swe/wsjtx-go/v3/
       - type: git
         url: https://github.com/rs/zerolog.git

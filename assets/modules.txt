@@ -8,7 +8,7 @@ github.com/gorilla/websocket
 # github.com/imdario/mergo v0.3.12
 ## explicit
 github.com/imdario/mergo
-# github.com/k0swe/wsjtx-go/v3 v3.0.0
+# github.com/k0swe/wsjtx-go/v3 v3.1.0
 ## explicit
 github.com/k0swe/wsjtx-go/v3
 # github.com/leemcloughlin/jdn v0.0.0-20201102080031-6f88db6a6bf2
