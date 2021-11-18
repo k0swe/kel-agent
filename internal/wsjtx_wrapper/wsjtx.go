@@ -1,4 +1,4 @@
-package wsjtx
+package wsjtx_wrapper
 
 import (
 	"encoding/json"
@@ -40,8 +40,8 @@ func NewHandler(c config.Config) (*Handler, error) {
 	}, nil
 }
 
-// HandleWsjtx is a goroutine that listens for WSJT-X messages and puts them on the given channel.
-func (h *Handler) HandleWsjtx(msgChan chan Message) {
+// ListenToWsjtx is a goroutine that listens for WSJT-X messages and puts them on the given channel.
+func (h *Handler) ListenToWsjtx(msgChan chan Message) {
 	defer func() { h.wsjtxServ = wsjtx.Server{} }()
 	wsjtChan := make(chan interface{}, 5)
 	errChan := make(chan error, 5)

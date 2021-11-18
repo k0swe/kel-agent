@@ -7,14 +7,14 @@ package main
 import (
 	"encoding/json"
 
-	"github.com/k0swe/kel-agent/internal/wsjtx"
+	wwrap "github.com/k0swe/kel-agent/internal/wsjtx_wrapper"
 	"github.com/rs/zerolog/log"
 )
 
 type WebsocketMessage struct {
 	// Version is kel-agent version info
 	Version string        `json:"version,omitempty"`
-	Wsjtx   wsjtx.Message `json:"wsjtx,omitempty"`
+	Wsjtx   wwrap.Message `json:"wsjtx,omitempty"`
 }
 
 // Hub maintains the set of active clients and broadcasts messages to the
@@ -33,22 +33,22 @@ type Hub struct {
 	unregister chan *Client
 
 	// Wrapper for the WSJT-X connection
-	wsjtxHandler *wsjtx.Handler
+	wsjtxHandler *wwrap.Handler
 
 	// WSJT-X message channel
-	wsjtx chan wsjtx.Message
+	wsjtx chan wwrap.Message
 }
 
 func newHub() *Hub {
-	var wh *wsjtx.Handler
-	wsjtChan := make(chan wsjtx.Message, 5)
+	var wh *wwrap.Handler
+	wsjtChan := make(chan wwrap.Message, 5)
 	if conf.Wsjtx.Enabled {
 		var err error
-		wh, err = wsjtx.NewHandler(conf)
+		wh, err = wwrap.NewHandler(conf)
 		if err != nil {
 			log.Warn().Err(err).Msgf("couldn't connect to WSJTX")
 		} else {
-			go wh.HandleWsjtx(wsjtChan)
+			go wh.ListenToWsjtx(wsjtChan)
 		}
 	}
 
