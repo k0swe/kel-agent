@@ -1,0 +1,30 @@
+{
+  "version": "Integration test server abcd",
+  "wsjtx": {
+    "type": "StatusMessage",
+    "payload": {
+      "id": "WSJT-X",
+      "dialFrequency": 7074000,
+      "mode": "FT8",
+      "dxCall": "",
+      "report": "-15",
+      "txMode": "FT8",
+      "txEnabled": false,
+      "transmitting": false,
+      "decoding": false,
+      "rxDeltaFreq": 883,
+      "txDeltaFreq": 1950,
+      "deCall": "K0SWE",
+      "deGrid": "DM79LV",
+      "dxGrid": "",
+      "txWatchdog": false,
+      "submode": "",
+      "fastMode": false,
+      "specialMode": 0,
+      "frequencyTolerance": 4294967295,
+      "txRxPeriod": 4294967295,
+      "configName": "Default",
+      "txMessage": ""
+    }
+  }
+}

@@ -1,0 +1,10 @@
+{
+  "version": "Integration test server abcd",
+  "wsjtx": {
+    "type": "LoggedAdifMessage",
+    "payload": {
+      "id": "WSJT-X",
+      "adif": "\n\u003cadif_ver:5\u003e3.1.0\n\u003cprogramid:6\u003eWSJT-X\n\u003cEOH\u003e\n\u003ccall:4\u003eT3ST \u003cgridsquare:4\u003eJK73 \u003cmode:3\u003eFT8 \u003crst_sent:2\u003e-8 \u003crst_rcvd:2\u003e-9 \u003cqso_date:8\u003e20201030 \u003ctime_on:6\u003e120816 \u003cqso_date_off:8\u003e20201030 \u003ctime_off:6\u003e120916 \u003cband:3\u003e40m \u003cfreq:8\u003e7.075950 \u003cstation_callsign:5\u003eK0SWE \u003cmy_gridsquare:6\u003eDM79LV \u003ctx_pwr:1\u003e5 \u003ccomment:7\u003eComment \u003cname:4\u003eJess \u003coperator:5\u003eT3STR \u003cEOR\u003e"
+    }
+  }
+}

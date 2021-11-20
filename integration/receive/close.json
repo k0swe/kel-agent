@@ -1,0 +1,9 @@
+{
+  "version": "Integration test server abcd",
+  "wsjtx": {
+    "type": "CloseMessage",
+    "payload": {
+      "id": "WSJT-X"
+    }
+  }
+}

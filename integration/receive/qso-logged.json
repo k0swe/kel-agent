@@ -1,0 +1,26 @@
+{
+  "version": "Integration test server abcd",
+  "wsjtx": {
+    "type": "QsoLoggedMessage",
+    "payload": {
+      "id": "WSJT-X",
+      "dateTimeOff": "2020-10-30T11:29:57Z",
+      "dxCall": "T3ST",
+      "dxGrid": "JK73",
+      "txFrequency": 7075950,
+      "mode": "FT8",
+      "reportSent": "-3",
+      "reportReceived": "-7",
+      "txPower": "5",
+      "comments": "Comment",
+      "name": "Joe",
+      "dateTimeOn": "2020-10-30T11:28:57Z",
+      "operatorCall": "T3STR",
+      "myCall": "K0SWE",
+      "myGrid": "DM79LV",
+      "exchangeSent": "1B",
+      "exchangeReceived": "1D",
+      "propagationMode": "ION"
+    }
+  }
+}

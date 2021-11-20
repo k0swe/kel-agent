@@ -1,0 +1,18 @@
+{
+  "version": "Integration test server abcd",
+  "wsjtx": {
+    "type": "DecodeMessage",
+    "payload": {
+      "id": "WSJT-X",
+      "new": true,
+      "time": 39435000,
+      "snr": -5,
+      "deltaTime": 0.20000000298023224,
+      "deltaFrequency": 1302,
+      "mode": "~",
+      "message": "JA2EJP N4BP 73",
+      "lowConfidence": false,
+      "offAir": false
+    }
+  }
+}

@@ -1,0 +1,19 @@
+{
+  "version": "Integration test server abcd",
+  "wsjtx": {
+    "type": "WSPRDecodeMessage",
+    "payload": {
+      "id": "WSJT-X",
+      "new": true,
+      "time": 45480000,
+      "snr": -18,
+      "deltaTime": -0.5,
+      "frequency": 7040115,
+      "drift": 0,
+      "callsign": "K6TGW",
+      "grid": "CM95",
+      "power": 23,
+      "offAir": false
+    }
+  }
+}

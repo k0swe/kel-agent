@@ -10,7 +10,17 @@ import (
 )
 
 func (s *integrationTestSuite) TestReceive() {
-	tests := []string{"heartbeat"}
+	tests := []string{
+		"clear",
+		"close",
+		"decode",
+		"heartbeat",
+		"logged-adif",
+		"qso-logged",
+		"status-222",
+		"status-231",
+		"wspr-decode",
+	}
 
 	for _, tt := range tests {
 		s.T().Run(tt, func(t *testing.T) {
@@ -20,8 +30,14 @@ func (s *integrationTestSuite) TestReceive() {
 
 			_, got, err := s.wsClient.ReadMessage()
 			s.Require().NoError(err)
-			wantObj := json.Unmarshal(want, &server.WebsocketMessage{})
-			gotObj := json.Unmarshal(got, &server.WebsocketMessage{})
+			s.T().Log(string(got))
+
+			wantObj := &server.WebsocketMessage{}
+			err = json.Unmarshal(want, &wantObj)
+			s.Require().NoError(err)
+			gotObj := &server.WebsocketMessage{}
+			err = json.Unmarshal(got, &gotObj)
+			s.Require().NoError(err)
 			s.Require().Equal(wantObj, gotObj)
 		})
 	}

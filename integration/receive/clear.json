@@ -1,0 +1,10 @@
+{
+  "version": "Integration test server abcd",
+  "wsjtx": {
+    "type": "ClearMessage",
+    "payload": {
+      "id": "WSJT-X",
+      "window": 0
+    }
+  }
+}
