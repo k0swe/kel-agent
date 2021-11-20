@@ -1,0 +1,12 @@
+{
+  "version": "Integration test server abcd",
+  "wsjtx": {
+    "type": "HeartbeatMessage",
+    "payload": {
+      "id": "WSJT-X",
+      "maxSchemaVersion": 2,
+      "version": "2.2.2",
+      "revision": "0d9b96"
+    }
+  }
+}
