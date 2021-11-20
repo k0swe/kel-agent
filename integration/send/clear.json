@@ -1,0 +1,9 @@
+{
+  "wsjtx": {
+    "type": "ClearMessage",
+    "payload": {
+      "id": "WSJT-X",
+      "window": 2
+    }
+  }
+}

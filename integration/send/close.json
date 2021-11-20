@@ -1,0 +1,8 @@
+{
+  "wsjtx": {
+    "type": "CloseMessage",
+    "payload": {
+      "id": "WSJT-X"
+    }
+  }
+}
