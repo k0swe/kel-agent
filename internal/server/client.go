@@ -2,7 +2,7 @@
 // Use of this source code is governed by a BSD-style
 // license that can be found in the LICENSE file.
 
-package main
+package server
 
 import (
 	"bytes"
@@ -114,8 +114,8 @@ func (c *Client) writePump() {
 }
 
 // serveWs handles websocket requests from the peer.
-func serveWs(hub *Hub, w http.ResponseWriter, r *http.Request) {
-	upgrader.CheckOrigin = kelagentCheckOrigin
+func (s Server) serveWs(hub *Hub, w http.ResponseWriter, r *http.Request) {
+	upgrader.CheckOrigin = s.kelagentCheckOrigin
 	conn, err := upgrader.Upgrade(w, r, nil)
 	if err != nil {
 		log.Warn().Err(err).Msg("error upgrading websocket")
@@ -130,9 +130,9 @@ func serveWs(hub *Hub, w http.ResponseWriter, r *http.Request) {
 	go client.readPump()
 }
 
-func kelagentCheckOrigin(r *http.Request) bool {
+func (s Server) kelagentCheckOrigin(r *http.Request) bool {
 	origin := r.Header.Get("Origin")
-	for _, allowed := range conf.Websocket.AllowedOrigins {
+	for _, allowed := range s.conf.Websocket.AllowedOrigins {
 		if origin == allowed {
 			return true
 		}

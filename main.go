@@ -2,17 +2,16 @@ package main
 
 import (
 	"fmt"
-	"net/http"
 	"os"
 	"runtime"
 
 	"github.com/k0swe/kel-agent/internal/config"
+	"github.com/k0swe/kel-agent/internal/server"
 	"github.com/rs/zerolog"
 	"github.com/rs/zerolog/log"
 )
 
 var versionInfo string
-var conf config.Config
 
 func main() {
 	versionInfo = fmt.Sprintf("kel-agent %v (%v)", Version, GitCommit)
@@ -20,39 +19,15 @@ func main() {
 		versionInfo, runtime.Version(), runtime.GOOS, runtime.GOARCH, BuildTime)
 
 	log.Logger = log.Output(zerolog.ConsoleWriter{Out: os.Stderr})
-	var err error
-	if conf, err = config.ParseAllConfigs(); err != nil {
+	c, err := config.ParseAllConfigs()
+	if err != nil {
 		log.Fatal().Err(err).Msg("couldn't get configuration")
 	}
+	c.VersionInfo = versionInfo
 
-	if conf.Websocket.Key != "" && conf.Websocket.Cert == "" ||
-		conf.Websocket.Key == "" && conf.Websocket.Cert != "" {
-		panic("-key and -cert must be used together")
+	serv, err := server.Start(c)
+	select {
+	case <-serv.Stop:
+		return
 	}
-	secure := false
-	protocol := "ws://"
-	if conf.Websocket.Key != "" && conf.Websocket.Cert != "" {
-		secure = true
-		protocol = "wss://"
-	}
-
-	hub := newHub()
-	go hub.run()
-	http.HandleFunc("/websocket", func(w http.ResponseWriter, r *http.Request) {
-		serveWs(hub, w, r)
-	})
-	http.HandleFunc("/", indexHandler)
-	addrAndPort := fmt.Sprintf("%s:%d", conf.Websocket.Address, conf.Websocket.Port)
-	log.Info().Msgf("ready to serve at %s%s", protocol, addrAndPort)
-	if secure {
-		log.Fatal().Err(
-			http.ListenAndServeTLS(addrAndPort, conf.Websocket.Cert, conf.Websocket.Key, nil)).Msg("websocket dying")
-	} else {
-		log.Fatal().Err(http.ListenAndServe(addrAndPort, nil)).Msg("websocket dying")
-	}
-}
-
-func indexHandler(w http.ResponseWriter, _ *http.Request) {
-	_, _ = w.Write([]byte("Congratulations, you've reached kel-agent! " +
-		"If you can see this, you should be able to connect to the websocket."))
 }

@@ -2,11 +2,12 @@
 // Use of this source code is governed by a BSD-style
 // license that can be found in the LICENSE file.
 
-package main
+package server
 
 import (
 	"encoding/json"
 
+	"github.com/k0swe/kel-agent/internal/config"
 	wwrap "github.com/k0swe/kel-agent/internal/wsjtx_wrapper"
 	"github.com/rs/zerolog/log"
 )
@@ -20,6 +21,8 @@ type WebsocketMessage struct {
 // Hub maintains the set of active clients and broadcasts messages to the
 // clients.
 type Hub struct {
+	conf *config.Config
+
 	// Registered websocket clients.
 	clients map[*Client]bool
 
@@ -39,12 +42,12 @@ type Hub struct {
 	wsjtx chan wwrap.Message
 }
 
-func newHub() *Hub {
+func newHub(c *config.Config) *Hub {
 	var wh *wwrap.Handler
 	wsjtChan := make(chan wwrap.Message, 5)
-	if conf.Wsjtx.Enabled {
+	if c.Wsjtx.Enabled {
 		var err error
-		wh, err = wwrap.NewHandler(conf)
+		wh, err = wwrap.NewHandler(*c)
 		if err != nil {
 			log.Warn().Err(err).Msgf("couldn't connect to WSJTX")
 		} else {
@@ -53,6 +56,7 @@ func newHub() *Hub {
 	}
 
 	return &Hub{
+		conf:         c,
 		command:      make(chan []byte),
 		register:     make(chan *Client),
 		unregister:   make(chan *Client),
@@ -79,7 +83,7 @@ func (h *Hub) run() {
 			h.handleClientCommand(command)
 		case wsjtxMessage := <-h.wsjtx:
 			h.broadcast(WebsocketMessage{
-				Version: versionInfo,
+				Version: h.conf.VersionInfo,
 				Wsjtx:   wsjtxMessage,
 			})
 		}

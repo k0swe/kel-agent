@@ -1,8 +1,9 @@
 package config
 
 type Config struct {
-	Websocket WebsocketConfig `json:"websocket,omitempty" yaml:"websocket,omitempty"`
-	Wsjtx     WsjtxConfig     `json:"wsjtx,omitempty" yaml:"wsjtx,omitempty"`
+	Websocket   WebsocketConfig `json:"websocket,omitempty" yaml:"websocket,omitempty"`
+	Wsjtx       WsjtxConfig     `json:"wsjtx,omitempty" yaml:"wsjtx,omitempty"`
+	VersionInfo string          `json:"-"`
 }
 
 type WebsocketConfig struct {
