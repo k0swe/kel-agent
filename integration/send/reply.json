@@ -1,0 +1,16 @@
+{
+  "wsjtx": {
+    "type": "ReplyMessage",
+    "payload": {
+      "id": "WSJT-X",
+      "time": 1234,
+      "snr": -15,
+      "deltaTime": 0.5,
+      "deltaFrequency": 2345,
+      "mode": "FT8",
+      "message": "CQ K0SWE DM79",
+      "lowConfidence": false,
+      "modifiers": 0
+    }
+  }
+}

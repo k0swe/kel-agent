@@ -1,0 +1,10 @@
+{
+  "wsjtx": {
+    "type": "FreeTextMessage",
+    "payload": {
+      "id": "WSJT-X",
+      "text": "J72IMS K0SWE R-15",
+      "send": true
+    }
+  }
+}

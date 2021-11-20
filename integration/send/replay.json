@@ -1,0 +1,8 @@
+{
+  "wsjtx": {
+    "type": "ReplayMessage",
+    "payload": {
+      "id": "WSJT-X"
+    }
+  }
+}

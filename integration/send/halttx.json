@@ -1,0 +1,9 @@
+{
+  "wsjtx": {
+    "type": "HaltTxMessage",
+    "payload": {
+      "id": "WSJT-X",
+      "autoTxOnly": false
+    }
+  }
+}

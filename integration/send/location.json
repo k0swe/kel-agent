@@ -1,0 +1,9 @@
+{
+  "wsjtx": {
+    "type": "LocationMessage",
+    "payload": {
+      "id": "WSJT-X",
+      "location": "DM79jx"
+    }
+  }
+}

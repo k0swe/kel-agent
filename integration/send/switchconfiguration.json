@@ -1,0 +1,9 @@
+{
+  "wsjtx": {
+    "type": "SwitchConfigurationMessage",
+    "payload": {
+      "id": "WSJT-X",
+      "configurationName": "IC-7300"
+    }
+  }
+}

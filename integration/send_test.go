@@ -15,6 +15,15 @@ func (s *integrationTestSuite) TestSend() {
 	tests := []string{
 		"clear",
 		"close",
+		"configure",
+		"freetext",
+		"halttx",
+		"heartbeat",
+		//"highlightcallsign",
+		"location",
+		"replay",
+		"reply",
+		"switchconfiguration",
 	}
 
 	for _, tt := range tests {
@@ -28,7 +37,7 @@ func (s *integrationTestSuite) TestSend() {
 			case got := <-s.fake.ReceiveChan:
 				s.Require().NoError(err)
 				s.Require().Equal(want, got)
-			case <-time.After(500 * time.Second):
+			case <-time.After(500 * time.Millisecond):
 				t.Log("timeout")
 				t.Fail()
 			}

@@ -1,0 +1,13 @@
+{
+  "wsjtx": {
+    "type": "HighlightCallsignMessage",
+    "payload": {
+      "id": "WSJT-X",
+      "callsign": "KM4ACK",
+      "backgroundColor": "",
+      "foregroundColor": "",
+      "highlightLast": true,
+      "reset": false
+    }
+  }
+}

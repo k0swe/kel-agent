@@ -1,0 +1,17 @@
+{
+  "wsjtx": {
+    "type": "ConfigureMessage",
+    "payload": {
+      "id": "WSJT-X",
+      "mode": "JT9",
+      "frequencyTolerance": 4294967295,
+      "submode": "",
+      "fastMode": false,
+      "trPeriod": 4294967295,
+      "rxDF": 1500,
+      "dxCall": "KI6NAZ",
+      "dxGrid": "DM03",
+      "generateMessages": false
+    }
+  }
+}
