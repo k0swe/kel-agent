@@ -7,8 +7,8 @@
       "frequencyTolerance": 4294967295,
       "submode": "",
       "fastMode": false,
-      "trPeriod": 4294967295,
-      "rxDF": 1500,
+      "trPeriod": 0,
+      "rxDF": 4294967295,
       "dxCall": "KI6NAZ",
       "dxGrid": "DM03",
       "generateMessages": false
