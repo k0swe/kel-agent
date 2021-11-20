@@ -39,7 +39,7 @@ func (s *integrationTestSuite) SetupSuite() {
 			Address: "127.0.0.1",
 			Port:    2237, // TODO: use OS-assigned port
 		},
-		VersionInfo: "Integration test server abcd",
+		VersionInfo: "kel-agent v0.0.0 (abcd)",
 	}
 	var err error
 	s.server, err = server.Start(s.conf)
