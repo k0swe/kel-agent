@@ -30,7 +30,6 @@ func (s *integrationTestSuite) TestReceive() {
 
 			_, got, err := s.wsClient.ReadMessage()
 			s.Require().NoError(err)
-			s.T().Log(string(got))
 
 			wantObj := &server.WebsocketMessage{}
 			err = json.Unmarshal(want, &wantObj)
