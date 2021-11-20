@@ -9,10 +9,10 @@ import (
 )
 
 type Server struct {
-	conf config.Config
-	hub  *Hub
-	Stop chan bool
-}
+	conf    config.Config
+	hub     *Hub
+	Started chan bool
+	Stop    chan bool}
 
 func Start(c config.Config) (*Server, error) {
 	if c.Websocket.Key != "" && c.Websocket.Cert == "" ||
@@ -22,7 +22,7 @@ func Start(c config.Config) (*Server, error) {
 
 	hub := newHub(&c)
 	go hub.run()
-	server := Server{c, hub, make(chan bool, 1)}
+	server := Server{c, hub, make(chan bool, 1), make(chan bool, 1)}
 
 	secure := false
 	protocol := "ws://"
@@ -38,13 +38,16 @@ func Start(c config.Config) (*Server, error) {
 	log.Info().Msgf("ready to serve at %s%s", protocol, addrAndPort)
 	if secure {
 		go func() {
-			log.Fatal().Err(
-				http.ListenAndServeTLS(addrAndPort, c.Websocket.Cert, c.Websocket.Key, nil)).Msg("websocket dying")
+			server.Started <- true
+			err := http.ListenAndServeTLS(addrAndPort, c.Websocket.Cert, c.Websocket.Key, nil)
+			log.Fatal().Err(err).Msg("websocket dying")
 			server.Stop <- true
 		}()
 	} else {
 		go func() {
-			log.Fatal().Err(http.ListenAndServe(addrAndPort, nil)).Msg("websocket dying")
+			server.Started <- true
+			err := http.ListenAndServe(addrAndPort, nil)
+			log.Fatal().Err(err).Msg("websocket dying")
 			server.Stop <- true
 		}()
 	}
