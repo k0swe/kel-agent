@@ -2,14 +2,14 @@ package integration
 
 import (
 	"encoding/json"
-	"os"
+	"io/ioutil"
 
 	"github.com/k0swe/kel-agent/internal/server"
 )
 
 func (s *integrationTestSuite) TestReceiveHeartbeat() {
-	input, _ := os.ReadFile("receive/heartbeat.bin")
-	want, _ := os.ReadFile("receive/heartbeat.json")
+	input, _ := ioutil.ReadFile("receive/heartbeat.bin")
+	want, _ := ioutil.ReadFile("receive/heartbeat.json")
 	_, _ = s.fake.SendMessage(input)
 
 	_, got, err := s.wsClient.ReadMessage()
