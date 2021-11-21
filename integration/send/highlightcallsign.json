@@ -4,8 +4,8 @@
     "payload": {
       "id": "WSJT-X",
       "callsign": "KM4ACK",
-      "backgroundColor": "",
-      "foregroundColor": "",
+      "backgroundColor": "#7FFFD4",
+      "foregroundColor": "black",
       "highlightLast": true,
       "reset": false
     }

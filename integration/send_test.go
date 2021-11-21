@@ -19,7 +19,7 @@ func (s *integrationTestSuite) IgnoreTestSend() {
 		"freetext",
 		"halttx",
 		"heartbeat",
-		//"highlightcallsign",
+		"highlightcallsign",
 		"location",
 		"replay",
 		"reply",

@@ -7,7 +7,7 @@ import (
 	"reflect"
 
 	"github.com/k0swe/kel-agent/internal/config"
-	"github.com/k0swe/wsjtx-go/v3"
+	"github.com/k0swe/wsjtx-go/v4"
 	"github.com/rs/zerolog/log"
 )
 
