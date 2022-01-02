@@ -8,8 +8,11 @@ GENERATED = kel-agent kel-agent_*.pkg win/kel-agent_*.msi win/kel-agent.wixobj a
 .PHONY: all
 all: kel-agent
 
+internal/webview/kel-agent-gui/dist:
+	cd internal/webview/kel-agent-gui && npm install && npm run build
+
 .PHONY: test
-test:
+test: internal/webview/kel-agent-gui/dist
 	go test ./...
 	go vet ./...
 	if command -v appstream-util; then appstream-util validate-relax --nonet assets/radio.k0swe.Kel_Agent.metainfo.xml; fi

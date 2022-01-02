@@ -6,6 +6,7 @@ import (
 	"runtime"
 
 	"github.com/k0swe/kel-agent/internal/config"
+	"github.com/k0swe/kel-agent/internal/webview"
 	"github.com/k0swe/kel-agent/internal/ws"
 	"github.com/rs/zerolog"
 	"github.com/rs/zerolog/log"
@@ -25,9 +26,6 @@ func main() {
 	}
 	c.VersionInfo = versionInfo
 
-	wsServer, err := ws.Start(c)
-	if err != nil {
-		log.Fatal().Err(err).Send()
-	}
-	<-wsServer.Stop
+	go ws.Start(c)
+	webview.StartWebView(&c)
 }
