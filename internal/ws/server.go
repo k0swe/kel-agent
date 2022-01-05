@@ -1,4 +1,4 @@
-package server
+package ws
 
 import (
 	"fmt"
@@ -12,7 +12,10 @@ type Server struct {
 	conf    config.Config
 	hub     *Hub
 	Started chan bool
-	Stop    chan bool}
+	Stop    chan bool
+}
+
+const wsPath = "/websocket"
 
 func Start(c config.Config) (*Server, error) {
 	if c.Websocket.Key != "" && c.Websocket.Cert == "" ||
@@ -30,27 +33,24 @@ func Start(c config.Config) (*Server, error) {
 		secure = true
 		protocol = "wss://"
 	}
-	http.HandleFunc("/websocket", func(w http.ResponseWriter, r *http.Request) {
+	mux := http.NewServeMux()
+	mux.HandleFunc(wsPath, func(w http.ResponseWriter, r *http.Request) {
 		server.serveWs(hub, w, r)
 	})
-	http.HandleFunc("/", server.indexHandler)
+	mux.HandleFunc("/", server.indexHandler)
 	addrAndPort := fmt.Sprintf("%s:%d", c.Websocket.Address, c.Websocket.Port)
-	log.Info().Msgf("ready to serve at %s%s", protocol, addrAndPort)
-	if secure {
-		go func() {
-			server.Started <- true
-			err := http.ListenAndServeTLS(addrAndPort, c.Websocket.Cert, c.Websocket.Key, nil)
-			log.Fatal().Err(err).Msg("websocket dying")
-			server.Stop <- true
-		}()
-	} else {
-		go func() {
-			server.Started <- true
-			err := http.ListenAndServe(addrAndPort, nil)
-			log.Fatal().Err(err).Msg("websocket dying")
-			server.Stop <- true
-		}()
-	}
+	log.Info().Str("address", fmt.Sprintf("%s%s%s", protocol, addrAndPort, wsPath)).Msg("Serving websocket")
+	go func() {
+		var err error
+		server.Started <- true
+		if secure {
+			err = http.ListenAndServeTLS(addrAndPort, c.Websocket.Cert, c.Websocket.Key, mux)
+		} else {
+			err = http.ListenAndServe(addrAndPort, mux)
+		}
+		log.Fatal().Err(err).Msg("websocket dying")
+		server.Stop <- true
+	}()
 	return &server, nil
 }
 

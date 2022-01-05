@@ -6,7 +6,7 @@ import (
 	"io/ioutil"
 	"testing"
 
-	"github.com/k0swe/kel-agent/internal/server"
+	"github.com/k0swe/kel-agent/internal/ws"
 )
 
 func (s *integrationTestSuite) TestReceive() {
@@ -31,10 +31,10 @@ func (s *integrationTestSuite) TestReceive() {
 			_, got, err := s.wsClient.ReadMessage()
 			s.Require().NoError(err)
 
-			wantObj := &server.WebsocketMessage{}
+			wantObj := &ws.WebsocketMessage{}
 			err = json.Unmarshal(want, &wantObj)
 			s.Require().NoError(err)
-			gotObj := &server.WebsocketMessage{}
+			gotObj := &ws.WebsocketMessage{}
 			err = json.Unmarshal(got, &gotObj)
 			s.Require().NoError(err)
 			s.Require().Equal(wantObj, gotObj)

@@ -6,7 +6,7 @@ import (
 	"runtime"
 
 	"github.com/k0swe/kel-agent/internal/config"
-	"github.com/k0swe/kel-agent/internal/server"
+	"github.com/k0swe/kel-agent/internal/ws"
 	"github.com/rs/zerolog"
 	"github.com/rs/zerolog/log"
 )
@@ -25,9 +25,9 @@ func main() {
 	}
 	c.VersionInfo = versionInfo
 
-	serv, err := server.Start(c)
-	select {
-	case <-serv.Stop:
-		return
+	wsServer, err := ws.Start(c)
+	if err != nil {
+		log.Fatal().Err(err).Send()
 	}
+	<-wsServer.Stop
 }

@@ -27,7 +27,9 @@ func NewHandler(c config.Config) (*Handler, error) {
 		log.Error().Str("address", c.Wsjtx.Address).Msg("couldn't parse WSJT-X IP address")
 		return nil, fmt.Errorf("couldn't parse WSJT-X IP address %s", c.Wsjtx.Address)
 	}
-	log.Info().Msgf("Listening to WSJT-X at %v:%d UDP", ipAddr, c.Wsjtx.Port)
+	log.Info().
+		Str("address", fmt.Sprintf("%v:%d", ipAddr, c.Wsjtx.Port)).
+		Msg("Listening to WSJT-X on UDP")
 	var err error
 	serv, err := wsjtx.MakeServerGiven(ipAddr, c.Wsjtx.Port)
 	if err != nil {
