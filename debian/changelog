@@ -1,3 +1,9 @@
+kel-agent (0.4.5-1) UNRELEASED; urgency=medium
+
+  * Dependency updates
+
+ -- Chris Keller <xylo04@gmail.com>  Mon, 06 Jun 2022 21:29:46 -0600
+
 kel-agent (0.4.4-1) UNRELEASED; urgency=medium
 
   * Added the ability to send client commands to WSJT-X
