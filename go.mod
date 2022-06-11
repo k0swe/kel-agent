@@ -10,5 +10,5 @@ require (
 	github.com/rs/zerolog v1.27.0
 	github.com/stretchr/testify v1.7.2
 	golang.org/x/sys v0.0.0-20220610221304-9f5ed59c137d // indirect
-	gopkg.in/yaml.v2 v2.4.0
+	gopkg.in/yaml.v3 v3.0.1
 )
