@@ -2,6 +2,7 @@ package integration
 
 import (
 	"net"
+	"os"
 	"strconv"
 	"testing"
 
@@ -23,6 +24,10 @@ type integrationTestSuite struct {
 }
 
 func TestIntegrationSuite(t *testing.T) {
+	if os.Getenv("SCHROOT_SESSION_ID") != "" {
+		// TODO: fix these tests for chroot
+		t.Skip("These integration tests freeze when building in sbuild chroot")
+	}
 	suite.Run(t, &integrationTestSuite{})
 }
 
