@@ -28,11 +28,13 @@
         </screenshot>
     </screenshots>
     <releases>
-        <release version="0.4.5" date="2022-06-06">
+        <release version="0.4.6" date="2022-06-11">
             <description>
+                <p>Improvements to websocket and logging</p>
+                <p>Integration tests</p>
                 <p>Dependency updates</p>
             </description>
-            <url>https://github.com/k0swe/kel-agent/releases/tag/v0.4.5</url>
+            <url>https://github.com/k0swe/kel-agent/releases/tag/v0.4.6</url>
         </release>
         <release version="0.4.4" date="2021-11-18">
             <description>
