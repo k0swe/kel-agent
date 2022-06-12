@@ -39,21 +39,27 @@ deb-orig-tarball: autorevision.cache
 	cd .. && tar -cvJf kel-agent_$(VERSION).orig.tar.xz --exclude-vcs --exclude=debian --exclude=.github --exclude=.idea kel-agent
 
 # TODO: This target can be removed once the package is in Debian stable and Ubuntu stable
-wsjtx-go.deb:
-	cd .. && \
-	wget https://github.com/k0swe/wsjtx-go/releases/download/v3.1.0/golang-github-k0swe-wsjtx-go-dev_3.1.0-1_all.deb
+../wsjtx-go.deb:
+	wget https://github.com/k0swe/wsjtx-go/releases/download/v4.0.1/golang-github-k0swe-wsjtx-go-dev_4.0.1-1_all.deb \
+	-O ../wsjtx-go.deb
 
 # TODO: This target can be removed once the package is in Debian stable and Ubuntu stable
-adrg-xdg.deb:
-	cd .. && \
-	wget http://ftp.us.debian.org/debian/pool/main/g/golang-github-adrg-xdg/golang-github-adrg-xdg-dev_0.3.3-2_all.deb
+../mazznoer-csscolorparser.deb:
+	wget https://github.com/k0swe/wsjtx-go/releases/download/v4.0.1/golang-github-mazznoer-csscolorparser-dev_0.1.2-1_all.deb \
+	-O ../mazznoer-csscolorparser.deb
+
+# TODO: This target can be removed once the package is in Debian stable and Ubuntu stable
+../adrg-xdg.deb:
+	wget http://ftp.us.debian.org/debian/pool/main/g/golang-github-adrg-xdg/golang-github-adrg-xdg-dev_0.4.0-1_all.deb \
+	-O ../adrg-xdg.deb
 
 .PHONY: deb-package
-deb-package: deb-tarball wsjtx-go.deb adrg-xdg.deb
+deb-package: deb-tarball ../wsjtx-go.deb ../adrg-xdg.deb ../mazznoer-csscolorparser.deb
 	# https://wiki.debian.org/sbuild
 	sbuild -d stable \
-      --extra-package=../golang-github-k0swe-wsjtx-go-dev_3.1.0-1_all.deb \
-      --extra-package=../golang-github-adrg-xdg-dev_0.3.3-2_all.deb
+      --extra-package=../wsjtx-go.deb \
+      --extra-package=../adrg-xdg.deb \
+      --extra-package=../mazznoer-csscolorparser.deb
 
 .PHONY: flatpak
 flatpak: kel-agent

@@ -13,6 +13,7 @@ Build-Depends: autorevision,
                golang-github-imdario-mergo-dev,
                golang-github-k0swe-wsjtx-go-dev,
                golang-github-leemcloughlin-jdn-dev,
+               golang-github-mazznoer-csscolorparser-dev,
                golang-github-rs-zerolog-dev,
                golang-gopkg-yaml.v2-dev,
                golang-websocket-dev
