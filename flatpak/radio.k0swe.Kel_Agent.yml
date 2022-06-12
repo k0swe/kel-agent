@@ -20,36 +20,64 @@ modules:
         tag: v0.4.0
         dest: vendor/github.com/adrg/xdg/
       - type: git
+        url: https://github.com/davecgh/go-spew.git
+        tag: v1.1.0
+        dest: vendor/github.com/davecgh/go-spew/
+      - type: git
         url: https://github.com/gorilla/websocket.git
-        tag: v1.4.2
+        tag: v1.5.0
         dest: vendor/github.com/gorilla/websocket/
       - type: git
         url: https://github.com/imdario/mergo.git
-        tag: v0.3.12
+        tag: v0.3.13
         dest: vendor/github.com/imdario/mergo/
       - type: git
         url: https://github.com/k0swe/wsjtx-go.git
-        tag: v4.0.0
+        tag: v4.0.1
         dest: vendor/github.com/k0swe/wsjtx-go/v4/
-      - type: git
-        url: https://github.com/rs/zerolog.git
-        tag: v1.25.0
-        dest: vendor/github.com/rs/zerolog/
       - type: git
         url: https://github.com/leemcloughlin/jdn.git
         commit: 6f88db6a6bf2176674100d1a1c692596fcf6e2ba
         dest: vendor/github.com/leemcloughlin/jdn/
       - type: git
+        url: https://github.com/mattn/go-colorable.git
+        tag: v0.1.12
+        dest: vendor/github.com/mattn/go-colorable/
+      - type: git
+        url: https://github.com/mattn/go-isatty.git
+        tag: v0.0.14
+        dest: vendor/github.com/mattn/go-isatty/
+      - type: git
+        url: https://github.com/mazznoer/csscolorparser.git
+        tag: v0.1.2
+        dest: vendor/github.com/mazznoer/csscolorparser/
+      - type: git
+        url: https://github.com/pmezard/go-difflib.git
+        tag: v1.0.0
+        dest: vendor/github.com/pmezard/go-difflib/
+      - type: git
+        url: https://github.com/rs/zerolog.git
+        tag: v1.27.0
+        dest: vendor/github.com/rs/zerolog/
+      - type: git
+        url: https://github.com/stretchr/testify.git
+        tag: v1.7.2
+        dest: vendor/github.com/stretchr/testify/
+      - type: git
+        url: https://github.com/golang/sys.git
+        commit: 9f5ed59c137dcb0852024edd2e71af63c2d67707
+        dest: vendor/golang.org/x/sys/
+      - type: git
         url: https://github.com/go-yaml/yaml.git
-        tag: v2.4.0
-        dest: vendor/gopkg.in/yaml.v2/
+        tag: v3.0.1
+        dest: vendor/gopkg.in/yaml.v3/
 
       - type: dir
         path: ..
 #      - type: git
 #        url: ssh://git@github.com/k0swe/kel-agent.git
-#        tag: v0.3.1
-#        commit: a0d6751f8c490941ddf9815f409b111a2c4dbbff
+#        tag: v0.4.5
+#        commit: a2c6d56f7c99b662277886859287a00ec8000b7a
     buildsystem: simple
     build-commands:
       - cp assets/modules.txt vendor/
