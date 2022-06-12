@@ -39,27 +39,27 @@ deb-orig-tarball: autorevision.cache
 	cd .. && tar -cvJf kel-agent_$(VERSION).orig.tar.xz --exclude-vcs --exclude=debian --exclude=.github --exclude=.idea kel-agent
 
 # TODO: This target can be removed once the package is in Debian stable and Ubuntu stable
-../wsjtx-go.deb:
+../golang-github-k0swe-wsjtx-go-dev_4.0.1-1_all.deb:
 	wget https://github.com/k0swe/wsjtx-go/releases/download/v4.0.1/golang-github-k0swe-wsjtx-go-dev_4.0.1-1_all.deb \
-	-O ../wsjtx-go.deb
+	-O ../golang-github-k0swe-wsjtx-go-dev_4.0.1-1_all.deb
 
 # TODO: This target can be removed once the package is in Debian stable and Ubuntu stable
-../mazznoer-csscolorparser.deb:
+../golang-github-mazznoer-csscolorparser-dev_0.1.2-1_all.deb:
 	wget https://github.com/k0swe/wsjtx-go/releases/download/v4.0.1/golang-github-mazznoer-csscolorparser-dev_0.1.2-1_all.deb \
-	-O ../mazznoer-csscolorparser.deb
+	-O ../golang-github-mazznoer-csscolorparser-dev_0.1.2-1_all.deb
 
 # TODO: This target can be removed once the package is in Debian stable and Ubuntu stable
-../adrg-xdg.deb:
+../golang-github-adrg-xdg-dev_0.4.0-1_all.deb:
 	wget http://ftp.us.debian.org/debian/pool/main/g/golang-github-adrg-xdg/golang-github-adrg-xdg-dev_0.4.0-1_all.deb \
-	-O ../adrg-xdg.deb
+	-O ../golang-github-adrg-xdg-dev_0.4.0-1_all.deb
 
 .PHONY: deb-package
-deb-package: deb-tarball ../wsjtx-go.deb ../adrg-xdg.deb ../mazznoer-csscolorparser.deb
+deb-package: deb-tarball ../golang-github-k0swe-wsjtx-go-dev_4.0.1-1_all.deb ../golang-github-adrg-xdg-dev_0.4.0-1_all.deb ../golang-github-mazznoer-csscolorparser-dev_0.1.2-1_all.deb
 	# https://wiki.debian.org/sbuild
 	sbuild -d stable \
-      --extra-package=../wsjtx-go.deb \
-      --extra-package=../adrg-xdg.deb \
-      --extra-package=../mazznoer-csscolorparser.deb
+      --extra-package=../golang-github-k0swe-wsjtx-go-dev_4.0.1-1_all.deb \
+      --extra-package=../golang-github-adrg-xdg-dev_0.4.0-1_all.deb \
+      --extra-package=../golang-github-mazznoer-csscolorparser-dev_0.1.2-1_all.deb
 
 .PHONY: flatpak
 flatpak: kel-agent
