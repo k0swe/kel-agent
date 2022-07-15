@@ -10,7 +10,7 @@ import (
 	"github.com/gorilla/websocket"
 )
 
-func (s *integrationTestSuite) IgnoreTestSend() {
+func (s *integrationTestSuite) TestSend() {
 	s.primeConnection()
 	tests := []string{
 		"clear",
