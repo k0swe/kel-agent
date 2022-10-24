@@ -8,7 +8,7 @@ require (
 	github.com/imdario/mergo v0.3.13
 	github.com/k0swe/wsjtx-go/v4 v4.0.2
 	github.com/rs/zerolog v1.28.0
-	github.com/stretchr/testify v1.8.0
+	github.com/stretchr/testify v1.8.1
 	golang.org/x/sys v0.0.0-20220715151400-c0bba94af5f8 // indirect
 	gopkg.in/yaml.v3 v3.0.1
 )
