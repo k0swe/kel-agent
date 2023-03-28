@@ -2,7 +2,6 @@ package config
 
 import (
 	"flag"
-	"io/ioutil"
 	"os"
 	"path/filepath"
 	"strconv"
@@ -97,13 +96,13 @@ func parseFlags() (Config, error) {
 
 func parseConfigFile() (Config, error) {
 	var conf Config
-	dat, err := ioutil.ReadFile(*configFile)
+	dat, err := os.ReadFile(*configFile)
 	if os.IsNotExist(err) {
 		log.Debug().Msgf("no config file found at '%s'", *configFile)
 		if dat, err = yaml.Marshal(defaultConf); err != nil {
 			return Config{}, err
 		}
-		if err := ioutil.WriteFile(*configFile, dat, 0o755); err != nil {
+		if err := os.WriteFile(*configFile, dat, 0o755); err != nil {
 			return Config{}, err
 		}
 		log.Debug().Msgf("wrote default config to '%s'", *configFile)

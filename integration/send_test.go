@@ -3,7 +3,7 @@ package integration
 import (
 	"encoding/hex"
 	"fmt"
-	"io/ioutil"
+	"os"
 	"testing"
 	"time"
 
@@ -28,8 +28,8 @@ func (s *integrationTestSuite) TestSend() {
 
 	for _, tt := range tests {
 		s.T().Run(tt, func(t *testing.T) {
-			input, _ := ioutil.ReadFile(fmt.Sprintf("send/%s.json", tt))
-			want, _ := ioutil.ReadFile(fmt.Sprintf("send/%s.bin", tt))
+			input, _ := os.ReadFile(fmt.Sprintf("send/%s.json", tt))
+			want, _ := os.ReadFile(fmt.Sprintf("send/%s.bin", tt))
 			err := s.wsClient.WriteMessage(websocket.TextMessage, input)
 			s.Require().NoError(err)
 
