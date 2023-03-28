@@ -9,8 +9,8 @@ github.com/gorilla/websocket v1.5.0 h1:PPwGk2jz7EePpoHN/+ClbZu8SPxiqlu12wZP/3sWm
 github.com/gorilla/websocket v1.5.0/go.mod h1:YR8l580nyteQvAITg2hZ9XVh4b55+EU/adAjf1fMHhE=
 github.com/imdario/mergo v0.3.15 h1:M8XP7IuFNsqUx6VPK2P9OSmsYsI/YFaGil0uD21V3dM=
 github.com/imdario/mergo v0.3.15/go.mod h1:WBLT9ZmE3lPoWsEzCh9LPo3TiwVN+ZKEjmz+hD27ysY=
-github.com/k0swe/wsjtx-go/v4 v4.0.2 h1:KqhwrxMqD/sKACkOD1kWx/FEwhq2ASZI0+6W4VKDoeM=
-github.com/k0swe/wsjtx-go/v4 v4.0.2/go.mod h1:HXzXwAA8+Kla3ZSaXMhNHvbWI4PLtIn2QsKgtY2zmTY=
+github.com/k0swe/wsjtx-go/v4 v4.0.4 h1:r9ZIVrYR2tXDIGvu0KRacAaG9xFWtei13bi85RM2jFc=
+github.com/k0swe/wsjtx-go/v4 v4.0.4/go.mod h1:o4PRYwoTJLS9MKmwh4qE0JsFt+firHkxdjwQSpEcCkY=
 github.com/leemcloughlin/jdn v0.0.0-20201102080031-6f88db6a6bf2 h1:CdyD5OzAIzNFzpJ9WQRjJWj4pVRxZ9v15xdHnhvUPdw=
 github.com/leemcloughlin/jdn v0.0.0-20201102080031-6f88db6a6bf2/go.mod h1:LAowglanJPLb6WYSx3D1Ht/XE54OGIr0i4mz9kdbXrs=
 github.com/mattn/go-colorable v0.1.12 h1:jF+Du6AlPIjs2BiUiQlKOX0rt3SujHxPnksPKZbaA40=

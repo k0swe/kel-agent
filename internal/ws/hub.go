@@ -47,7 +47,7 @@ func newHub(c *config.Config) *Hub {
 	wsjtChan := make(chan wwrap.Message, 5)
 	if c.Wsjtx.Enabled {
 		var err error
-		wh, err = wwrap.NewHandler(*c)
+		wh, err = wwrap.NewHandler(c)
 		if err != nil {
 			log.Warn().Err(err).Msgf("couldn't connect to WSJTX")
 		} else {
