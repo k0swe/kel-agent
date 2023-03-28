@@ -14,9 +14,7 @@
     "group:recommended",
     "helpers:disableTypesNodeMajor"
   ],
-  "postUpdateOptions": [
-    "gomodTidy"
-  ],
+  "postUpdateOptions": ["gomodTidy"],
   "schedule": ["after 3am and before 7am"],
   "timezone": "America/Denver",
   "packageRules": [
