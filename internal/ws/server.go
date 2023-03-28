@@ -2,6 +2,7 @@ package ws
 
 import (
 	"fmt"
+	"net"
 	"net/http"
 
 	"github.com/k0swe/kel-agent/internal/config"
@@ -17,15 +18,15 @@ type Server struct {
 
 const wsPath = "/websocket"
 
-func Start(c config.Config) (*Server, error) {
+func Start(c *config.Config) (*Server, error) {
 	if c.Websocket.Key != "" && c.Websocket.Cert == "" ||
 		c.Websocket.Key == "" && c.Websocket.Cert != "" {
 		return &Server{}, fmt.Errorf("-key and -cert must be used together")
 	}
 
-	hub := newHub(&c)
+	hub := newHub(c)
 	go hub.run()
-	server := Server{c, hub, make(chan bool, 1), make(chan bool, 1)}
+	server := Server{*c, hub, make(chan bool, 1), make(chan bool, 1)}
 
 	secure := false
 	protocol := "ws://"
@@ -38,15 +39,24 @@ func Start(c config.Config) (*Server, error) {
 		server.serveWs(hub, w, r)
 	})
 	mux.HandleFunc("/", server.indexHandler)
+
 	addrAndPort := fmt.Sprintf("%s:%d", c.Websocket.Address, c.Websocket.Port)
+	listener, err := net.Listen("tcp", addrAndPort)
+	if err != nil {
+		panic(err)
+	}
+	// If port was 0 for OS-assigned, update the config with the actual port
+	c.Websocket.Port = uint(listener.Addr().(*net.TCPAddr).Port)
+	addrAndPort = fmt.Sprintf("%s:%d", c.Websocket.Address, c.Websocket.Port)
+
 	log.Info().Str("address", fmt.Sprintf("%s%s%s", protocol, addrAndPort, wsPath)).Msg("Serving websocket")
 	go func() {
 		var err error
 		server.Started <- true
 		if secure {
-			err = http.ListenAndServeTLS(addrAndPort, c.Websocket.Cert, c.Websocket.Key, mux)
+			err = http.ServeTLS(listener, mux, c.Websocket.Cert, c.Websocket.Key)
 		} else {
-			err = http.ListenAndServe(addrAndPort, mux)
+			err = http.Serve(listener, mux)
 		}
 		log.Fatal().Err(err).Msg("websocket dying")
 		server.Stop <- true
