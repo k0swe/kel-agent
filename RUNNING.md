@@ -23,8 +23,8 @@ $ kel-agent -host localhost:9988
 If you want to run your radio programs and `kel-agent` on one computer and your browser on another,
 this is possible. There are a couple of approaches. Neither is super easy, which I hope to fix.
 
-NOTE: I do *not* recommend serving this in a way that's exposed to the internet because there is
-*no* authentication. If exposed to the internet, anyone could potentially initiate transmissions
+NOTE: I do _not_ recommend serving this in a way that's exposed to the internet because there is
+_no_ authentication. If exposed to the internet, anyone could potentially initiate transmissions
 with your radio.
 
 ### SSH port forwarding
@@ -49,8 +49,8 @@ $ ssh -N -L localhost:8081:localhost:8081 radio-pi
 ```
 
 The first `localhost:8081` means "on this (browser) machine, bind to port 8081 and only expose to
-`localhost` so other computers can't use it." The second `localhost:8081` means "once you log into 
-the remote computer, start forwarding traffic to port 8081 on its (remote) `localhost`." Finally, 
+`localhost` so other computers can't use it." The second `localhost:8081` means "once you log into
+the remote computer, start forwarding traffic to port 8081 on its (remote) `localhost`." Finally,
 `radio-pi` in my example is the remote hostname which is running `kel-agent` and the SSH server.
 
 The command will look like it's not doing anything; just let it run, and the tunnel will stay open.
@@ -63,7 +63,7 @@ think they're talking to local processes, and you won't get mixed content warnin
 
 This method needs a little more set up ahead of time, but is easier to use once it's set up.
 
-First, you'll need `kel-agent` to bind to `0.0.0.0` to allow connections from other computers. 
+First, you'll need `kel-agent` to bind to `0.0.0.0` to allow connections from other computers.
 Second, due to the mixed content policy which is standard in web browsers, you'll need to specify a
 TLS certificate and private key. Eventually I hope to make this easy, but for now you'll need to
 follow https://stackoverflow.com/a/60516812/587091. In short,
@@ -72,8 +72,8 @@ follow https://stackoverflow.com/a/60516812/587091. In short,
 2. a server key and certificate signing request with the server's hostname,
 3. sign the request to generate the server certificate, then finally
 4. install the root certificate in your browser's trusted authorities.
- 
-Yeah, I really need to make this easier. 
+
+Yeah, I really need to make this easier.
 
 ```
 $ kel-agent -host 0.0.0.0:8081 -key server.key -cert server.crt
@@ -88,7 +88,7 @@ computer.
 As part of the same-origin policy which is standard in web browsers, `kel-agent` will only accept
 browser connections from certain origins (basically, websites). By default, only the website
 `https://forester.radio` plus some local developer addresses are allowed to connect to `kel-agent`,
-but this can be customized if others develop web applications that use `kel-agent`. I'm happy to 
+but this can be customized if others develop web applications that use `kel-agent`. I'm happy to
 accept pull requests to expand the default list!
 
 ```

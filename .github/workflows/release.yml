@@ -3,13 +3,12 @@ name: Release
 on:
   push:
     tags:
-      - 'v*'
+      - "v*"
 
 jobs:
-
   release-linux:
     name: Build the Linux release artifact
-    runs-on: [ self-hosted, linux, x64 ]
+    runs-on: [self-hosted, linux, x64]
     # Trust that the runner has an sbuild chroot
     # sudo apt install autorevision sbuild-debian-developer-setup debhelper dh-golang
     # newgrp sbuild
@@ -38,7 +37,7 @@ jobs:
 
   release-rpi:
     name: Build the Raspberry Pi release artifact
-    runs-on: [ self-hosted, linux, ARM ]
+    runs-on: [self-hosted, linux, ARM]
     # Trust that the runner has an sbuild chroot:
     # sudo apt install autorevision sbuild-debian-developer-setup debhelper dh-golang
     # newgrp sbuild

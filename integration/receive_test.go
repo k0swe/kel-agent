@@ -3,7 +3,7 @@ package integration
 import (
 	"encoding/json"
 	"fmt"
-	"io/ioutil"
+	"os"
 	"testing"
 
 	"github.com/k0swe/kel-agent/internal/ws"
@@ -24,8 +24,8 @@ func (s *integrationTestSuite) TestReceive() {
 
 	for _, tt := range tests {
 		s.T().Run(tt, func(t *testing.T) {
-			input, _ := ioutil.ReadFile(fmt.Sprintf("receive/%s.bin", tt))
-			want, _ := ioutil.ReadFile(fmt.Sprintf("receive/%s.json", tt))
+			input, _ := os.ReadFile(fmt.Sprintf("receive/%s.bin", tt))
+			want, _ := os.ReadFile(fmt.Sprintf("receive/%s.json", tt))
 			_, _ = s.fake.SendMessage(input)
 
 			_, got, err := s.wsClient.ReadMessage()

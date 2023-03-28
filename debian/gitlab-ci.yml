@@ -7,8 +7,8 @@ image: stapelberg/ci2
 test_the_archive:
   artifacts:
     paths:
-    - before-applying-commit.json
-    - after-applying-commit.json
+      - before-applying-commit.json
+      - after-applying-commit.json
   script:
     # Create an overlay to discard writes to /srv/gopath/src after the build:
     - "rm -rf /cache/overlay/{upper,work}"
