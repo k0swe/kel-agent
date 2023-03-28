@@ -20,14 +20,14 @@ func (s *integrationTestSuite) TestSend() {
 		"clear",
 		"close",
 		"configure",
-		"freetext",
-		"halttx",
+		"freeText",
+		"haltTx",
 		"heartbeat",
-		"highlightcallsign",
+		"highlightCallsign",
 		"location",
 		"replay",
 		"reply",
-		"switchconfiguration",
+		"switchConfiguration",
 	}
 
 	for _, tt := range tests {
