@@ -42,7 +42,7 @@ func (s *integrationTestSuite) SetupSuite() {
 		Wsjtx: config.WsjtxConfig{
 			Enabled: true,
 			Address: "127.0.0.1",
-			Port:    2237, // TODO: use OS-assigned port
+			Port:    0, // OS-assigned
 		},
 		VersionInfo: "kel-agent v0.0.0 (abcd)",
 	}
@@ -53,6 +53,8 @@ func (s *integrationTestSuite) SetupSuite() {
 
 	wsAddr := net.JoinHostPort(s.conf.Websocket.Address, strconv.Itoa(int(s.conf.Websocket.Port)))
 	wsAddr = "ws://" + wsAddr + "/websocket"
+	s.T().Logf("websocket is at %s", wsAddr)
+	s.T().Logf("wsjtx server is at udp %s", net.JoinHostPort(s.conf.Wsjtx.Address, strconv.Itoa(int(s.conf.Wsjtx.Port))))
 	header := map[string][]string{"Origin": {origin}}
 	s.wsClient, _, err = websocket.DefaultDialer.Dial(wsAddr, header)
 	s.Require().NoError(err)

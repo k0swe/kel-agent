@@ -21,7 +21,7 @@ type Handler struct {
 	conf      config.Config
 }
 
-func NewHandler(c config.Config) (*Handler, error) {
+func NewHandler(c *config.Config) (*Handler, error) {
 	ipAddr := net.ParseIP(c.Wsjtx.Address)
 	if ipAddr == nil {
 		log.Error().Str("address", c.Wsjtx.Address).Msg("couldn't parse WSJT-X IP address")
@@ -36,9 +36,11 @@ func NewHandler(c config.Config) (*Handler, error) {
 		log.Error().Err(err).Msg("couldn't listen to WSJT-X")
 		return nil, fmt.Errorf("couldn't listen to WSJT-X: %s", err)
 	}
+	// If port was 0, we need to get the actual port number from the connection.
+	c.Wsjtx.Port = uint(serv.ServingAddr.(*net.UDPAddr).Port)
 	return &Handler{
 		wsjtxServ: serv,
-		conf:      c,
+		conf:      *c,
 	}, nil
 }
 
