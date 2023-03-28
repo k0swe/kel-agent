@@ -36,7 +36,7 @@ func (s *integrationTestSuite) SetupSuite() {
 	s.conf = config.Config{
 		Websocket: config.WebsocketConfig{
 			Address:        "127.0.0.1",
-			Port:           8081, // TODO: use OS-assigned port
+			Port:           0, // OS-assigned
 			AllowedOrigins: []string{origin},
 		},
 		Wsjtx: config.WsjtxConfig{
@@ -47,7 +47,7 @@ func (s *integrationTestSuite) SetupSuite() {
 		VersionInfo: "kel-agent v0.0.0 (abcd)",
 	}
 	var err error
-	s.server, err = ws.Start(s.conf)
+	s.server, err = ws.Start(&s.conf)
 	s.Require().NoError(err)
 	<-s.server.Started
 

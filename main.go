@@ -25,7 +25,7 @@ func main() {
 	}
 	c.VersionInfo = versionInfo
 
-	wsServer, err := ws.Start(c)
+	wsServer, err := ws.Start(&c)
 	if err != nil {
 		log.Fatal().Err(err).Send()
 	}
