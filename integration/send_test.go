@@ -4,7 +4,6 @@ import (
 	"encoding/hex"
 	"fmt"
 	"io/ioutil"
-	"os"
 	"testing"
 	"time"
 
@@ -12,9 +11,6 @@ import (
 )
 
 func (s *integrationTestSuite) TestSend() {
-	if os.Getenv("CI") == "true" {
-		s.T().Skip("skipping because this test fails when run in gitHub actions")
-	}
 	s.primeConnection()
 	tests := []string{
 		"clear",
