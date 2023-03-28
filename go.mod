@@ -1,5 +1,7 @@
 module github.com/k0swe/kel-agent
 
+// This version needs to track golang in Debian stable (currently bullseye)
+// https://packages.debian.org/bullseye/golang/golang
 go 1.15
 
 require (
