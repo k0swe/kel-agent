@@ -7,7 +7,7 @@ go 1.19
 require (
 	github.com/adrg/xdg v0.4.0
 	github.com/gorilla/websocket v1.5.0
-	github.com/imdario/mergo v0.3.15
+	github.com/imdario/mergo v0.3.16
 	github.com/k0swe/wsjtx-go/v4 v4.0.4
 	github.com/rs/zerolog v1.29.1
 	github.com/stretchr/testify v1.8.4
