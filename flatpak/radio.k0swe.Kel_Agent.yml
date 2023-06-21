@@ -28,9 +28,9 @@ modules:
         tag: v1.5.0
         dest: vendor/github.com/gorilla/websocket/
       - type: git
-        url: https://github.com/imdario/mergo.git
+        url: https://dario.cat/mergo.git
         tag: v0.3.13
-        dest: vendor/github.com/imdario/mergo/
+        dest: vendor/dario.cat/mergo/
       - type: git
         url: https://github.com/k0swe/wsjtx-go.git
         tag: v4.0.1
@@ -83,8 +83,11 @@ modules:
       - cp assets/modules.txt vendor/
       - make
       - install -D kel-agent /app/bin/kel-agent
-      - install -Dm644 assets/radio.k0swe.Kel_Agent.svg /app/share/icons/hicolor/scalable/apps/radio.k0swe.Kel_Agent.svg
-      - install -Dm644 assets/radio.k0swe.Kel_Agent.metainfo.xml /app/share/metainfo/radio.k0swe.Kel_Agent.metainfo.xml
-      - install -Dm644 assets/radio.k0swe.Kel_Agent.desktop /app/share/applications/radio.k0swe.Kel_Agent.desktop
+      - install -Dm644 assets/radio.k0swe.Kel_Agent.svg
+        /app/share/icons/hicolor/scalable/apps/radio.k0swe.Kel_Agent.svg
+      - install -Dm644 assets/radio.k0swe.Kel_Agent.metainfo.xml
+        /app/share/metainfo/radio.k0swe.Kel_Agent.metainfo.xml
+      - install -Dm644 assets/radio.k0swe.Kel_Agent.desktop
+        /app/share/applications/radio.k0swe.Kel_Agent.desktop
     cleanup:
       - /lib/debug

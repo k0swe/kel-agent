@@ -7,9 +7,9 @@ github.com/davecgh/go-spew/spew
 # github.com/gorilla/websocket v1.5.0
 ## explicit
 github.com/gorilla/websocket
-# github.com/imdario/mergo v0.3.13
+# dario.cat/mergo v0.3.13
 ## explicit
-github.com/imdario/mergo
+dario.cat/mergo
 # github.com/k0swe/wsjtx-go/v4 v4.0.1
 ## explicit
 github.com/k0swe/wsjtx-go/v4
