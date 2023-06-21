@@ -10,7 +10,7 @@ import (
 	"gopkg.in/yaml.v3"
 
 	"github.com/adrg/xdg"
-	"github.com/imdario/mergo"
+	"dario.cat/mergo"
 	"github.com/rs/zerolog"
 	"github.com/rs/zerolog/log"
 )
