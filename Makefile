@@ -12,7 +12,7 @@ all: kel-agent
 test:
 	go test ./...
 	go vet ./...
-	if command -v appstream-util; then appstream-util validate-relax --nonet assets/radio.k0swe.Kel_Agent.metainfo.xml; fi
+	if command -v appstream-util; then appstream-util validate --nonet assets/radio.k0swe.Kel_Agent.metainfo.xml; fi
 	if command -v desktop-file-validate; then desktop-file-validate assets/radio.k0swe.Kel_Agent.desktop; fi
 
 assets/modules.txt:
