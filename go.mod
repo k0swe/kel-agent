@@ -7,7 +7,7 @@ go 1.19
 require (
 	dario.cat/mergo v1.0.0
 	github.com/adrg/xdg v0.4.0
-	github.com/gorilla/websocket v1.5.0
+	github.com/gorilla/websocket v1.5.1
 	github.com/k0swe/wsjtx-go/v4 v4.0.4
 	github.com/rs/zerolog v1.31.0
 	github.com/stretchr/testify v1.8.4
@@ -21,5 +21,6 @@ require (
 	github.com/mattn/go-isatty v0.0.19 // indirect
 	github.com/mazznoer/csscolorparser v0.1.3 // indirect
 	github.com/pmezard/go-difflib v1.0.0 // indirect
-	golang.org/x/sys v0.12.0 // indirect
+	golang.org/x/net v0.17.0 // indirect
+	golang.org/x/sys v0.13.0 // indirect
 )
