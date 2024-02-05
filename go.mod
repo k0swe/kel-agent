@@ -9,7 +9,7 @@ require (
 	github.com/adrg/xdg v0.4.0
 	github.com/gorilla/websocket v1.5.1
 	github.com/k0swe/wsjtx-go/v4 v4.0.5
-	github.com/rs/zerolog v1.31.0
+	github.com/rs/zerolog v1.32.0
 	github.com/stretchr/testify v1.8.4
 	gopkg.in/yaml.v3 v3.0.1
 )
