@@ -9,8 +9,8 @@ github.com/davecgh/go-spew v1.1.1/go.mod h1:J7Y8YcW2NihsgmVo/mv3lAwl/skON4iLHjSs
 github.com/godbus/dbus/v5 v5.0.4/go.mod h1:xhWf0FNVPg57R7Z0UbKHbJfkEywrmjJnf7w5xrFpKfA=
 github.com/gorilla/websocket v1.5.1 h1:gmztn0JnHVt9JZquRuzLw3g4wouNVzKL15iLr/zn/QY=
 github.com/gorilla/websocket v1.5.1/go.mod h1:x3kM2JMyaluk02fnUJpQuwD2dCS5NDG2ZHL0uE0tcaY=
-github.com/k0swe/wsjtx-go/v4 v4.0.5 h1:g7x8GZ1TZ0zk5SeXa9VwS1JzitkWESzK6CWOdMQMRA0=
-github.com/k0swe/wsjtx-go/v4 v4.0.5/go.mod h1:q1xl6us4h42tsUafJ2IDA9/v2RPtn7wUQj4zgvea984=
+github.com/k0swe/wsjtx-go/v4 v4.0.6 h1:t7kj5tmuVVqVUwB4nfe+se3enWXGI/4BMhv6aR++Nbw=
+github.com/k0swe/wsjtx-go/v4 v4.0.6/go.mod h1:vtPvS4U7JyePPVC4jTSjnG2k+y587OPF6du1f0l9OCI=
 github.com/leemcloughlin/jdn v0.0.0-20201102080031-6f88db6a6bf2 h1:CdyD5OzAIzNFzpJ9WQRjJWj4pVRxZ9v15xdHnhvUPdw=
 github.com/leemcloughlin/jdn v0.0.0-20201102080031-6f88db6a6bf2/go.mod h1:LAowglanJPLb6WYSx3D1Ht/XE54OGIr0i4mz9kdbXrs=
 github.com/mattn/go-colorable v0.1.13 h1:fFA4WZxdEF4tXPZVKMLwD8oUnCTTo08duU7wxecdEvA=
