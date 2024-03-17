@@ -1,9 +1,19 @@
 package config
 
+import (
+	"encoding/json"
+	"github.com/rs/zerolog"
+)
+
 type Config struct {
 	Websocket   WebsocketConfig `json:"websocket,omitempty" yaml:"websocket,omitempty"`
 	Wsjtx       WsjtxConfig     `json:"wsjtx,omitempty" yaml:"wsjtx,omitempty"`
-	VersionInfo string          `json:"-"`
+	VersionInfo string          `json:"-" yaml:"-"`
+}
+
+func (c Config) MarshalZerologObject(e *zerolog.Event) {
+	j, _ := json.Marshal(c)
+	e.RawJSON("config", j)
 }
 
 type WebsocketConfig struct {
@@ -21,7 +31,7 @@ type WebsocketConfig struct {
 
 type WsjtxConfig struct {
 	// Enabled is whether to listen to WSJT-X
-	Enabled bool `json:"enabled" yaml:"enabled,omitempty"`
+	Enabled bool `json:"enabled" yaml:"enabled"`
 	// Address is the IP or hostname on which to listen to WSJT-X
 	Address string `json:"address,omitempty" yaml:"address,omitempty"`
 	// Port is the UDP port on which to listen to WSJT-X

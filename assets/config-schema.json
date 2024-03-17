@@ -1,0 +1,61 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://github.com/k0swe/kel-agent/internal/config/config",
+  "$ref": "#/$defs/Config",
+  "$defs": {
+    "Config": {
+      "properties": {
+        "websocket": {
+          "$ref": "#/$defs/WebsocketConfig"
+        },
+        "wsjtx": {
+          "$ref": "#/$defs/WsjtxConfig"
+        }
+      },
+      "additionalProperties": false,
+      "type": "object"
+    },
+    "WebsocketConfig": {
+      "properties": {
+        "address": {
+          "type": "string"
+        },
+        "port": {
+          "type": "integer"
+        },
+        "key": {
+          "type": "string"
+        },
+        "cert": {
+          "type": "string"
+        },
+        "allowedOrigins": {
+          "items": {
+            "type": "string"
+          },
+          "type": "array"
+        }
+      },
+      "additionalProperties": false,
+      "type": "object"
+    },
+    "WsjtxConfig": {
+      "properties": {
+        "enabled": {
+          "type": "boolean"
+        },
+        "address": {
+          "type": "string"
+        },
+        "port": {
+          "type": "integer"
+        }
+      },
+      "additionalProperties": false,
+      "type": "object",
+      "required": [
+        "enabled"
+      ]
+    }
+  }
+}

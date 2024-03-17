@@ -91,8 +91,8 @@ func (h *Hub) run() {
 }
 
 func (h *Hub) broadcast(message WebsocketMessage) {
-	log.Trace().Msgf("broadcasting: %v", message)
 	jsn, _ := json.Marshal(message)
+	log.Trace().Msgf("broadcasting: %v", string(jsn))
 	for client := range h.clients {
 		select {
 		case client.send <- jsn:
@@ -105,6 +105,7 @@ func (h *Hub) broadcast(message WebsocketMessage) {
 
 func (h *Hub) handleClientCommand(command []byte) {
 	var msg = &WebsocketMessage{}
+	log.Trace().Msgf("received client command: %v", string(command))
 	if err := json.Unmarshal(command, msg); err != nil {
 		log.Warn().Err(err).Msg("failed to parse client command; dropping")
 		return

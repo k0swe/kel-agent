@@ -12,6 +12,7 @@ import (
 )
 
 var versionInfo string
+var schemaUrl = "https://raw.githubusercontent.com/k0swe/kel-agent/" + GitCommit + "/assets/config-schema.json"
 
 func main() {
 	versionInfo = fmt.Sprintf("kel-agent %v (%v)", Version, GitCommit)
@@ -19,7 +20,7 @@ func main() {
 		versionInfo, runtime.Version(), runtime.GOOS, runtime.GOARCH, BuildTime)
 
 	log.Logger = log.Output(zerolog.ConsoleWriter{Out: os.Stderr})
-	c, err := config.ParseAllConfigs()
+	c, err := config.ParseAllConfigs(schemaUrl)
 	if err != nil {
 		log.Fatal().Err(err).Msg("couldn't get configuration")
 	}

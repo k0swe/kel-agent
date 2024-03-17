@@ -9,8 +9,8 @@ import (
 
 	"gopkg.in/yaml.v3"
 
-	"github.com/adrg/xdg"
 	"dario.cat/mergo"
+	"github.com/adrg/xdg"
 	"github.com/rs/zerolog"
 	"github.com/rs/zerolog/log"
 )
@@ -28,13 +28,13 @@ func init() {
 	defaultConfigFile = &c
 }
 
-func ParseAllConfigs() (Config, error) {
+func ParseAllConfigs(schemaUrl string) (Config, error) {
 	// Flags take precedence, and need to be parsed first for logging level
 	conf, err := parseFlags()
 	if err != nil {
 		return Config{}, err
 	}
-	file, err := parseConfigFile()
+	file, err := parseConfigFile(schemaUrl)
 	if err != nil {
 		return Config{}, err
 	}
@@ -44,7 +44,8 @@ func ParseAllConfigs() (Config, error) {
 	if err := mergo.Merge(&conf, defaultConf); err != nil {
 		return Config{}, err
 	}
-	log.Debug().Msgf("effective configuration is %v", conf)
+	log.Debug().Object("config", conf).Msgf("coalesced configuration")
+	log.Info().Strs("origins", conf.Websocket.AllowedOrigins).Msg("allowed origins")
 	return conf, nil
 }
 
@@ -90,11 +91,11 @@ func parseFlags() (Config, error) {
 		conf.Websocket.Address = conf.Websocket.Address[:i]
 	}
 
-	log.Trace().Msgf("flag config: %v", conf)
+	log.Trace().Object("flags", conf).Msgf("flag config")
 	return conf, nil
 }
 
-func parseConfigFile() (Config, error) {
+func parseConfigFile(schemaUrl string) (Config, error) {
 	var conf Config
 	dat, err := os.ReadFile(*configFile)
 	if os.IsNotExist(err) {
@@ -102,6 +103,8 @@ func parseConfigFile() (Config, error) {
 		if dat, err = yaml.Marshal(defaultConf); err != nil {
 			return Config{}, err
 		}
+		// add schema to top of file
+		dat = append([]byte("# yaml-language-server: $schema="+schemaUrl+"\n"), dat...)
 		if err := os.WriteFile(*configFile, dat, 0o755); err != nil {
 			return Config{}, err
 		}
@@ -114,7 +117,7 @@ func parseConfigFile() (Config, error) {
 	if err := yaml.Unmarshal(dat, &conf); err != nil {
 		return Config{}, err
 	}
-	log.Debug().Msgf("using config file at '%s'", *configFile)
-	log.Trace().Msgf("file config: %v", conf)
+	log.Debug().Str("path", *configFile).Msg("using config file")
+	log.Trace().Object("file", conf).Msg("file config")
 	return conf, nil
 }
