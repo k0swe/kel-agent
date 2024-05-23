@@ -10,7 +10,7 @@ require (
 	github.com/gorilla/websocket v1.5.1
 	github.com/invopop/jsonschema v0.12.0
 	github.com/k0swe/wsjtx-go/v4 v4.0.6
-	github.com/rs/zerolog v1.32.0
+	github.com/rs/zerolog v1.33.0
 	github.com/stretchr/testify v1.9.0
 	gopkg.in/yaml.v3 v3.0.1
 )
