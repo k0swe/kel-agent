@@ -15,8 +15,8 @@ github.com/gorilla/websocket v1.5.3/go.mod h1:YR8l580nyteQvAITg2hZ9XVh4b55+EU/ad
 github.com/invopop/jsonschema v0.12.0 h1:6ovsNSuvn9wEQVOyc72aycBMVQFKz7cPdMJn10CvzRI=
 github.com/invopop/jsonschema v0.12.0/go.mod h1:ffZ5Km5SWWRAIN6wbDXItl95euhFz2uON45H2qjYt+0=
 github.com/josharian/intern v1.0.0/go.mod h1:5DoeVV0s6jJacbCEi61lwdGj/aVlrQvzHFFd8Hwg//Y=
-github.com/k0swe/wsjtx-go/v4 v4.0.6 h1:t7kj5tmuVVqVUwB4nfe+se3enWXGI/4BMhv6aR++Nbw=
-github.com/k0swe/wsjtx-go/v4 v4.0.6/go.mod h1:vtPvS4U7JyePPVC4jTSjnG2k+y587OPF6du1f0l9OCI=
+github.com/k0swe/wsjtx-go/v4 v4.1.0 h1:VhK6IcQyt/o0+vib/EJX9B14sxr5nNvNkwi+RBi2FAM=
+github.com/k0swe/wsjtx-go/v4 v4.1.0/go.mod h1:vtPvS4U7JyePPVC4jTSjnG2k+y587OPF6du1f0l9OCI=
 github.com/leemcloughlin/jdn v0.0.0-20201102080031-6f88db6a6bf2 h1:CdyD5OzAIzNFzpJ9WQRjJWj4pVRxZ9v15xdHnhvUPdw=
 github.com/leemcloughlin/jdn v0.0.0-20201102080031-6f88db6a6bf2/go.mod h1:LAowglanJPLb6WYSx3D1Ht/XE54OGIr0i4mz9kdbXrs=
 github.com/mailru/easyjson v0.7.7 h1:UGYAvKxe3sBsEDzO8ZeWOSlIQfWFlxbzLZe7hwFURr0=
