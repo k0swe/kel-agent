@@ -6,16 +6,17 @@ package ws
 
 import (
 	"encoding/json"
-
 	"github.com/k0swe/kel-agent/internal/config"
-	wwrap "github.com/k0swe/kel-agent/internal/wsjtx_wrapper"
+	rigctld "github.com/k0swe/kel-agent/internal/rigctld_wrapper"
+	wsjtx "github.com/k0swe/kel-agent/internal/wsjtx_wrapper"
 	"github.com/rs/zerolog/log"
 )
 
 type WebsocketMessage struct {
 	// Version is kel-agent version info
 	Version string        `json:"version,omitempty"`
-	Wsjtx   wwrap.Message `json:"wsjtx,omitempty"`
+	Wsjtx   wsjtx.Message `json:"wsjtx,omitempty"`
+	Rigctld interface{}   `json:"rigctld,omitempty"`
 }
 
 // Hub maintains the set of active clients and broadcasts messages to the
@@ -36,18 +37,21 @@ type Hub struct {
 	unregister chan *Client
 
 	// Wrapper for the WSJT-X connection
-	wsjtxHandler *wwrap.Handler
+	wsjtxHandler *wsjtx.Handler
 
 	// WSJT-X message channel
-	wsjtx chan wwrap.Message
+	wsjtx chan wsjtx.Message
+
+	// Wrapper for the rigctld connection
+	rigctldHandler *rigctld.Handler
 }
 
 func newHub(c *config.Config) *Hub {
-	var wh *wwrap.Handler
-	wsjtChan := make(chan wwrap.Message, 5)
+	var wh *wsjtx.Handler
+	wsjtChan := make(chan wsjtx.Message, 5)
 	if c.Wsjtx.Enabled {
 		var err error
-		wh, err = wwrap.NewHandler(c)
+		wh, err = wsjtx.NewHandler(c)
 		if err != nil {
 			log.Warn().Err(err).Msgf("couldn't connect to WSJTX")
 		} else {
@@ -55,14 +59,24 @@ func newHub(c *config.Config) *Hub {
 		}
 	}
 
+	var rh *rigctld.Handler
+	if c.Rigctld.Enabled {
+		var err error
+		rh, err = rigctld.NewHandler(c)
+		if err != nil {
+			log.Warn().Err(err).Msgf("couldn't connect to rigctld")
+		}
+	}
+
 	return &Hub{
-		conf:         c,
-		command:      make(chan []byte),
-		register:     make(chan *Client),
-		unregister:   make(chan *Client),
-		clients:      make(map[*Client]bool),
-		wsjtxHandler: wh,
-		wsjtx:        wsjtChan,
+		conf:           c,
+		command:        make(chan []byte),
+		register:       make(chan *Client),
+		unregister:     make(chan *Client),
+		clients:        make(map[*Client]bool),
+		rigctldHandler: rh,
+		wsjtxHandler:   wh,
+		wsjtx:          wsjtChan,
 	}
 }
 
@@ -117,5 +131,18 @@ func (h *Hub) handleClientCommand(command []byte) {
 			log.Warn().Err(err).Msg("failed to handle wsjtx client command; dropping")
 			return
 		}
+	}
+	if msg.Rigctld != "" {
+		// Don't know all the payload types here, so re-marshal just that and handle in wrapper
+		payload, _ := json.Marshal(msg.Rigctld)
+		response, err := h.rigctldHandler.HandleClientCommand(payload)
+		if err != nil {
+			log.Warn().Err(err).Msg("failed to handle rigctld client command")
+
+		}
+		h.broadcast(WebsocketMessage{
+			Version: h.conf.VersionInfo,
+			Rigctld: response,
+		})
 	}
 }

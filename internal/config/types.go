@@ -6,6 +6,7 @@ import (
 )
 
 type Config struct {
+	Rigctld     RigctldConfig   `json:"rigctld,omitempty" yaml:"rigctld,omitempty"`
 	Websocket   WebsocketConfig `json:"websocket,omitempty" yaml:"websocket,omitempty"`
 	Wsjtx       WsjtxConfig     `json:"wsjtx,omitempty" yaml:"wsjtx,omitempty"`
 	VersionInfo string          `json:"-" yaml:"-"`
@@ -35,5 +36,14 @@ type WsjtxConfig struct {
 	// Address is the IP or hostname on which to listen to WSJT-X
 	Address string `json:"address,omitempty" yaml:"address,omitempty"`
 	// Port is the UDP port on which to listen to WSJT-X
+	Port uint `json:"port,omitempty" yaml:"port,omitempty"`
+}
+
+type RigctldConfig struct {
+	// Enabled is whether to listen to rigctld
+	Enabled bool `json:"enabled" yaml:"enabled"`
+	// Address is the IP or hostname on which to connect to rigctld
+	Address string `json:"address,omitempty" yaml:"address,omitempty"`
+	// Port is the TCP port on which to connect to rigctld
 	Port uint `json:"port,omitempty" yaml:"port,omitempty"`
 }

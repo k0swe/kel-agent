@@ -27,5 +27,10 @@ func init() {
 			Address: defaultWsjtxAddr,
 			Port:    2237,
 		},
+		Rigctld: RigctldConfig{
+			Enabled: false,
+			Address: "localhost",
+			Port:    4532,
+		},
 	}
 }

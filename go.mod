@@ -2,13 +2,14 @@ module github.com/k0swe/kel-agent
 
 // This version needs to track golang in Debian stable backports (currently bookworm)
 // https://packages.debian.org/bookworm-backports/golang
-go 1.21
+go 1.22
 
 require (
 	dario.cat/mergo v1.0.1
 	github.com/adrg/xdg v0.5.0
 	github.com/gorilla/websocket v1.5.3
 	github.com/invopop/jsonschema v0.12.0
+	github.com/k0swe/rigctld-go v0.1.2
 	github.com/k0swe/wsjtx-go/v4 v4.1.2
 	github.com/rs/zerolog v1.33.0
 	github.com/stretchr/testify v1.9.0
