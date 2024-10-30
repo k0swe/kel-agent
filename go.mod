@@ -6,7 +6,7 @@ go 1.21
 
 require (
 	dario.cat/mergo v1.0.1
-	github.com/adrg/xdg v0.5.0
+	github.com/adrg/xdg v0.5.2
 	github.com/gorilla/websocket v1.5.3
 	github.com/invopop/jsonschema v0.12.0
 	github.com/k0swe/wsjtx-go/v4 v4.1.2
@@ -26,5 +26,5 @@ require (
 	github.com/mazznoer/csscolorparser v0.1.5 // indirect
 	github.com/pmezard/go-difflib v1.0.0 // indirect
 	github.com/wk8/go-ordered-map/v2 v2.1.8 // indirect
-	golang.org/x/sys v0.25.0 // indirect
+	golang.org/x/sys v0.26.0 // indirect
 )
