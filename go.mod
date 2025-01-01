@@ -8,7 +8,7 @@ require (
 	dario.cat/mergo v1.0.1
 	github.com/adrg/xdg v0.5.3
 	github.com/gorilla/websocket v1.5.3
-	github.com/invopop/jsonschema v0.12.0
+	github.com/invopop/jsonschema v0.13.0
 	github.com/k0swe/wsjtx-go/v4 v4.1.3
 	github.com/rs/zerolog v1.33.0
 	github.com/stretchr/testify v1.10.0
