@@ -5,7 +5,7 @@ module github.com/k0swe/kel-agent
 go 1.21
 
 require (
-	dario.cat/mergo v1.0.1
+	dario.cat/mergo v1.0.2
 	github.com/adrg/xdg v0.5.3
 	github.com/gorilla/websocket v1.5.3
 	github.com/invopop/jsonschema v0.13.0
