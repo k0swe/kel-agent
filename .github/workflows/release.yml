@@ -103,7 +103,7 @@ jobs:
           find /Volumes -name "Install Packages.pkg" | xargs -I {} sudo installer -pkg "{}" -target /
 
       - name: Create keychain with signing certificate
-        uses: apple-actions/import-codesign-certs@v5
+        uses: apple-actions/import-codesign-certs@v6
         with:
           keychain: k0swe
           p12-file-base64: ${{ secrets.CERTIFICATES_P12 }}
