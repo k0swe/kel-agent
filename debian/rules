@@ -11,7 +11,7 @@ GO_LDFLAGS := "-X 'main.Version=v$(VERSION)' -X 'main.GitCommit=$(GITCOMMIT)' -X
 	dh $@ --builddirectory=_build --buildsystem=golang --with=golang
 
 override_dh_auto_build:
-	dh_auto_build -O--buildsystem=golang -- --ldflags $(GO_LDFLAGS)
+	dh_auto_build -O--buildsystem=golang -- -tags hamlib --ldflags $(GO_LDFLAGS)
 
 override_dh_auto_install:
 	dh_auto_install -- --no-source

@@ -16,6 +16,9 @@
                 <Environment Id="SET_ENV" Action="set" Name="PATH" Part="last" Permanent="no" System="yes"
                              Value="[BinDir]"/>
               </Component>
+              <Component Id='HamlibRuntime' Guid='b3f7c8a1-4e2d-4f9b-a1c3-5d6e7f8a9b0c'>
+                <File Id='HamlibDLL' Name='libhamlib-4.dll' DiskId='1' Source='../out/hamlib/bin/libhamlib-4.dll'/>
+              </Component>
             </Directory>
           </Directory>
         </Directory>
@@ -23,6 +26,7 @@
     </Directory>
     <Feature Id='Complete' Level='1'>
       <ComponentRef Id='MainExecutable'/>
+      <ComponentRef Id='HamlibRuntime'/>
     </Feature>
   </Product>
 </Wix>

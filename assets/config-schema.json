@@ -10,10 +10,75 @@
         },
         "wsjtx": {
           "$ref": "#/$defs/WsjtxConfig"
+        },
+        "hamlib": {
+          "$ref": "#/$defs/HamlibConfig"
         }
       },
       "additionalProperties": false,
       "type": "object"
+    },
+    "HamlibConfig": {
+      "properties": {
+        "enabled": {
+          "type": "boolean"
+        },
+        "retrySeconds": {
+          "type": "integer"
+        },
+        "rigModel": {
+          "type": "integer"
+        },
+        "rigPort": {
+          "type": "string",
+          "enum": [
+            "RIG_PORT_NONE",
+            "RIG_PORT_SERIAL",
+            "RIG_PORT_NETWORK",
+            "RIG_PORT_DEVICE",
+            "RIG_PORT_PACKET",
+            "RIG_PORT_DTMF",
+            "RIG_PORT_ULTRA",
+            "RIG_PORT_RPC",
+            "RIG_PORT_PARALLEL",
+            "RIG_PORT_USB",
+            "RIG_PORT_UDP_NETWORK",
+            "RIG_PORT_CM108"
+          ]
+        },
+        "portName": {
+          "type": "string"
+        },
+        "baudRate": {
+          "type": "integer"
+        },
+        "dataBits": {
+          "type": "integer"
+        },
+        "stopBits": {
+          "type": "integer"
+        },
+        "parity": {
+          "type": "integer",
+          "enum": [
+            0,
+            1,
+            2
+          ]
+        },
+        "handshake": {
+          "type": "integer",
+          "enum": [
+            0,
+            1
+          ]
+        }
+      },
+      "additionalProperties": false,
+      "type": "object",
+      "required": [
+        "enabled"
+      ]
     },
     "WebsocketConfig": {
       "properties": {

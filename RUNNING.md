@@ -163,3 +163,47 @@ $ kel-agent
 
 Note that 224.0.0.1 is the multicast address that WSJT-X uses by default on Linux and Mac. On
 Windows, `kel-agent` listens by default instead on 127.0.0.1. This matches WSJT-X's behavior.
+
+## Hamlib
+
+`kel-agent` supports rig control using Hamlib 4 (built in, statically linked).
+
+Example configuration for an Icom IC-7300 on Linux:
+
+```yaml
+hamlib:
+  enabled: true
+  rigModel: 3073 # IC-7300
+  rigPort: RIG_PORT_SERIAL
+  portName: /dev/ttyUSB0
+  baudRate: 9600
+  dataBits: 8
+  stopBits: 1
+  parity: none
+  handshake: none
+```
+
+Example configuration for flrig software:
+
+```yaml
+hamlib:
+  enabled: true
+  rigModel: 4 # flrig
+  rigPort: RIG_PORT_NETWORK
+  portName: 127.0.0.1:12345
+```
+
+Values for `rigModel` can be found by running the command `rigctl -l`. TODO: I should make a list
+command using
+[`ListModels`](https://github.com/xylo04/goHamlib/blob/30dd4ae13b3821025e0afdae55f6093d6f833ba5/rig.go#L133)
+for `kel-agent` since rig support may change.
+
+Values for `rigPort` can be one of
+[these values](https://github.com/xylo04/goHamlib/blob/30dd4ae13b3821025e0afdae55f6093d6f833ba5/goHamlib.go#L758-L772):
+
+- `RIG_PORT_SERIAL` for a physical serial port
+- `RIG_PORT_NETWORK` for a networked rig, or for software like rigctld or flrig
+- `RIG_PORT_CM108` for using GPIO for PTT on a CM108 USB sound card
+- etc.
+
+Most other fields are pretty self-explanatory.

@@ -1,6 +1,8 @@
 package config
 
-import "runtime"
+import (
+	"runtime"
+)
 
 var defaultConf Config
 
@@ -27,5 +29,6 @@ func init() {
 			Address: defaultWsjtxAddr,
 			Port:    2237,
 		},
+		Hamlib: defaultHamlibConf(),
 	}
 }
