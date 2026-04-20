@@ -10,6 +10,7 @@ HAMLIB_PREFIX := $(ROOT_DIR)/out/hamlib/$(HAMLIB_VERSION)/$(OS)-$(ARCH)
 # Use the local Hamlib prefix if it exists; otherwise fall through to system paths.
 ifneq ($(wildcard $(HAMLIB_PREFIX)/lib/pkgconfig),)
 export PKG_CONFIG_PATH = $(HAMLIB_PREFIX)/lib/pkgconfig
+export PATH := $(HAMLIB_PREFIX)/bin:$(PATH)
 endif
 
 VERSION       := $(KEL_AGENT_VERSION)
