@@ -7,7 +7,10 @@ RAW_ARCH      := $(shell uname -m)
 ARCH          := $(if $(filter x86_64,$(RAW_ARCH)),amd64,$(if $(filter aarch64,$(RAW_ARCH)),arm64,$(if $(filter armv7l,$(RAW_ARCH)),armhf,$(RAW_ARCH))))
 HAMLIB_PREFIX := $(ROOT_DIR)/out/hamlib/$(HAMLIB_VERSION)/$(OS)-$(ARCH)
 
+# Use the local Hamlib prefix if it exists; otherwise fall through to system paths.
+ifneq ($(wildcard $(HAMLIB_PREFIX)/lib/pkgconfig),)
 export PKG_CONFIG_PATH = $(HAMLIB_PREFIX)/lib/pkgconfig
+endif
 
 VERSION       := $(KEL_AGENT_VERSION)
 
@@ -102,8 +105,15 @@ flatpak: kel-agent
       flatpak-builder --force-clean build-out radio.k0swe.Kel_Agent.yml --repo=repo && \
       flatpak build-bundle repo kel_agent.flatpak radio.k0swe.Kel_Agent main
 
+.PHONY: stage-hamlib
+stage-hamlib: hamlib
+	@echo "==> Staging Hamlib runtime files for packaging"
+	mkdir -p out/hamlib/lib out/hamlib/bin
+	cp -a $(HAMLIB_PREFIX)/lib/libhamlib* out/hamlib/lib/ 2>/dev/null || true
+	cp -a $(HAMLIB_PREFIX)/bin/* out/hamlib/bin/ 2>/dev/null || true
+
 .PHONY: mac-package
-mac-package: release
+mac-package: release stage-hamlib
 	# http://s.sudre.free.fr/Software/Packages/about.html
 	packagesbuild --package-version $(VERSION) macos/kel-agent.pkgproj
 	productsign --keychain `security list-keychains | grep k0swe | tr -d \"` \
@@ -112,7 +122,7 @@ mac-package: release
 	mv kel-agent-signed.pkg kel-agent_mac.pkg
 
 .PHONY: win-package
-win-package: release
+win-package: release stage-hamlib
 	# https://wixtoolset.org/
 	cd win && candle kel-agent.wxs && light kel-agent.wixobj
 
