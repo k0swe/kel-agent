@@ -1,32 +1,62 @@
-export ROOT_DIR = $(shell git rev-parse --show-toplevel)
-export PKG_CONFIG_PATH = $(ROOT_DIR)/build/Hamlib-4.5.1/prefix/usr/local/lib/pkgconfig
-VERSION = $(shell head -1 < debian/changelog | egrep -o "[0-9]+\.[0-9]+\.[0-9]+")
-GITCOMMIT = $(shell git rev-parse --short HEAD 2> /dev/null || true)
+include versions.env
+export ROOT_DIR     = $(shell git rev-parse --show-toplevel)
+export GITCOMMIT    = $(shell git rev-parse --short HEAD 2>/dev/null || true)
 
-GENERATED = kel-agent kel-agent_*.pkg win/kel-agent_*.msi win/kel-agent.wixobj autorevision.cache \
-  ../kel-agent_* ../*.deb flatpak/repo/ flatpak/.flatpak-builder/ flatpak/kel_agent.flatpak \
-  flatpak/flatpak_app/ flatpak/build-out/
+OS            := $(shell uname -s | tr '[:upper:]' '[:lower:]')
+RAW_ARCH      := $(shell uname -m)
+ARCH          := $(if $(filter x86_64,$(RAW_ARCH)),amd64,$(if $(filter aarch64,$(RAW_ARCH)),arm64,$(if $(filter armv7l,$(RAW_ARCH)),armhf,$(RAW_ARCH))))
+HAMLIB_PREFIX := $(ROOT_DIR)/out/hamlib/$(HAMLIB_VERSION)/$(OS)-$(ARCH)
+
+export PKG_CONFIG_PATH = $(HAMLIB_PREFIX)/lib/pkgconfig
+
+VERSION       := $(KEL_AGENT_VERSION)
+
+GENERATED = kel-agent kel-agent.exe kel-agent_*.pkg win/kel-agent_*.msi win/kel-agent.wixobj \
+  autorevision.cache ../kel-agent_* ../*.deb \
+  flatpak/repo/ flatpak/.flatpak-builder/ flatpak/kel_agent.flatpak flatpak/flatpak_app/ flatpak/build-out/
+
+# ---------------------------------------------------------------------------
+# 1. Developer build
+# ---------------------------------------------------------------------------
 
 .PHONY: all
 all: kel-agent
 
-build/Hamlib-4.5.1/prefix/usr/local/lib/pkgconfig/hamlib.pc:
-	scripts/hamlib.sh
-
 .PHONY: test
-test: build/Hamlib-4.5.1/prefix/usr/local/lib/pkgconfig/hamlib.pc
+test:
+	go test -tags hamlib ./...
+	go vet  -tags hamlib ./...
+	if command -v appstream-util >/dev/null; then appstream-util validate --nonet assets/radio.k0swe.Kel_Agent.metainfo.xml; fi
+	if command -v desktop-file-validate >/dev/null; then desktop-file-validate assets/radio.k0swe.Kel_Agent.desktop; fi
+
+.PHONY: test-nohamlib
+test-nohamlib:
 	go test ./...
-	go vet ./...
-	if command -v appstream-util; then appstream-util validate --nonet assets/radio.k0swe.Kel_Agent.metainfo.xml; fi
-	if command -v desktop-file-validate; then desktop-file-validate assets/radio.k0swe.Kel_Agent.desktop; fi
+	go vet  ./...
+
+kel-agent: test
+	export GITCOMMIT=$(GITCOMMIT) VERSION=v$(VERSION) && scripts/build.sh
+
+# ---------------------------------------------------------------------------
+# 2. Release build
+# ---------------------------------------------------------------------------
+
+.PHONY: hamlib
+hamlib:
+	scripts/build-hamlib.sh
+
+.PHONY: release
+release: hamlib test
+	export GITCOMMIT=$(GITCOMMIT) VERSION=v$(VERSION) && scripts/build.sh
+
+# ---------------------------------------------------------------------------
+# 3. Packaging
+# ---------------------------------------------------------------------------
 
 assets/modules.txt:
 	go mod vendor
 	mv vendor/modules.txt assets/
 	rm -rf vendor
-
-kel-agent: test
-	export GITCOMMIT=$(GITCOMMIT) && scripts/build.sh
 
 architecture.svg:
 	# apt install graphviz
@@ -73,7 +103,7 @@ flatpak: kel-agent
       flatpak build-bundle repo kel_agent.flatpak radio.k0swe.Kel_Agent main
 
 .PHONY: mac-package
-mac-package: kel-agent
+mac-package: release
 	# http://s.sudre.free.fr/Software/Packages/about.html
 	packagesbuild --package-version $(VERSION) macos/kel-agent.pkgproj
 	productsign --keychain `security list-keychains | grep k0swe | tr -d \"` \
@@ -82,10 +112,29 @@ mac-package: kel-agent
 	mv kel-agent-signed.pkg kel-agent_mac.pkg
 
 .PHONY: win-package
-win-package: kel-agent
+win-package: release
 	# https://wixtoolset.org/
 	cd win && candle kel-agent.wxs && light kel-agent.wixobj
 
+# ---------------------------------------------------------------------------
+# Verification helpers
+# ---------------------------------------------------------------------------
+
+.PHONY: verify-deps
+verify-deps: kel-agent
+ifeq ($(OS),linux)
+	@echo "==> Linux shared library dependencies:"
+	ldd kel-agent
+endif
+ifeq ($(OS),darwin)
+	@echo "==> macOS shared library dependencies:"
+	otool -L kel-agent
+endif
+
+# ---------------------------------------------------------------------------
+# Housekeeping
+# ---------------------------------------------------------------------------
+
 .PHONY: clean
 clean:
-	rm -rf $(GENERATED)
+	rm -rf $(GENERATED) out/
