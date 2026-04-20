@@ -18,8 +18,8 @@ policy or CGO cross-compilation constraints.
 All version metadata lives in `versions.env` at the repository root:
 
 ```shell
-KEL_AGENT_VERSION=0.4.6
-HAMLIB_VERSION=4.5.1
+KEL_AGENT_VERSION=1.0.0
+HAMLIB_VERSION=4.6.2
 ```
 
 The Makefile, build scripts, and CI workflows read from this file. Packaging metadata in

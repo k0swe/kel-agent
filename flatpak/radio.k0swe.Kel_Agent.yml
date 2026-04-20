@@ -102,14 +102,14 @@ modules:
       - type: git
         url: https://github.com/Hamlib/Hamlib.git
         # Keep this version aligned with HAMLIB_VERSION in versions.env
-        tag: 4.5.1
-        dest: build/Hamlib-4.5.1/
+        tag: 4.6.2
+        dest: build/Hamlib-4.6.2/
 
       - type: dir
         path: ..
     #      - type: git
     #        url: ssh://git@github.com/k0swe/kel-agent.git
-    #        tag: v0.4.6
+    #        tag: v1.0.0
     #        commit: a2c6d56f7c99b662277886859287a00ec8000b7a
     buildsystem: simple
     build-commands:

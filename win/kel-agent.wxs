@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <Wix xmlns="http://wixtoolset.org/schemas/v4/wxs">
   <Package
-      Name="kel-agent v0.4.6"
+      Name="kel-agent v1.0.0"
       Manufacturer="Chris Keller K0SWE"
       UpgradeCode="677cd06e-cca4-453d-9c1a-1854946c789d"
       Language="1033"
-      Version="0.4.6">
+      Version="1.0.0">
     <MediaTemplate />
     <StandardDirectory Id="ProgramFilesFolder">
       <Directory Id="K0SWE" Name="K0SWE">

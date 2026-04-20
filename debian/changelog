@@ -1,3 +1,10 @@
+kel-agent (1.0.0-1) UNRELEASED; urgency=medium
+
+  * Added Hamlib backend
+  * Dependency updates
+
+ -- Chris Keller <xylo04@gmail.com>  Sun, 19 Apr 2026 22:00:00 -0600
+
 kel-agent (0.4.6-1) UNRELEASED; urgency=medium
 
   * Improvements to websocket and logging
