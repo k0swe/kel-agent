@@ -10,7 +10,7 @@ jobs:
     name: Build the Linux release artifact
     runs-on: [self-hosted, linux, x64]
     # Trust that the runner has an sbuild chroot
-    # sudo apt install autorevision sbuild-debian-developer-setup debhelper dh-golang
+    # sudo apt install autorevision sbuild-debian-developer-setup debhelper dh-golang libhamlib-dev
     # newgrp sbuild
     # sudo sbuild-debian-developer-setup --suite=stable
 
@@ -26,6 +26,14 @@ jobs:
 
       - name: Build Debian package
         run: make deb-package
+
+      - name: Verify shared library dependencies
+        run: |
+          echo "==> Checking .deb contents"
+          dpkg-deb -c ../*.deb
+          echo "==> Checking binary dependencies"
+          dpkg-deb -x ../*.deb /tmp/deb-extract
+          ldd /tmp/deb-extract/usr/bin/kel-agent || true
 
       - name: Release
         uses: softprops/action-gh-release@v3
@@ -39,7 +47,7 @@ jobs:
     name: Build the Raspberry Pi release artifact
     runs-on: [self-hosted, linux, ARM]
     # Trust that the runner has an sbuild chroot:
-    # sudo apt install autorevision sbuild-debian-developer-setup debhelper dh-golang
+    # sudo apt install autorevision sbuild-debian-developer-setup debhelper dh-golang libhamlib-dev
     # newgrp sbuild
     # sudo sbuild-debian-developer-setup --suite=stable
 
@@ -55,6 +63,14 @@ jobs:
 
       - name: Build Debian package
         run: make deb-package
+
+      - name: Verify shared library dependencies
+        run: |
+          echo "==> Checking .deb contents"
+          dpkg-deb -c ../*.deb
+          echo "==> Checking binary dependencies"
+          dpkg-deb -x ../*.deb /tmp/deb-extract
+          ldd /tmp/deb-extract/usr/bin/kel-agent || true
 
       - name: Release
         uses: softprops/action-gh-release@v3
@@ -112,11 +128,19 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v6
 
+      - name: Build Hamlib
+        run: |
+          brew install automake libtool
+          make hamlib
+
       - name: Test
         run: make test
 
       - name: Build Mac package
         run: make mac-package
+
+      - name: Verify shared library dependencies
+        run: otool -L kel-agent
 
       - name: Release
         uses: softprops/action-gh-release@v3
@@ -139,6 +163,10 @@ jobs:
 
       - name: Checkout code
         uses: actions/checkout@v6
+
+      - name: Build Hamlib
+        shell: bash
+        run: make hamlib
 
       - name: Test
         run: make test

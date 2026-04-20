@@ -12,6 +12,7 @@ repo/
 kel-agent.flatpak
 flatpak_app/
 build/
+out/
 
 .idea/
 

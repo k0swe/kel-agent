@@ -6,9 +6,36 @@ on:
   pull_request:
     branches: ["main"]
 
+permissions:
+  contents: read
+
 jobs:
-  test:
-    name: Run unit tests
+  test-nohamlib:
+    name: Run unit tests (no Hamlib)
+    strategy:
+      matrix:
+        go-version: [1.23.x]
+        os: [ubuntu-latest]
+    runs-on: ${{ matrix.os }}
+
+    steps:
+      - name: Install Go
+        uses: actions/setup-go@v6
+        with:
+          go-version: ${{ matrix.go-version }}
+
+      - name: Checkout code
+        uses: actions/checkout@v6
+
+      - name: Test (no Hamlib)
+        uses: nick-fields/retry@v4.0.0
+        with:
+          timeout_minutes: 2
+          max_attempts: 5
+          command: make test-nohamlib
+
+  test-hamlib:
+    name: Run unit tests (with Hamlib)
     strategy:
       matrix:
         go-version: [1.23.x]
@@ -27,7 +54,7 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v6
 
-      - name: Test (with retry)
+      - name: Test (with Hamlib)
         uses: nick-fields/retry@v4.0.0
         with:
           timeout_minutes: 2

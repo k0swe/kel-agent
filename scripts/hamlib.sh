@@ -1,13 +1,20 @@
 #!/bin/bash
+# Legacy Hamlib build script used by the Flatpak manifest.
+# For non-Flatpak builds, prefer scripts/build-hamlib.sh which installs into
+# the standard artifact layout under out/.
 
 cd "$ROOT_DIR" || exit 1
+
+# shellcheck source=../versions.env
+source "$ROOT_DIR/versions.env"
+
 mkdir -p build && cd build || exit 1
-if [ ! -d "Hamlib-4.5.1" ]; then
-    wget https://github.com/Hamlib/Hamlib/archive/refs/tags/4.5.1.tar.gz
-    tar xvzf 4.5.1.tar.gz
-    rm 4.5.1.tar.gz
+if [ ! -d "Hamlib-$HAMLIB_VERSION" ]; then
+    wget "https://github.com/Hamlib/Hamlib/archive/refs/tags/$HAMLIB_VERSION.tar.gz"
+    tar xvzf "$HAMLIB_VERSION.tar.gz"
+    rm "$HAMLIB_VERSION.tar.gz"
 fi
-cd Hamlib-4.5.1 || exit 1
+cd "Hamlib-$HAMLIB_VERSION" || exit 1
 hamlib_repo=$(pwd)
 hamlib_prefix="$hamlib_repo"/prefix/usr/local
 mkdir -p "$hamlib_prefix"

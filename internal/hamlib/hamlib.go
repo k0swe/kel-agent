@@ -1,3 +1,5 @@
+//go:build hamlib
+
 package hamlib
 
 import (
@@ -8,18 +10,6 @@ import (
 	"github.com/rs/zerolog/log"
 	"github.com/xylo04/goHamlib"
 )
-
-type Message struct {
-	MsgType string      `json:"type,omitempty"`
-	Payload interface{} `json:"payload,omitempty"`
-}
-
-type RigState struct {
-	Model     string `json:"model"`
-	Frequency int64  `json:"frequency"`
-	Mode      string `json:"mode"`
-	Width     int    `json:"passbandWidthHz"`
-}
 
 const pollInterval = 100 * time.Millisecond
 const maxWaitInterval = 10 * time.Second
