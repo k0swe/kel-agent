@@ -101,6 +101,7 @@ modules:
         dest: vendor/gopkg.in/yaml.v3/
       - type: git
         url: https://github.com/Hamlib/Hamlib.git
+        # Keep this version aligned with HAMLIB_VERSION in versions.env
         tag: 4.5.1
         dest: build/Hamlib-4.5.1/
 
@@ -114,7 +115,11 @@ modules:
     build-commands:
       - cp assets/modules.txt vendor/
       - ./scripts/hamlib.sh
-      - make
+      - >-
+        export GITCOMMIT=$(git rev-parse --short HEAD 2>/dev/null || true)
+        && export VERSION=v$(grep KEL_AGENT_VERSION versions.env | cut -d= -f2)
+        && export TAGS=hamlib
+        && scripts/build.sh
       - install -D kel-agent /app/bin/kel-agent
       - install -Dm644 assets/radio.k0swe.Kel_Agent.svg
         /app/share/icons/hicolor/scalable/apps/radio.k0swe.Kel_Agent.svg
