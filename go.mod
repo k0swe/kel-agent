@@ -1,8 +1,8 @@
 module github.com/k0swe/kel-agent
 
-// This version needs to track golang in Debian stable backports (currently bookworm)
-// https://packages.debian.org/bookworm-backports/golang
-go 1.25.0
+// This version needs to track golang in Debian stable
+// https://packages.debian.org/stable/golang
+go 1.24.0
 
 require (
 	dario.cat/mergo v1.0.2
@@ -27,5 +27,5 @@ require (
 	github.com/mazznoer/csscolorparser v0.1.8 // indirect
 	github.com/pmezard/go-difflib v1.0.0 // indirect
 	github.com/wk8/go-ordered-map/v2 v2.1.8 // indirect
-	golang.org/x/sys v0.43.0 // indirect
+	golang.org/x/sys v0.41.0 // indirect
 )
