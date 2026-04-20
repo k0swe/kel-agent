@@ -166,7 +166,7 @@ Windows, `kel-agent` listens by default instead on 127.0.0.1. This matches WSJT-
 
 ## Hamlib
 
-`kel-agent` supports rig control using Hamlib 4 (built in, statically linked).
+`kel-agent` supports rig control using Hamlib 4.
 
 Example configuration for an Icom IC-7300 on Linux:
 
@@ -176,14 +176,14 @@ hamlib:
   rigModel: 3073 # IC-7300
   rigPort: RIG_PORT_SERIAL
   portName: /dev/ttyUSB0
-  baudRate: 9600
+  baudRate: 115200
   dataBits: 8
   stopBits: 1
-  parity: none
-  handshake: none
+  parity: 0
+  handshake: 0
 ```
 
-Example configuration for flrig software:
+Example configuration for flrig:
 
 ```yaml
 hamlib:
