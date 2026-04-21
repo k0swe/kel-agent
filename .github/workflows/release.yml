@@ -64,6 +64,7 @@ jobs:
                 libhamlib-dev \
                 make \
                 wget
+              make test
               make deb-package-ci
             '
           mkdir -p dist
