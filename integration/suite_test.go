@@ -33,6 +33,9 @@ func TestIntegrationSuite(t *testing.T) {
 		// inside the build environment cause websocket/WSJTX timeouts.
 		t.Skip("These integration tests are unreliable inside dpkg-buildpackage")
 	}
+	if os.Getenv("SKIP_INTEGRATION_TESTS") != "" {
+		t.Skip("Integration tests skipped via SKIP_INTEGRATION_TESTS")
+	}
 	suite.Run(t, &integrationTestSuite{})
 }
 
