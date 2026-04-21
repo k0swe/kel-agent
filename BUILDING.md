@@ -80,7 +80,7 @@ Packaging targets take already-built outputs and produce platform artifacts.
 make deb-package   # Debian .deb via sbuild (uses distro libhamlib-dev, not repo-local prefix)
 make flatpak       # hermetic Flatpak bundle (builds Hamlib inside the sandbox)
 make mac-package   # macOS .pkg (bundles Hamlib dylib from out/)
-make win-package   # Windows .msi (bundles Hamlib DLL from out/)
+make win-package   # Windows .msi via WiX v4 (bundles Hamlib DLL from out/)
 ```
 
 ## Artifact model

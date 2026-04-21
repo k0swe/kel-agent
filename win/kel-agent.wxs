@@ -1,32 +1,37 @@
-<?xml version='1.0' encoding='utf-8'?>
-<Wix xmlns='http://schemas.microsoft.com/wix/2006/wi'>
-  <Product Name='kel-agent v0.4.6' Manufacturer='Chris Keller K0SWE' Id='a22db0cd-1d0b-4f91-b78e-8e0c0d0b5c45'
-           UpgradeCode='677cd06e-cca4-453d-9c1a-1854946c789d' Language='1033' Codepage='1252' Version='0.4.6'>
-    <Package Id='*' Keywords='Installer' Description="K0SWE kel-agent v0.4.6 Installer"
-             Manufacturer='Chris Keller K0SWE' InstallerVersion='100' Languages='1033' Compressed='yes'
-             SummaryCodepage='1252'/>
-    <Media Id='1' Cabinet='Kelagent.cab' EmbedCab='yes'/>
-    <Directory Id='TARGETDIR' Name='SourceDir'>
-      <Directory Id='ProgramFilesFolder' Name='PFiles'>
-        <Directory Id='K0SWE' Name='K0SWE'>
-          <Directory Id='INSTALLDIR' Name='kel-agent'>
-            <Directory Id='BinDir' Name='bin'>
-              <Component Id='MainExecutable' Guid='6944ce5e-fb7a-4c98-a28f-9d2411182e2c'>
-                <File Id='KelAgentEXE' Name='kel-agent.exe' DiskId='1' Source='../kel-agent.exe' KeyPath='yes'/>
-                <Environment Id="SET_ENV" Action="set" Name="PATH" Part="last" Permanent="no" System="yes"
-                             Value="[BinDir]"/>
-              </Component>
-              <Component Id='HamlibRuntime' Guid='b3f7c8a1-4e2d-4f9b-a1c3-5d6e7f8a9b0c'>
-                <File Id='HamlibDLL' Name='libhamlib-4.dll' DiskId='1' Source='../out/hamlib/bin/libhamlib-4.dll'/>
-              </Component>
-            </Directory>
+<?xml version="1.0" encoding="utf-8"?>
+<Wix xmlns="http://wixtoolset.org/schemas/v4/wxs">
+  <Package
+      Name="kel-agent v0.4.6"
+      Manufacturer="Chris Keller K0SWE"
+      UpgradeCode="677cd06e-cca4-453d-9c1a-1854946c789d"
+      Language="1033"
+      Version="0.4.6">
+    <MediaTemplate />
+    <StandardDirectory Id="ProgramFilesFolder">
+      <Directory Id="K0SWE" Name="K0SWE">
+        <Directory Id="INSTALLDIR" Name="kel-agent">
+          <Directory Id="BinDir" Name="bin">
+            <Component Id="MainExecutable" Guid="6944ce5e-fb7a-4c98-a28f-9d2411182e2c">
+              <File Id="KelAgentEXE" Source="../kel-agent.exe" KeyPath="yes" />
+              <Environment
+                  Id="SetEnv"
+                  Action="set"
+                  Name="PATH"
+                  Part="last"
+                  Permanent="no"
+                  System="yes"
+                  Value="[BinDir]" />
+            </Component>
+            <Component Id="HamlibRuntime" Guid="b3f7c8a1-4e2d-4f9b-a1c3-5d6e7f8a9b0c">
+              <File Id="HamlibDLL" Source="../out/hamlib/bin/libhamlib-4.dll" />
+            </Component>
           </Directory>
         </Directory>
       </Directory>
-    </Directory>
-    <Feature Id='Complete' Level='1'>
-      <ComponentRef Id='MainExecutable'/>
-      <ComponentRef Id='HamlibRuntime'/>
+    </StandardDirectory>
+    <Feature Id="Complete" Level="1" Title="kel-agent">
+      <ComponentRef Id="MainExecutable" />
+      <ComponentRef Id="HamlibRuntime" />
     </Feature>
-  </Product>
+  </Package>
 </Wix>
