@@ -143,6 +143,17 @@ mac-package: release stage-hamlib
 		otool -L out/macos-pkg/root/usr/local/bin/kel-agent; \
 		exit 1; \
 	fi
+	# Sign the bundled dylib and binary with Developer ID Application so Apple's
+	# notarization service accepts all payloads inside the installer pkg.
+	# Sign the dylib first (dependency before dependent).
+	codesign --force --options runtime \
+		--sign "Developer ID Application: Chris Keller (2UK8VD3UP4)" \
+		--keychain $$(security list-keychains | grep k0swe | tr -d \" | head -n1) \
+		out/macos-pkg/root/usr/local/lib/libhamlib.4.dylib
+	codesign --force --options runtime \
+		--sign "Developer ID Application: Chris Keller (2UK8VD3UP4)" \
+		--keychain $$(security list-keychains | grep k0swe | tr -d \" | head -n1) \
+		out/macos-pkg/root/usr/local/bin/kel-agent
 	cp assets/kel-agent.1 out/macos-pkg/root/usr/local/share/man/man1/
 	pkgbuild \
 		--root out/macos-pkg/root \
@@ -155,7 +166,7 @@ mac-package: release stage-hamlib
 		--package-path out/macos-pkg \
 		--resources macos \
 		kel-agent.pkg
-	productsign --keychain `security list-keychains | grep k0swe | tr -d \"` \
+	productsign --keychain $$(security list-keychains | grep k0swe | tr -d \" | head -n1) \
       --sign "Developer ID Installer: Chris Keller (2UK8VD3UP4)" \
       kel-agent.pkg kel-agent-signed.pkg
 	mv kel-agent-signed.pkg kel-agent_mac.pkg
