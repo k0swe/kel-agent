@@ -114,9 +114,10 @@ modules:
     buildsystem: simple
     build-commands:
       - cp assets/modules.txt vendor/
-      - ./scripts/hamlib.sh
+      - export ROOT_DIR=$PWD && ./scripts/hamlib.sh
       - >-
-        export GITCOMMIT=$(git rev-parse --short HEAD 2>/dev/null || true)
+        export ROOT_DIR=$PWD
+        && export GITCOMMIT=$(git rev-parse --short HEAD 2>/dev/null || true)
         && export VERSION=v$(grep KEL_AGENT_VERSION versions.env | cut -d= -f2)
         && export TAGS=hamlib
         && scripts/build.sh
