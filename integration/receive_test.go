@@ -54,7 +54,8 @@ func (s *integrationTestSuite) TestReceive() {
 // UDP datagram yet, causing ReadMessage to block indefinitely.
 func (s *integrationTestSuite) waitForPipelineReady() {
 	// Use the same clear message used by primeConnection in send_test.go.
-	clearMsg, _ := hex.DecodeString(`adbccbda00000002000000030000000657534a542d58`)
+	clearMsg, err := hex.DecodeString(`adbccbda00000002000000030000000657534a542d58`)
+	s.Require().NoError(err)
 	const maxRetries = 10
 	for i := 0; i < maxRetries; i++ {
 		_, _ = s.fake.SendMessage(clearMsg)
