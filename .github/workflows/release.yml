@@ -60,6 +60,7 @@ jobs:
                 golang-any \
                 libhamlib-dev \
                 make \
+                pkg-config \
                 wget
               # The workspace is bind-mounted from the host runner; git
               # considers it "dubious" because the container runs as root.
