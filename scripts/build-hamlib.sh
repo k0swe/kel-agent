@@ -39,7 +39,14 @@ echo "    prefix:    $PREFIX"
 mkdir -p "$ROOT_DIR/build"
 if [ ! -d "$BUILD_DIR" ]; then
     echo "==> Downloading Hamlib $HAMLIB_VERSION"
-    wget -q -O "$ROOT_DIR/build/$HAMLIB_TARBALL" "$HAMLIB_URL"
+    if command -v wget >/dev/null 2>&1; then
+        wget -q -O "$ROOT_DIR/build/$HAMLIB_TARBALL" "$HAMLIB_URL"
+    elif command -v curl >/dev/null 2>&1; then
+        curl -fsSL -o "$ROOT_DIR/build/$HAMLIB_TARBALL" "$HAMLIB_URL"
+    else
+        echo "ERROR: neither wget nor curl is available" >&2
+        exit 1
+    fi
     tar xzf "$ROOT_DIR/build/$HAMLIB_TARBALL" -C "$ROOT_DIR/build"
     rm -f "$ROOT_DIR/build/$HAMLIB_TARBALL"
 fi
