@@ -206,6 +206,7 @@ jobs:
           go-version: 1.24.x
 
       - name: Install MSYS2 with MinGW64 pkg-config
+        id: msys2
         # Explicitly install MSYS2 and mingw-w64-x86_64-pkgconf instead of relying on
         # whatever MSYS2 subsystems the runner image happens to pre-install.  Runner images
         # have changed which subsystems are present, causing pkg-config probing to fail.
@@ -219,17 +220,44 @@ jobs:
 
       - name: Export PKG_CONFIG path
         run: |
-          $mingwBin = "C:\msys64\mingw64\bin"
-          # pkgconf >= 1~2.0 ships as pkgconf.exe; older releases ship pkg-config.exe.
-          # Probe for whichever name the installed package provides.
-          $pkgConfigExe = @("$mingwBin\pkg-config.exe", "$mingwBin\pkgconf.exe") |
-            Where-Object { Test-Path $_ } | Select-Object -First 1
-          if (-not $pkgConfigExe) {
-            Write-Error "Neither pkg-config.exe nor pkgconf.exe found in $mingwBin"
+          $msys2Location = "${{ steps.msys2.outputs.msys2-location }}"
+          if (-not $msys2Location) {
+            Write-Error "msys2/setup-msys2 did not expose msys2-location output"
             exit 1
           }
+          Write-Host "MSYS2 location: $msys2Location"
+
+          # pkgconf >= 1~2.0 ships as pkgconf.exe; older releases ship pkg-config.exe.
+          # Search all common MSYS2 environments and fallback locations because runner
+          # images have changed default install paths and available subsystems.
+          $candidateBins = @(
+            "$msys2Location\mingw64\bin"
+            "$msys2Location\ucrt64\bin"
+            "$msys2Location\clang64\bin"
+            "C:\msys64\mingw64\bin"
+            "D:\a\_temp\msys64\mingw64\bin"
+          ) | Where-Object { Test-Path $_ } | Select-Object -Unique
+
+          $pkgConfigExe = $null
+          foreach ($bin in $candidateBins) {
+            foreach ($exe in @("pkg-config.exe", "pkgconf.exe")) {
+              $candidate = Join-Path $bin $exe
+              if (Test-Path $candidate) {
+                $pkgConfigExe = $candidate
+                break
+              }
+            }
+            if ($pkgConfigExe) { break }
+          }
+
+          if (-not $pkgConfigExe) {
+            Write-Error "Neither pkg-config.exe nor pkgconf.exe found in candidate bins: $($candidateBins -join ', ')"
+            exit 1
+          }
+
+          $pkgConfigBin = Split-Path $pkgConfigExe -Parent
           Write-Host "Using pkg-config from: $pkgConfigExe"
-          Add-Content $env:GITHUB_PATH $mingwBin
+          Add-Content $env:GITHUB_PATH $pkgConfigBin
           Add-Content $env:GITHUB_ENV  "PKG_CONFIG=$pkgConfigExe"
 
       - name: Verify pkg-config
