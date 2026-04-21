@@ -238,15 +238,16 @@ jobs:
             "D:\a\_temp\msys64\mingw64\bin"
           ) | Where-Object { Test-Path $_ } | Select-Object -Unique
 
-          $pkgConfigExe = foreach ($bin in $candidateBins) {
+          $pkgConfigExe = $null
+          foreach ($bin in $candidateBins) {
             foreach ($exe in @("pkg-config.exe", "pkgconf.exe")) {
               $candidate = Join-Path $bin $exe
               if (Test-Path $candidate) {
-                $candidate
+                $pkgConfigExe = $candidate
                 break
               }
             }
-            if ($candidate) { break }
+            if ($pkgConfigExe) { break }
           }
 
           if (-not $pkgConfigExe) {
