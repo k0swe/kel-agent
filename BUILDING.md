@@ -91,7 +91,7 @@ make win-package   # Windows .msi via WiX v4 (bundles Hamlib DLL from out/)
 Debian packages are built against distro-provided Hamlib development packages and resolve runtime
 dependencies through normal Debian shared-library packaging.
 
-- `debian/control` declares `libhamlib-dev` as a Build-Depends and `libhamlib4` as a runtime Depends
+- `debian/control` declares `libhamlib-dev` as a Build-Depends and `libhamlib4t64 | libhamlib4` as a runtime Depends
 - `debian/rules` passes `-tags hamlib` to `dh_auto_build`
 - No repo-local Hamlib prefix is used in the Debian packaging path
 
