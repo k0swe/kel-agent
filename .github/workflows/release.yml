@@ -146,6 +146,9 @@ jobs:
           SKIP_INTEGRATION_TESTS: "1"
         run: make test
 
+      - name: Set signing keychain as default
+        run: security default-keychain -d user -s ~/Library/Keychains/k0swe.keychain-db
+
       - name: Build Mac package
         run: make mac-package
 
