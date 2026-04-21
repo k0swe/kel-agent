@@ -1,6 +1,5 @@
 #!/usr/bin/env bash
 set -eu
-echo "$ROOT_DIR"
 cd "$ROOT_DIR" || exit 1
 
 # VERSION can be set by the caller (e.g. Makefile); fall back to versions.env.

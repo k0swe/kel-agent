@@ -1,12 +1,16 @@
 #!/bin/bash
+set -euo pipefail
 # Legacy Hamlib build script used by the Flatpak manifest.
 # For non-Flatpak builds, prefer scripts/build-hamlib.sh which installs into
 # the standard artifact layout under out/.
 
-cd "$ROOT_DIR" || exit 1
+SCRIPT_DIR="$(cd "$(dirname "$0")" && pwd)"
+ROOT_DIR="${ROOT_DIR:-$(cd "$SCRIPT_DIR/.." && pwd)}"
 
 # shellcheck source=../versions.env
 source "$ROOT_DIR/versions.env"
+
+cd "$ROOT_DIR" || exit 1
 
 mkdir -p build && cd build || exit 1
 if [ ! -d "Hamlib-$HAMLIB_VERSION" ]; then
