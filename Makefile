@@ -14,6 +14,8 @@ export PATH := $(HAMLIB_PREFIX)/bin:$(PATH)
 endif
 
 VERSION       := $(KEL_AGENT_VERSION)
+MACOS_APP_SIGN_IDENTITY ?= $(shell security find-identity -v -p codesigning 2>/dev/null | sed -n 's/.*"\(Developer ID Application:.*\)"/\1/p' | head -n1)
+MACOS_INSTALL_SIGN_IDENTITY ?= $(shell security find-identity -v -p basic 2>/dev/null | sed -n 's/.*"\(Developer ID Installer:.*\)"/\1/p' | head -n1)
 
 GENERATED = kel-agent kel-agent.exe kel-agent.pkg kel-agent-signed.pkg kel-agent_*.pkg win/kel-agent_*.msi win/kel-agent.wixobj \
   autorevision.cache ../kel-agent_* ../*.deb \
@@ -146,11 +148,13 @@ mac-package: release stage-hamlib
 	# Sign the bundled dylib and binary with Developer ID Application so Apple's
 	# notarization service accepts all payloads inside the installer pkg.
 	# Sign the dylib first (dependency before dependent).
+	@test -n "$(MACOS_APP_SIGN_IDENTITY)" || (echo "ERROR: MACOS_APP_SIGN_IDENTITY is empty. Import a Developer ID Application cert or set MACOS_APP_SIGN_IDENTITY." && exit 1)
+	@test -n "$(MACOS_INSTALL_SIGN_IDENTITY)" || (echo "ERROR: MACOS_INSTALL_SIGN_IDENTITY is empty. Import a Developer ID Installer cert or set MACOS_INSTALL_SIGN_IDENTITY." && exit 1)
 	codesign --force --options runtime \
-		--sign "Developer ID Application: Chris Keller (2UK8VD3UP4)" \
+		--sign "$(MACOS_APP_SIGN_IDENTITY)" \
 		out/macos-pkg/root/usr/local/lib/libhamlib.4.dylib
 	codesign --force --options runtime \
-		--sign "Developer ID Application: Chris Keller (2UK8VD3UP4)" \
+		--sign "$(MACOS_APP_SIGN_IDENTITY)" \
 		out/macos-pkg/root/usr/local/bin/kel-agent
 	cp assets/kel-agent.1 out/macos-pkg/root/usr/local/share/man/man1/
 	pkgbuild \
@@ -164,7 +168,7 @@ mac-package: release stage-hamlib
 		--package-path out/macos-pkg \
 		--resources macos \
 		kel-agent.pkg
-	productsign --sign "Developer ID Installer: Chris Keller (2UK8VD3UP4)" \
+	productsign --sign "$(MACOS_INSTALL_SIGN_IDENTITY)" \
 		kel-agent.pkg kel-agent-signed.pkg
 	mv kel-agent-signed.pkg kel-agent_mac.pkg
 
