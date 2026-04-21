@@ -61,6 +61,10 @@ jobs:
                 libhamlib-dev \
                 make \
                 wget
+              # The workspace is bind-mounted from the host runner; git
+              # considers it "dubious" because the container runs as root.
+              # Mark it safe so autorevision can read git metadata.
+              git config --global --add safe.directory "${{ github.workspace }}"
               make deb-package-ci
             '
           mkdir -p dist
@@ -91,6 +95,9 @@ jobs:
     steps:
       - name: Checkout code
         uses: actions/checkout@v6
+
+      - name: Mark workspace as git-safe
+        run: git config --global --add safe.directory "$GITHUB_WORKSPACE"
 
       - name: Build Flatpak
         uses: bilelmoussaoui/flatpak-github-actions/flatpak-builder@v6
