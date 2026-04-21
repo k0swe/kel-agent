@@ -78,6 +78,7 @@ Packaging targets take already-built outputs and produce platform artifacts.
 
 ```shell
 make deb-package   # Debian .deb via sbuild (uses distro libhamlib-dev, not repo-local prefix)
+make deb-package-ci  # Debian .deb for CI/container builds via dpkg-buildpackage (no sbuild chroot)
 make flatpak       # hermetic Flatpak bundle (builds Hamlib inside the sandbox)
 make mac-package   # macOS .pkg (bundles Hamlib dylib from out/)
 make win-package   # Windows .msi via WiX v4 (bundles Hamlib DLL from out/)
@@ -120,11 +121,13 @@ The test workflow runs two jobs:
 
 ### Release workflow
 
-The release workflow uses a native CI matrix:
+The release workflow is fully GitHub-hosted:
 
-- Linux runners for Debian packaging and Flatpak
-- macOS runners build Hamlib, then build and package kel-agent
-- Windows runners build Hamlib, then build and package kel-agent
+- Debian packages are built in `debian:stable` containers on `ubuntu-latest` runners.
+- QEMU + Buildx are used to build Debian `.deb` artifacts for `amd64`, `armhf`, and `arm64`.
+- Flatpak, macOS, and Windows jobs continue to build platform-native artifacts on GitHub-hosted
+  runners.
+- A final publish job gathers workflow artifacts and uploads them to the GitHub Release in one step.
 
 Each platform job includes verification steps to inspect runtime dependencies (`ldd`, `otool -L`,
 package content checks).
