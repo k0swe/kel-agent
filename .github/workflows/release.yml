@@ -180,6 +180,7 @@ jobs:
         run: make hamlib
 
       - name: Test
+        shell: bash
         run: make test
 
       - name: Install WiX v4
