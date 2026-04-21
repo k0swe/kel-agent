@@ -129,11 +129,20 @@ mac-package: release stage-hamlib
 	cp kel-agent out/macos-pkg/root/usr/local/bin/
 	cp out/hamlib/lib/libhamlib.4.dylib out/macos-pkg/root/usr/local/lib/
 	hamlib_ref=$$(otool -L out/macos-pkg/root/usr/local/bin/kel-agent | awk '/libhamlib\.4\.dylib/{print $$1; exit}'); \
-	if [ -n "$$hamlib_ref" ] && [ "$$hamlib_ref" != "/usr/local/lib/libhamlib.4.dylib" ]; then \
+	if [ -z "$$hamlib_ref" ]; then \
+		echo "ERROR: no libhamlib.4.dylib dependency found in packaged kel-agent"; \
+		otool -L out/macos-pkg/root/usr/local/bin/kel-agent; \
+		exit 1; \
+	fi; \
+	if [ "$$hamlib_ref" != "/usr/local/lib/libhamlib.4.dylib" ]; then \
 		install_name_tool -change "$$hamlib_ref" /usr/local/lib/libhamlib.4.dylib out/macos-pkg/root/usr/local/bin/kel-agent; \
 	fi
 	install_name_tool -id /usr/local/lib/libhamlib.4.dylib out/macos-pkg/root/usr/local/lib/libhamlib.4.dylib
-	otool -L out/macos-pkg/root/usr/local/bin/kel-agent | grep -q '/usr/local/lib/libhamlib.4.dylib'
+	@if ! otool -L out/macos-pkg/root/usr/local/bin/kel-agent | grep -q '/usr/local/lib/libhamlib.4.dylib'; then \
+		echo "ERROR: packaged kel-agent is not linked to /usr/local/lib/libhamlib.4.dylib"; \
+		otool -L out/macos-pkg/root/usr/local/bin/kel-agent; \
+		exit 1; \
+	fi
 	cp assets/kel-agent.1 out/macos-pkg/root/usr/local/share/man/man1/
 	pkgbuild \
 		--root out/macos-pkg/root \
