@@ -146,7 +146,7 @@ jobs:
         run: make mac-package
 
       - name: Verify shared library dependencies
-        run: otool -L kel-agent
+        run: otool -L out/macos-pkg/root/usr/local/bin/kel-agent
 
       - name: Upload macOS artifact
         uses: actions/upload-artifact@v4
