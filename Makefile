@@ -15,7 +15,7 @@ endif
 
 VERSION       := $(KEL_AGENT_VERSION)
 
-GENERATED = kel-agent kel-agent.exe kel-agent_*.pkg win/kel-agent_*.msi win/kel-agent.wixobj \
+GENERATED = kel-agent kel-agent.exe kel-agent.pkg kel-agent-signed.pkg kel-agent_*.pkg win/kel-agent_*.msi win/kel-agent.wixobj \
   autorevision.cache ../kel-agent_* ../*.deb \
   flatpak/repo/ flatpak/.flatpak-builder/ flatpak/kel_agent.flatpak flatpak/flatpak_app/ flatpak/build-out/
 
@@ -121,8 +121,25 @@ stage-hamlib: hamlib
 
 .PHONY: mac-package
 mac-package: release stage-hamlib
-	# http://s.sudre.free.fr/Software/Packages/about.html
-	packagesbuild --package-version $(VERSION) macos/kel-agent.pkgproj
+	# Build macOS installer using native pkgbuild/productbuild (no third-party tools required)
+	rm -rf out/macos-pkg
+	mkdir -p out/macos-pkg/root/usr/local/bin
+	mkdir -p out/macos-pkg/root/usr/local/lib
+	mkdir -p out/macos-pkg/root/usr/local/share/man/man1
+	cp kel-agent out/macos-pkg/root/usr/local/bin/
+	cp out/hamlib/lib/libhamlib.4.dylib out/macos-pkg/root/usr/local/lib/
+	cp assets/kel-agent.1 out/macos-pkg/root/usr/local/share/man/man1/
+	pkgbuild \
+		--root out/macos-pkg/root \
+		--identifier radio.k0swe.kel-agent \
+		--version $(VERSION) \
+		--install-location / \
+		out/macos-pkg/kel-agent-component.pkg
+	productbuild \
+		--distribution macos/distribution.xml \
+		--package-path out/macos-pkg \
+		--resources macos \
+		kel-agent.pkg
 	productsign --keychain `security list-keychains | grep k0swe | tr -d \"` \
       --sign "Developer ID Installer: Chris Keller (2UK8VD3UP4)" \
       kel-agent.pkg kel-agent-signed.pkg
