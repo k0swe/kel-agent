@@ -68,9 +68,9 @@ jobs:
               # Mark it safe so autorevision can read git metadata.
               git config --global --add safe.directory "${{ github.workspace }}"
               make deb-package-ci
+              mkdir -p "${{ github.workspace }}/dist"
+              cp ../kel-agent_*_${{ matrix.arch }}.deb "${{ github.workspace }}/dist/"
             '
-          mkdir -p dist
-          cp ../kel-agent_*_${{ matrix.arch }}.deb dist/
 
       - name: Verify shared library dependencies
         run: |
