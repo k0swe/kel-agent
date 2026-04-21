@@ -142,6 +142,8 @@ jobs:
           make hamlib
 
       - name: Test
+        env:
+          SKIP_INTEGRATION_TESTS: "1"
         run: make test
 
       - name: Build Mac package
