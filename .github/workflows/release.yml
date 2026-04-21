@@ -45,6 +45,9 @@ jobs:
               set -euxo pipefail
               export DEBIAN_FRONTEND=noninteractive
               apt-get update
+              # golang-any provides the Go compiler. All Go source deps come
+              # from go mod vendor inside deb-package-ci, so no golang-*-dev
+              # packages from the Debian archive are needed here.
               apt-get install -y --no-install-recommends \
                 autorevision \
                 build-essential \
@@ -55,16 +58,9 @@ jobs:
                 fakeroot \
                 git \
                 golang-any \
-                golang-dario-cat-mergo-dev \
-                golang-github-invopop-jsonschema-dev \
-                golang-github-rs-zerolog-dev \
-                golang-github-xylo04-gohamlib-dev \
-                golang-gopkg-yaml.v3-dev \
-                golang-websocket-dev \
                 libhamlib-dev \
                 make \
                 wget
-              make test
               make deb-package-ci
             '
           mkdir -p dist
