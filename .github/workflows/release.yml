@@ -217,17 +217,20 @@ jobs:
       - name: Export PKG_CONFIG path
         run: |
           $mingwBin = "C:\msys64\mingw64\bin"
-          $pkgConfigExe = "$mingwBin\pkg-config.exe"
+          # pkgconf >= 1~2.0 ships as pkgconf.exe; older releases ship pkg-config.exe.
+          # Probe for whichever name the installed package provides.
+          $pkgConfigExe = @("$mingwBin\pkg-config.exe", "$mingwBin\pkgconf.exe") |
+            Where-Object { Test-Path $_ } | Select-Object -First 1
+          if (-not $pkgConfigExe) {
+            Write-Error "Neither pkg-config.exe nor pkgconf.exe found in $mingwBin"
+            exit 1
+          }
           Write-Host "Using pkg-config from: $pkgConfigExe"
           Add-Content $env:GITHUB_PATH $mingwBin
           Add-Content $env:GITHUB_ENV  "PKG_CONFIG=$pkgConfigExe"
 
       - name: Verify pkg-config
         run: |
-          if (-not (Test-Path $env:PKG_CONFIG)) {
-            Write-Error "PKG_CONFIG binary not found: $env:PKG_CONFIG"
-            exit 1
-          }
           & $env:PKG_CONFIG --version
 
       - name: Build Hamlib
