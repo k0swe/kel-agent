@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<installer-gui-script minSpecVersion="2">
+    <title>kel-agent</title>
+    <background file="K0SWE.png" alignment="bottomleft" scaling="tofit"/>
+    <options customize="never" require-scripts="false" rootVolumeOnly="true"/>
+    <choices-outline>
+        <line choice="default">
+            <line choice="radio.k0swe.kel-agent"/>
+        </line>
+    </choices-outline>
+    <choice id="default"/>
+    <choice id="radio.k0swe.kel-agent" visible="false">
+        <pkg-ref id="radio.k0swe.kel-agent"/>
+    </choice>
+    <pkg-ref id="radio.k0swe.kel-agent" onConclusion="none">kel-agent-component.pkg</pkg-ref>
+</installer-gui-script>

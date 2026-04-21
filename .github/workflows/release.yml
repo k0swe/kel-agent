@@ -119,12 +119,6 @@ jobs:
     runs-on: macos-latest
 
     steps:
-      - name: Install WhiteBox Packages
-        run: |
-          curl "http://s.sudre.free.fr/Software/files/Packages.dmg" --output ${HOME}/Packages.dmg
-          sudo hdiutil attach ${HOME}/Packages.dmg
-          find /Volumes -name "Install Packages.pkg" | xargs -I {} sudo installer -pkg "{}" -target /
-
       - name: Create keychain with signing certificate
         uses: apple-actions/import-codesign-certs@v6
         with:
