@@ -152,11 +152,29 @@ jobs:
 
       - name: Notarize Mac package
         run: |
-          xcrun notarytool submit kel-agent_mac.pkg \
+          output=$(xcrun notarytool submit kel-agent_mac.pkg \
             --apple-id "${{ secrets.APPLE_ID }}" \
             --password "${{ secrets.APPLE_APP_PASSWORD }}" \
             --team-id "${{ secrets.APPLE_TEAM_ID }}" \
-            --wait
+            --output-format json \
+            --wait)
+          echo "$output"
+
+          json_response=$(echo "$output" | tail -1)
+          submission_id=$(echo "$json_response" | jq -r '.id // empty')
+          status=$(echo "$json_response" | jq -r '.status // empty')
+
+          if [ "$status" != "Accepted" ]; then
+            echo "::error::Notarization status is '$status' (expected 'Accepted')"
+            if [ -n "$submission_id" ]; then
+              echo "==> Fetching Apple notarization log for submission $submission_id"
+              xcrun notarytool log "$submission_id" \
+                --apple-id "${{ secrets.APPLE_ID }}" \
+                --password "${{ secrets.APPLE_APP_PASSWORD }}" \
+                --team-id "${{ secrets.APPLE_TEAM_ID }}" || true
+            fi
+            exit 1
+          fi
 
       - name: Staple notarization ticket
         run: xcrun stapler staple kel-agent_mac.pkg
