@@ -101,7 +101,7 @@ deb-package: deb-tarball ../golang-github-k0swe-wsjtx-go-dev_4.0.6-1_all.deb ../
 
 .PHONY: deb-package-ci
 deb-package-ci: deb-tarball ../golang-github-k0swe-wsjtx-go-dev_4.0.6-1_all.deb ../golang-github-adrg-xdg-dev_0.4.0-1_all.deb ../golang-github-mazznoer-csscolorparser-dev_0.1.3-1_all.deb
-	@test "$$(id -u)" -eq 0 || (echo "deb-package-ci must run as root in a clean CI/container environment" && exit 1)
+	@test "$$(id -u)" -eq 0 || (echo "deb-package-ci must run as root" && exit 1)
 	apt-get update
 	apt-get install -y --no-install-recommends \
       ../golang-github-k0swe-wsjtx-go-dev_4.0.6-1_all.deb \
