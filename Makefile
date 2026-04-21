@@ -99,6 +99,16 @@ deb-package: deb-tarball ../golang-github-k0swe-wsjtx-go-dev_4.0.6-1_all.deb ../
       --extra-package=../golang-github-adrg-xdg-dev_0.4.0-1_all.deb \
       --extra-package=../golang-github-mazznoer-csscolorparser-dev_0.1.3-1_all.deb
 
+.PHONY: deb-package-ci
+deb-package-ci: deb-tarball ../golang-github-k0swe-wsjtx-go-dev_4.0.6-1_all.deb ../golang-github-adrg-xdg-dev_0.4.0-1_all.deb ../golang-github-mazznoer-csscolorparser-dev_0.1.3-1_all.deb
+	@test "$$(id -u)" -eq 0 || (echo "deb-package-ci requires root access (designed for CI container environments)" && exit 1)
+	apt-get update
+	apt-get install -y --no-install-recommends \
+      ../golang-github-k0swe-wsjtx-go-dev_4.0.6-1_all.deb \
+      ../golang-github-adrg-xdg-dev_0.4.0-1_all.deb \
+      ../golang-github-mazznoer-csscolorparser-dev_0.1.3-1_all.deb
+	dpkg-buildpackage -b -us -uc
+
 .PHONY: flatpak
 flatpak: kel-agent
 	cd flatpak && \
