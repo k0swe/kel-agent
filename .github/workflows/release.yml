@@ -158,14 +158,14 @@ jobs:
     runs-on: windows-latest
 
     steps:
+      - name: Checkout code
+        uses: actions/checkout@v6
+
       - name: Install Go
         uses: actions/setup-go@v6
         with:
           # https://packages.debian.org/stable/golang
           go-version: 1.24.x
-
-      - name: Checkout code
-        uses: actions/checkout@v6
 
       - name: Build Hamlib
         shell: bash
