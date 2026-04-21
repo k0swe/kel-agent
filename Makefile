@@ -14,6 +14,8 @@ export PATH := $(HAMLIB_PREFIX)/bin:$(PATH)
 endif
 
 VERSION       := $(KEL_AGENT_VERSION)
+MACOS_APP_SIGN_IDENTITY ?= Developer ID Application: Chris Keller (2UK8VD3UP4)
+MACOS_INSTALL_SIGN_IDENTITY ?= Developer ID Installer: Chris Keller (2UK8VD3UP4)
 
 GENERATED = kel-agent kel-agent.exe kel-agent.pkg kel-agent-signed.pkg kel-agent_*.pkg win/kel-agent_*.msi win/kel-agent.wixobj \
   autorevision.cache ../kel-agent_* ../*.deb \
@@ -147,10 +149,10 @@ mac-package: release stage-hamlib
 	# notarization service accepts all payloads inside the installer pkg.
 	# Sign the dylib first (dependency before dependent).
 	codesign --force --options runtime \
-		--sign "Developer ID Application: Chris Keller (2UK8VD3UP4)" \
+		--sign "$(MACOS_APP_SIGN_IDENTITY)" \
 		out/macos-pkg/root/usr/local/lib/libhamlib.4.dylib
 	codesign --force --options runtime \
-		--sign "Developer ID Application: Chris Keller (2UK8VD3UP4)" \
+		--sign "$(MACOS_APP_SIGN_IDENTITY)" \
 		out/macos-pkg/root/usr/local/bin/kel-agent
 	cp assets/kel-agent.1 out/macos-pkg/root/usr/local/share/man/man1/
 	pkgbuild \
@@ -164,7 +166,7 @@ mac-package: release stage-hamlib
 		--package-path out/macos-pkg \
 		--resources macos \
 		kel-agent.pkg
-	productsign --sign "Developer ID Installer: Chris Keller (2UK8VD3UP4)" \
+	productsign --sign "$(MACOS_INSTALL_SIGN_IDENTITY)" \
 		kel-agent.pkg kel-agent-signed.pkg
 	mv kel-agent-signed.pkg kel-agent_mac.pkg
 

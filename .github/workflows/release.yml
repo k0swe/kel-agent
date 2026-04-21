@@ -149,6 +149,28 @@ jobs:
       - name: Set signing keychain as default
         run: security default-keychain -d user -s ~/Library/Keychains/k0swe.keychain-db
 
+      - name: Resolve signing identities from imported certificate
+        run: |
+          set -euo pipefail
+          keychain=~/Library/Keychains/k0swe.keychain-db
+
+          app_identity=$(security find-identity -v -p codesigning "$keychain" | sed -n 's/.*"\(Developer ID Application:.*\)"/\1/p' | head -n1)
+          installer_identity=$(security find-identity -v -p basic "$keychain" | sed -n 's/.*"\(Developer ID Installer:.*\)"/\1/p' | head -n1)
+
+          if [ -z "$app_identity" ] || [ -z "$installer_identity" ]; then
+            echo "::error::Unable to resolve Developer ID signing identities from imported certificate."
+            echo "==> Available codesigning identities:"
+            security find-identity -v -p codesigning "$keychain" || true
+            echo "==> Available basic identities:"
+            security find-identity -v -p basic "$keychain" || true
+            exit 1
+          fi
+
+          echo "Resolved Developer ID Application identity."
+          echo "Resolved Developer ID Installer identity."
+          echo "MACOS_APP_SIGN_IDENTITY=$app_identity" >> "$GITHUB_ENV"
+          echo "MACOS_INSTALL_SIGN_IDENTITY=$installer_identity" >> "$GITHUB_ENV"
+
       - name: Build Mac package
         run: make mac-package
 
