@@ -182,33 +182,24 @@ jobs:
           # https://packages.debian.org/stable/golang
           go-version: 1.24.x
 
-      - name: Add MinGW64 pkg-config to PATH
-        # MSYS2 is pre-installed at C:\msys64 on all GitHub Actions windows-latest runners,
-        # but the exact subsystem directory (mingw64, ucrt64, clang64) that contains
-        # pkg-config.exe can vary across runner image versions.  Probe candidate directories
-        # in order and export the first one that contains the binary.
-        # PKG_CONFIG is also set explicitly so CGo bypasses Strawberry Perl's pkg-config.bat
-        # shim, which appears earlier on the default PATH and causes CGo to fail.
+      - name: Install MSYS2 with MinGW64 pkg-config
+        # Explicitly install MSYS2 and mingw-w64-x86_64-pkgconf instead of relying on
+        # whatever MSYS2 subsystems the runner image happens to pre-install.  Runner images
+        # have changed which subsystems are present, causing pkg-config probing to fail.
+        # PKG_CONFIG is set to the full .exe path so CGo bypasses Strawberry Perl's
+        # pkg-config.bat shim that appears earlier on the default PATH and breaks CGo.
+        uses: msys2/setup-msys2@v2
+        with:
+          msystem: MINGW64
+          update: false
+          install: mingw-w64-x86_64-pkgconf
+
+      - name: Export PKG_CONFIG path
         run: |
-          $candidates = @(
-            "C:\msys64\mingw64\bin",
-            "C:\msys64\ucrt64\bin",
-            "C:\msys64\clang64\bin"
-          )
-          $found = $null
-          foreach ($dir in $candidates) {
-            if (Test-Path (Join-Path $dir "pkg-config.exe")) {
-              $found = $dir
-              break
-            }
-          }
-          if (-not $found) {
-            Write-Error "pkg-config.exe not found in any MSYS2 subsystem directory under C:\msys64"
-            exit 1
-          }
-          $pkgConfigExe = Join-Path $found "pkg-config.exe"
+          $mingwBin = "C:\msys64\mingw64\bin"
+          $pkgConfigExe = "$mingwBin\pkg-config.exe"
           Write-Host "Using pkg-config from: $pkgConfigExe"
-          Add-Content $env:GITHUB_PATH $found
+          Add-Content $env:GITHUB_PATH $mingwBin
           Add-Content $env:GITHUB_ENV  "PKG_CONFIG=$pkgConfigExe"
 
       - name: Verify pkg-config
