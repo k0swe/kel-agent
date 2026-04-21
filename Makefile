@@ -148,11 +148,9 @@ mac-package: release stage-hamlib
 	# Sign the dylib first (dependency before dependent).
 	codesign --force --options runtime \
 		--sign "Developer ID Application: Chris Keller (2UK8VD3UP4)" \
-		--keychain $$(security default-keychain -d user | tr -d \" | xargs) \
 		out/macos-pkg/root/usr/local/lib/libhamlib.4.dylib
 	codesign --force --options runtime \
 		--sign "Developer ID Application: Chris Keller (2UK8VD3UP4)" \
-		--keychain $$(security default-keychain -d user | tr -d \" | xargs) \
 		out/macos-pkg/root/usr/local/bin/kel-agent
 	cp assets/kel-agent.1 out/macos-pkg/root/usr/local/share/man/man1/
 	pkgbuild \
@@ -166,9 +164,8 @@ mac-package: release stage-hamlib
 		--package-path out/macos-pkg \
 		--resources macos \
 		kel-agent.pkg
-	productsign --keychain $$(security default-keychain -d user | tr -d \" | xargs) \
-      --sign "Developer ID Installer: Chris Keller (2UK8VD3UP4)" \
-      kel-agent.pkg kel-agent-signed.pkg
+	productsign --sign "Developer ID Installer: Chris Keller (2UK8VD3UP4)" \
+		kel-agent.pkg kel-agent-signed.pkg
 	mv kel-agent-signed.pkg kel-agent_mac.pkg
 
 .PHONY: win-package
