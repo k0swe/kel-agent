@@ -182,17 +182,41 @@ jobs:
           go-version: 1.24.x
 
       - name: Add MinGW64 pkg-config to PATH
-        # MSYS2 is pre-installed at C:\msys64 on all GitHub Actions windows-latest runners.
-        # Its MinGW64 bin directory provides pkg-config.exe, which is required by CGo
-        # (#cgo pkg-config: hamlib in goHamlib) during the Go build steps below.
+        # MSYS2 is pre-installed at C:\msys64 on all GitHub Actions windows-latest runners,
+        # but the exact subsystem directory (mingw64, ucrt64, clang64) that contains
+        # pkg-config.exe can vary across runner image versions.  Probe candidate directories
+        # in order and export the first one that contains the binary.
         # PKG_CONFIG is also set explicitly so CGo bypasses Strawberry Perl's pkg-config.bat
         # shim, which appears earlier on the default PATH and causes CGo to fail.
         run: |
-          Add-Content $env:GITHUB_PATH "C:\msys64\mingw64\bin"
-          Add-Content $env:GITHUB_ENV  "PKG_CONFIG=C:\msys64\mingw64\bin\pkg-config.exe"
+          $candidates = @(
+            "C:\msys64\mingw64\bin",
+            "C:\msys64\ucrt64\bin",
+            "C:\msys64\clang64\bin"
+          )
+          $found = $null
+          foreach ($dir in $candidates) {
+            if (Test-Path (Join-Path $dir "pkg-config.exe")) {
+              $found = $dir
+              break
+            }
+          }
+          if (-not $found) {
+            Write-Error "pkg-config.exe not found in any MSYS2 subsystem directory under C:\msys64"
+            exit 1
+          }
+          $pkgConfigExe = Join-Path $found "pkg-config.exe"
+          Write-Host "Using pkg-config from: $pkgConfigExe"
+          Add-Content $env:GITHUB_PATH $found
+          Add-Content $env:GITHUB_ENV  "PKG_CONFIG=$pkgConfigExe"
 
       - name: Verify pkg-config
-        run: where pkg-config
+        run: |
+          if (-not (Test-Path $env:PKG_CONFIG)) {
+            Write-Error "PKG_CONFIG binary not found: $env:PKG_CONFIG"
+            exit 1
+          }
+          & $env:PKG_CONFIG --version
 
       - name: Build Hamlib
         shell: bash
