@@ -41,7 +41,7 @@ jobs:
             -v "${{ github.workspace }}:${{ github.workspace }}" \
             -w "${{ github.workspace }}" \
             debian:stable \
-            bash -lc '
+            bash -c '
               set -euxo pipefail
               export DEBIAN_FRONTEND=noninteractive
               apt-get update
@@ -203,7 +203,7 @@ jobs:
         uses: actions/download-artifact@v4
         with:
           path: release-artifacts
-          pattern: "deb-*"
+          pattern: deb-*
           merge-multiple: true
 
       - name: Download Flatpak artifact
