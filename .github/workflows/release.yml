@@ -40,6 +40,7 @@ jobs:
           docker run --rm --platform "${{ matrix.platform }}" \
             -v "${{ github.workspace }}:${{ github.workspace }}" \
             -w "${{ github.workspace }}" \
+            -e SCHROOT_SESSION_ID=debian-docker \
             debian:stable \
             bash -c '
               set -euxo pipefail

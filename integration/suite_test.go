@@ -28,6 +28,11 @@ func TestIntegrationSuite(t *testing.T) {
 		// TODO: fix these tests for chroot
 		t.Skip("These integration tests freeze when building in sbuild chroot")
 	}
+	if os.Getenv("DEB_BUILD_ARCH") != "" {
+		// dpkg-buildpackage always exports DEB_BUILD_ARCH; networking constraints
+		// inside the build environment cause websocket/WSJTX timeouts.
+		t.Skip("These integration tests are unreliable inside dpkg-buildpackage")
+	}
 	suite.Run(t, &integrationTestSuite{})
 }
 
