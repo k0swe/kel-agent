@@ -123,8 +123,8 @@ mac-package: release stage-hamlib
 
 .PHONY: win-package
 win-package: release stage-hamlib
-	# https://wixtoolset.org/
-	cd win && candle kel-agent.wxs && light kel-agent.wixobj
+	# https://wixtoolset.org/docs/tools/wixexe/
+	cd win && wix build kel-agent.wxs -arch x64 -o kel-agent.msi
 
 # ---------------------------------------------------------------------------
 # Verification helpers

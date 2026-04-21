@@ -171,9 +171,12 @@ jobs:
       - name: Test
         run: make test
 
+      - name: Install WiX v4
+        run: dotnet tool install --global wix --version 4.*
+
       - name: Build Windows package
         run: |
-          $env:PATH += ";$env:WIX\bin"
+          $env:PATH += ";$env:USERPROFILE\.dotnet\tools"
           make win-package
 
       - name: Release
