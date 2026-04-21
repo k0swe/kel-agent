@@ -5,6 +5,9 @@ on:
     tags:
       - "v*"
 
+permissions:
+  contents: read
+
 jobs:
   release-debian:
     name: Build Debian release artifact (${{ matrix.arch }})
@@ -188,18 +191,38 @@ jobs:
   publish:
     name: Publish release artifacts
     runs-on: ubuntu-latest
+    permissions:
+      contents: write
     needs:
       - release-debian
       - release-flatpak
       - release-macos
       - release-windows
     steps:
-      - name: Download artifacts
+      - name: Download Debian artifacts
         uses: actions/download-artifact@v5
         with:
           path: release-artifacts
-          pattern: "*"
+          pattern: "deb-*"
           merge-multiple: true
+
+      - name: Download Flatpak artifact
+        uses: actions/download-artifact@v5
+        with:
+          name: flatpak
+          path: release-artifacts
+
+      - name: Download macOS artifact
+        uses: actions/download-artifact@v5
+        with:
+          name: macos
+          path: release-artifacts
+
+      - name: Download Windows artifact
+        uses: actions/download-artifact@v5
+        with:
+          name: windows
+          path: release-artifacts
 
       - name: List release artifacts
         run: ls -lah release-artifacts
