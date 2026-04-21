@@ -169,6 +169,12 @@ jobs:
           # https://packages.debian.org/stable/golang
           go-version: 1.24.x
 
+      - name: Add MinGW64 pkg-config to PATH
+        # MSYS2 is pre-installed at C:\msys64 on all GitHub Actions windows-latest runners.
+        # Its MinGW64 bin directory provides pkg-config.exe, which is required by CGo
+        # (#cgo pkg-config: hamlib in goHamlib) during the Go build steps below.
+        run: Add-Content $env:GITHUB_PATH "C:\msys64\mingw64\bin"
+
       - name: Build Hamlib
         shell: bash
         run: make hamlib
