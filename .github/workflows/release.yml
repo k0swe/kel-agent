@@ -174,7 +174,14 @@ jobs:
         # MSYS2 is pre-installed at C:\msys64 on all GitHub Actions windows-latest runners.
         # Its MinGW64 bin directory provides pkg-config.exe, which is required by CGo
         # (#cgo pkg-config: hamlib in goHamlib) during the Go build steps below.
-        run: Add-Content $env:GITHUB_PATH "C:\msys64\mingw64\bin"
+        # PKG_CONFIG is also set explicitly so CGo bypasses Strawberry Perl's pkg-config.bat
+        # shim, which appears earlier on the default PATH and causes CGo to fail.
+        run: |
+          Add-Content $env:GITHUB_PATH "C:\msys64\mingw64\bin"
+          Add-Content $env:GITHUB_ENV  "PKG_CONFIG=C:\msys64\mingw64\bin\pkg-config.exe"
+
+      - name: Verify pkg-config
+        run: where pkg-config
 
       - name: Build Hamlib
         shell: bash
