@@ -98,8 +98,10 @@ dependencies through normal Debian shared-library packaging.
 ### Flatpak
 
 Flatpak remains a hermetic build and runtime environment. The Flatpak manifest builds Hamlib from
-source inside the sandbox. The Hamlib version in the manifest should be kept aligned with
-`HAMLIB_VERSION` in `versions.env`.
+source inside the sandbox. At runtime, Hamlib rig control requires device-node access for common
+serial/USB radios (`/dev/ttyUSB*`, `/dev/ttyACM*`, and related USB device nodes), so the manifest
+grants `--device=all` in `finish-args`. The Hamlib version in the manifest should be kept aligned
+with `HAMLIB_VERSION` in `versions.env`.
 
 ### macOS and Windows installers
 

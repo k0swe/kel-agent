@@ -12,6 +12,10 @@ build-options:
 command: kel-agent
 finish-args:
   - --share=network
+  # Hamlib needs host device-node access for common rig-control paths
+  # (for example /dev/ttyUSB*, /dev/ttyACM*, and USB bus nodes).
+  # Flatpak's practical/recommended mechanism for this class is --device=all.
+  - --device=all
 modules:
   - name: kel-agent
     sources:
