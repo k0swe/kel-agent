@@ -1,7 +1,7 @@
 app-id: radio.k0swe.Kel_Agent
 default-branch: main
 runtime: org.freedesktop.Platform
-runtime-version: "23.08"
+runtime-version: "24.08"
 sdk: org.freedesktop.Sdk
 sdk-extensions:
   - org.freedesktop.Sdk.Extension.golang
