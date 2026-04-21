@@ -149,6 +149,17 @@ jobs:
       - name: Verify shared library dependencies
         run: otool -L out/macos-pkg/root/usr/local/bin/kel-agent
 
+      - name: Notarize Mac package
+        run: |
+          xcrun notarytool submit kel-agent_mac.pkg \
+            --apple-id "${{ secrets.APPLE_ID }}" \
+            --password "${{ secrets.APPLE_APP_PASSWORD }}" \
+            --team-id "${{ secrets.APPLE_TEAM_ID }}" \
+            --wait
+
+      - name: Staple notarization ticket
+        run: xcrun stapler staple kel-agent_mac.pkg
+
       - name: Upload macOS artifact
         uses: actions/upload-artifact@v4
         with:
