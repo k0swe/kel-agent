@@ -13,6 +13,7 @@ kel-agent.flatpak
 flatpak_app/
 build/
 out/
+vendor/
 
 .idea/
 
