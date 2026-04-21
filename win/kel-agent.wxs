@@ -6,7 +6,7 @@
       UpgradeCode="677cd06e-cca4-453d-9c1a-1854946c789d"
       Language="1033"
       Version="1.0.0">
-    <MediaTemplate />
+    <MediaTemplate EmbedCab="yes" />
     <StandardDirectory Id="ProgramFilesFolder">
       <Directory Id="K0SWE" Name="K0SWE">
         <Directory Id="INSTALLDIR" Name="kel-agent">
