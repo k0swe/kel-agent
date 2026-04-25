@@ -81,7 +81,7 @@ jobs:
           ldd /tmp/deb-extract/usr/bin/kel-agent || true
 
       - name: Upload Debian artifact
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v7
         with:
           name: deb-${{ matrix.arch }}
           path: dist/kel-agent_*_${{ matrix.arch }}.deb
@@ -110,7 +110,7 @@ jobs:
           cache-key: flatpak-builder-${{ github.sha }}
 
       - name: Upload Flatpak artifact
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v7
         with:
           name: flatpak
           path: kel-agent.flatpak
@@ -225,7 +225,7 @@ jobs:
         run: xcrun stapler staple kel-agent_mac.pkg
 
       - name: Upload macOS artifact
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v7
         with:
           name: macos
           path: kel-agent_mac.pkg
@@ -321,7 +321,7 @@ jobs:
           make win-package
 
       - name: Upload Windows artifact
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v7
         with:
           name: windows
           path: win/kel-agent.msi
@@ -339,26 +339,26 @@ jobs:
       - release-windows
     steps:
       - name: Download Debian artifacts
-        uses: actions/download-artifact@v4
+        uses: actions/download-artifact@v8
         with:
           path: release-artifacts
           pattern: deb-*
           merge-multiple: true
 
       - name: Download Flatpak artifact
-        uses: actions/download-artifact@v4
+        uses: actions/download-artifact@v8
         with:
           name: flatpak
           path: release-artifacts
 
       - name: Download macOS artifact
-        uses: actions/download-artifact@v4
+        uses: actions/download-artifact@v8
         with:
           name: macos
           path: release-artifacts
 
       - name: Download Windows artifact
-        uses: actions/download-artifact@v4
+        uses: actions/download-artifact@v8
         with:
           name: windows
           path: release-artifacts
