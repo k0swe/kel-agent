@@ -24,6 +24,9 @@
             </Component>
             <Component Id="HamlibRuntime" Guid="b3f7c8a1-4e2d-4f9b-a1c3-5d6e7f8a9b0c">
               <File Id="HamlibDLL" Source="../out/hamlib/bin/libhamlib-4.dll" />
+              <File Id="LibgccDLL" Source="../out/hamlib/bin/libgcc_s_dw2-1.dll" />
+              <File Id="LibusbDLL" Source="../out/hamlib/bin/libusb-1.0.dll" />
+              <File Id="LibwinpthreadDLL" Source="../out/hamlib/bin/libwinpthread-1.dll" />
             </Component>
           </Directory>
         </Directory>
