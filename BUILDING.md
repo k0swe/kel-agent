@@ -81,7 +81,7 @@ make deb-package   # Debian .deb via sbuild (uses distro libhamlib-dev, not repo
 make deb-package-ci  # Debian .deb for CI/container builds via dpkg-buildpackage (no sbuild chroot)
 make flatpak       # hermetic Flatpak bundle (builds Hamlib inside the sandbox)
 make mac-package   # macOS .pkg (bundles Hamlib dylib from out/)
-make win-package   # Windows .msi via WiX v4 (bundles Hamlib DLL from out/)
+make win-package   # Windows .msi via WiX v4 (bundles Hamlib runtime DLLs from out/)
 ```
 
 ## Artifact model
