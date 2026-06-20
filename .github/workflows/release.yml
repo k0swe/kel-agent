@@ -27,7 +27,7 @@ jobs:
         run: rm -f ../kel-agent_*
 
       - name: Checkout code
-        uses: actions/checkout@v6
+        uses: actions/checkout@v7
 
       - name: Set up QEMU
         uses: docker/setup-qemu-action@v4
@@ -96,7 +96,7 @@ jobs:
 
     steps:
       - name: Checkout code
-        uses: actions/checkout@v6
+        uses: actions/checkout@v7
 
       - name: Mark workspace as git-safe
         run: git config --global --add safe.directory "$GITHUB_WORKSPACE"
@@ -147,7 +147,7 @@ jobs:
           security list-keychains -d user -s "$keychain" ~/Library/Keychains/login.keychain-db
 
       - name: Checkout code
-        uses: actions/checkout@v6
+        uses: actions/checkout@v7
 
       - name: Install Go
         uses: actions/setup-go@v6
@@ -237,7 +237,7 @@ jobs:
 
     steps:
       - name: Checkout code
-        uses: actions/checkout@v6
+        uses: actions/checkout@v7
 
       - name: Install Go
         uses: actions/setup-go@v6

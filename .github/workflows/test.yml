@@ -25,7 +25,7 @@ jobs:
           go-version: ${{ matrix.go-version }}
 
       - name: Checkout code
-        uses: actions/checkout@v6
+        uses: actions/checkout@v7
 
       - name: Test (no Hamlib)
         uses: nick-fields/retry@v4.0.0
@@ -52,7 +52,7 @@ jobs:
         run: sudo apt-get install -y libhamlib4 libhamlib-dev
 
       - name: Checkout code
-        uses: actions/checkout@v6
+        uses: actions/checkout@v7
 
       - name: Test (with Hamlib)
         uses: nick-fields/retry@v4.0.0
