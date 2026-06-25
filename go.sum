@@ -12,8 +12,8 @@ github.com/gorilla/websocket v1.5.3 h1:saDtZ6Pbx/0u+bgYQ3q96pZgCzfhKXGPqt7kZ72aN
 github.com/gorilla/websocket v1.5.3/go.mod h1:YR8l580nyteQvAITg2hZ9XVh4b55+EU/adAjf1fMHhE=
 github.com/invopop/jsonschema v0.14.0 h1:MHQqLhvpNUZfw+hM3AZDYK7jxO8FZoQeQM77g8iyZjg=
 github.com/invopop/jsonschema v0.14.0/go.mod h1:ygm6C2EaVNMBDPpaPlnOA2pFAxBnxGjFlMZABxm9n2I=
-github.com/k0swe/wsjtx-go/v4 v4.2.1 h1:by1eHdt4yTdqT+x2q86d4XFzN0FZSE8MOJYzYyrPiuA=
-github.com/k0swe/wsjtx-go/v4 v4.2.1/go.mod h1:Uwt179HmkCchVUWt0hKRIYE8Kutdtyvyokwipo1ON3s=
+github.com/k0swe/wsjtx-go/v4 v4.3.0 h1:hyiifmVeTK/E1zSRHWpyp18Q0Lvv0F6yOA3QsUytnvc=
+github.com/k0swe/wsjtx-go/v4 v4.3.0/go.mod h1:Uwt179HmkCchVUWt0hKRIYE8Kutdtyvyokwipo1ON3s=
 github.com/leemcloughlin/jdn v0.0.0-20201102080031-6f88db6a6bf2 h1:CdyD5OzAIzNFzpJ9WQRjJWj4pVRxZ9v15xdHnhvUPdw=
 github.com/leemcloughlin/jdn v0.0.0-20201102080031-6f88db6a6bf2/go.mod h1:LAowglanJPLb6WYSx3D1Ht/XE54OGIr0i4mz9kdbXrs=
 github.com/mattn/go-colorable v0.1.14 h1:9A9LHSqF/7dyVVX6g0U9cwm9pG3kP9gSzcuIPHPsaIE=
