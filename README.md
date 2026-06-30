@@ -7,6 +7,7 @@
 `kel-agent` is a protocol bridge/translator between amateur radio software and WebSocket clients;
 it does **not** use AI. Despite the name, "agent" here refers to a background service, not an
 AI agent.
+
 This bridge was built to support https://github.com/k0swe/forester but can be used by any web
 application that needs to communicate with amateur radio installed programs.
 
