@@ -29,7 +29,7 @@ flowchart LR
     agent ---|lib| rigctld
     agent -.->|UDP| HRD
     agent -.-> etc
-    style agent fill:#8ecfff,stroke:#1f2937,stroke-width:2px
+    style agent fill:#8ecfff,stroke:#1f2937,stroke-width:2px,color:#000
 ```
 
 This currently supports communication with WSJT-X, and now officially supports rig control via
