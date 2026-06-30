@@ -64,10 +64,6 @@ assets/modules.txt:
 	mv vendor/modules.txt assets/
 	rm -rf vendor
 
-architecture.svg:
-	# apt install graphviz
-	dot -T svg -o architecture.svg < architecture.dot
-
 autorevision.cache:
 	autorevision -s VCS_SHORT_HASH -o ./autorevision.cache
 
