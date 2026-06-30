@@ -4,9 +4,12 @@
 
 # <img src="https://raw.githubusercontent.com/k0swe/kel-agent/main/assets/radio.k0swe.Kel_Agent.svg" width="100px" alt="kel-agent logo"> kel-agent
 
-An agent program for translating between various amateur radio installed programs and WebSockets.
-This was built to support https://github.com/k0swe/forester but can be used by any web application
-that needs to communicate with amateur radio installed programs.
+`kel-agent` is a protocol bridge/translator between amateur radio software and WebSocket clients;
+it does **not** use AI. Despite the name, "agent" here refers to a background service, not an
+AI agent.
+
+This bridge was built to support https://github.com/k0swe/forester but can be used by any web
+application that needs to communicate with amateur radio installed programs.
 
 ```mermaid
 flowchart LR
