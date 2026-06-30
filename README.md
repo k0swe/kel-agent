@@ -17,7 +17,7 @@ flowchart LR
         end
         agent[kel-agent]
         WSJTX[WSJT-X]
-        rigctld[goHamlib]
+        rigctld[rigctl/Hamlib]
         HRD[HRD]
         etc[...]
     end
