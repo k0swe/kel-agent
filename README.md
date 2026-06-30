@@ -8,10 +8,28 @@ An agent program for translating between various amateur radio installed program
 This was built to support https://github.com/k0swe/forester but can be used by any web application
 that needs to communicate with amateur radio installed programs.
 
-![Architecture](architecture.svg)
+```mermaid
+flowchart LR
+    Internet([Internet]) --- Application[Web Application]
+    subgraph Computer
+        subgraph Browser[Web Browser]
+            Application
+        end
+        agent[kel-agent]
+        WSJTX[WSJT-X]
+        rigctld[goHamlib]
+        HRD[HRD]
+        etc[...]
+    end
+    Application ---|websocket| agent
+    agent ---|UDP| WSJTX
+    agent ---|lib| rigctld
+    agent -.->|UDP| HRD
+    agent -.-> etc
+```
 
-This currently supports communication with WSJT-X. Planned support includes `rigctld` and Ham Radio
-Deluxe for transceiver remote control.
+This currently supports communication with WSJT-X, and now officially supports rig control via
+`rigctl`/Hamlib. Ham Radio Deluxe support remains planned.
 
 To get started using `kel-agent`, download an appropriate executable from the
 [latest release](https://github.com/k0swe/kel-agent/releases/latest). Windows, Mac, Debian/Ubuntu
