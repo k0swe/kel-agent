@@ -3,6 +3,9 @@
     <id>radio.k0swe.Kel_Agent</id>
     <metadata_license>CC0-1.0</metadata_license>
     <project_license>Apache-2.0</project_license>
+    <developer id="io.github.k0swe">
+        <name>Chris Keller</name>
+    </developer>
     <name>kel-agent</name>
     <summary>An amateur radio web agent</summary>
     <description>
