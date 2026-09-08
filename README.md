@@ -1,4 +1,3 @@
-[![golangci-lint](https://golangci-lint.run/badges/github.com/k0swe/kel-agent.svg)](https://golangci-lint.run/github.com/k0swe/kel-agent)
 [![Release](https://github.com/k0swe/kel-agent/workflows/Release/badge.svg)](https://github.com/k0swe/kel-agent/releases/latest)
 [![Release version](https://img.shields.io/github/v/release/k0swe/kel-agent)](https://github.com/k0swe/kel-agent/releases/latest)
 
